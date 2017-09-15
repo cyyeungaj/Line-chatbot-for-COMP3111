@@ -89,38 +89,14 @@ public class KitchenSinkTester {
 				result  = this.databaseEngine.search(m.getKey()) ; 
 			} catch ( Exception e) {
 				thrownList[counter] = true ; 
+				
 			}
 			assertThat(!thrownList[counter]) ; 
-			assertThat(result.equals(m.getValue())) ; 
+			assertThat(result.equals(m.getValue())) ;
+			counter ++ ; 
+			
 		}
-		
-		/*
-		try {
-			result = this.databaseEngine.search("abc");
-		} catch (Exception e) {
-			thrown = true;
-		}
-		assertThat(!thrown);
-		assertThat(result.equals("def")); 
-		thrown = false; 
-		try {
-			result = this.databaseEngine.search("Hi") ; 
-		}catch (Exception e) {
-			thrown = true ; 
-		}
-		assertThat(!thrown) ; 
-		assertThat(result.equals("Hey, how things going?")) ; 
-		
-		
-		thrown = false ; 
-		try {
-			result = this.databaseEngine.search("I am fine") ; 
-		}catch(Exception e) {
-			thrown = true ; 
-		}
-		assertThat(!thrown) ; 
-		assertThat(result.equals("Great!")) ; 
-	*/	
+				
 	}
 
 	
