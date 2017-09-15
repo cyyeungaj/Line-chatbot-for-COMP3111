@@ -8,8 +8,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.ArrayList ; 
+import java.util.Map ; 
 
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -64,14 +67,62 @@ public class KitchenSinkTester {
 	
 	@Test
 	public void testFound() throws Exception {
+		int NoOfCase = 5 ; 
 		boolean thrown = false;
 		String result = null;
+		boolean []thrownList =  new boolean[NoOfCase] ;
+		
+		HashMap<String, String> mp = new HashMap<String , String> () ; 
+		for(int i = 0 ; i < NoOfCase ; i ++ ) {
+			thrownList[i] = false  ;
+		}
+		
+		mp.put("abc" , "def") ; 
+		mp.put("Hi" , "Hey, how things going?") ; 
+		mp.put("I am fine" , "Great") ;
+		mp.put("Who is Prof Kim" , "Well, this is your instructor.") ; 
+		mp.put("How is the grade of this course?" , "This is absolute good grade for good student. And I am sure you are!") ;
+		
+		int counter = 0 ; 
+		for(Map.Entry<String , String> m : mp.entrySet()) {
+			try {
+				result  = this.databaseEngine.search(m.getKey()) ; 
+			} catch ( Exception e) {
+				thrownList[counter] = true ; 
+			}
+			assertThat(!thrownList[counter]) ; 
+			assertThat(result.equals(m.getValue())) ; 
+		}
+		
+		/*
 		try {
 			result = this.databaseEngine.search("abc");
 		} catch (Exception e) {
 			thrown = true;
 		}
 		assertThat(!thrown);
-		assertThat(result.equals("def"));
+		assertThat(result.equals("def")); 
+		thrown = false; 
+		try {
+			result = this.databaseEngine.search("Hi") ; 
+		}catch (Exception e) {
+			thrown = true ; 
+		}
+		assertThat(!thrown) ; 
+		assertThat(result.equals("Hey, how things going?")) ; 
+		
+		
+		thrown = false ; 
+		try {
+			result = this.databaseEngine.search("I am fine") ; 
+		}catch(Exception e) {
+			thrown = true ; 
+		}
+		assertThat(!thrown) ; 
+		assertThat(result.equals("Great!")) ; 
+	*/	
 	}
+
+	
+
 }
