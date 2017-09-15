@@ -80,9 +80,9 @@ public class KitchenSinkTester {
 		mp.put("abc" , "def") ; 
 		mp.put("Hi" , "Hey, how things going?") ; 
 		mp.put("I am fine" , "Great") ;
-		mp.put("Who is Prof Kim?" , "Well, this is your instructor.") ; 
+		mp.put("Who is Prof Kim" , "Well, this is your instructor.") ; 
 		mp.put("How is the grade of this course?" , "This is absolute good grade for good student. And I am sure you are!") ;
-		
+		/*
 		int counter = 0 ; 
 		for(Map.Entry<String , String> m : mp.entrySet()) {
 			try {
@@ -95,8 +95,14 @@ public class KitchenSinkTester {
 			assertThat(result.equals(m.getValue())) ;
 			counter ++ ; 
 			
+		}*/
+		try {
+			result = this.databaseEngine.search("How is the grade of this course?") ; 
+		} catch (Exception e) {
+			thrown = true ; 
 		}
-				
+		assertThat(!thrown) ; 
+		assertThat(result.equals("This is absolute good grade for good student. And I am sure you are!")) ; 
 	}
 
 	
