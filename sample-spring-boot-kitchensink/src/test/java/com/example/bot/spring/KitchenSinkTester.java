@@ -92,6 +92,7 @@ public class KitchenSinkTester {
 			thrown = true;
 		}
 		assertThat(thrown).isEqualTo(true);
+<<<<<<< HEAD
 		*/
 	}
 	
@@ -354,7 +355,6 @@ public class KitchenSinkTester {
 		log.info("interface Output:") ; 
 		log.info(controller.getCurrentInterfaceMessage()) ;
 		*/
-		
 	}
 	
 	@Test
@@ -403,7 +403,6 @@ public class KitchenSinkTester {
 			assertThat(tours.get(i).getCountryId()).isEqualTo(1);
 		}
 		SearchingTourInterface si = new SearchingTourInterface();
-		
 	}
 	
 	@Test
