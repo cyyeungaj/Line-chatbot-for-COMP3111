@@ -14,23 +14,30 @@ public class SQLDatabaseEngine extends DatabaseEngine {
 	String search(String text) throws Exception {
 		//Write your code here
 		String result = null ; 
-		String SQLstatement = "SELECT reply FROM reply WHERE keyword like concat('%' , ? , '%')" ; 
+		String SQLstatement = "SELECT reply FROM keyReply WHERE keyword like concat('%' , ? , '%')" ; 
 		Connection connection = null; 
-		prepareStatement stmt = null; 
+		PreparedStatement stmt = null; 
+		
 		try {
-			connection = SQLDatabaseEngine.getConnection() ; 
+			connection = getConnection() ; 
+		} catch (SQLException e) {
+			log.info("SQLException while connecting to sql server: {}", e.toString());
+		}
+		
+		
+		try {
 			stmt = connection.prepareStatement(SQLstatement); 
 			stmt.setString(1,text) ; 
 			ResultSet rs = stmt.executeQuery() ;
-			result = rs.getString("reply")
+			if(rs.next()) result = rs.getString("reply") ; 
 		} catch (SQLException e) {
-			log.info("SQLException while connecting to sql server: {}", e.toString());
+			log.info("SQLException while loading the sql statement to sql server: {}", e.toString());
 		} finally {
 				if(connection != null) {
 					try {
 						connection.close() ;
 					} catch (SQLException e ) {
-						log.info("SQLException when connection was closed ")
+						log.info("SQLException when connection was closed ") ;
 					}
 				}
 				
@@ -38,7 +45,7 @@ public class SQLDatabaseEngine extends DatabaseEngine {
 					try {
 						stmt.close() ; 
 					} catch (SQLException e ) {
-						log.info("SQLException when sql statement was closed ")
+						log.info("SQLException when sql statement was closed ") ; 
 					}	
 				}
 		}

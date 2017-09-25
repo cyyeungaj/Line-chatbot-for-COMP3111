@@ -103,38 +103,16 @@ public class KitchenSinkTester {
 	
 	@Test
 	public void Othertest() throws Exception {
-		int NoOfCase = 5 ; 
 		boolean thrown = false;
 		String result = null;
-		boolean []thrownList =  new boolean[NoOfCase] ;
-		
-		HashMap<String, String> mp = new HashMap<String , String> () ; 
-		for(int i = 0 ; i < NoOfCase ; i ++ ) {
-			thrownList[i] = false  ;
+		try {
+			result = this.databaseEngine.search("abc");
+		} catch (Exception e) {
+			thrown = true;
 		}
-		
-		mp.put("abc" , "def") ;
-		mp.put("Hi" , "Hey, how things going?") ; 
-		mp.put("I am fine" , "Great!") ;
-		mp.put("Who is Prof Kim" , "Well, this is your instructor.") ; 
-		mp.put("How is the grade of this course" , "This is absolute good grade for good student. And I am sure you are!") ;
-		
-		
-		int counter = 0 ; 
-		for(Map.Entry<String , String> m : mp.entrySet()) {
-			try {
-				String target = m.getKey() ; 
-				result  = this.databaseEngine.search(target) ; 
-			} catch ( Exception e) {
-				thrownList[counter] = true ; 
-			}
-			String value = m.getValue() ; 
-			assertThat(!thrownList[counter]).isEqualTo(true) ; 
-			assertThat(result).isEqualTo(value) ;
-			counter ++ ; 
-		}
-	
-		}
+		assertThat(!thrown).isEqualTo(true);
+		assertThat(result).isEqualTo("def");
+	}
 		
 		
 	
