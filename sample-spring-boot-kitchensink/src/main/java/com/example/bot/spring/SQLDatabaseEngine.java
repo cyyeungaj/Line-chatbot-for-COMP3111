@@ -5,6 +5,7 @@ import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
 import java.sql.*;
 import java.net.URISyntaxException;
+import java.io.IOException;
 import java.net.URI;
 
 @Slf4j
@@ -12,7 +13,37 @@ public class SQLDatabaseEngine extends DatabaseEngine {
 	@Override
 	String search(String text) throws Exception {
 		//Write your code here
-		return null;
+		String result = null ; 
+		String SQLstatement = "SELECT reply FROM reply WHERE keyword like concat('%' , ? , '%')" ; 
+		Connection connection = null; 
+		prepareStatement stmt = null; 
+		try {
+			connection = SQLDatabaseEngine.getConnection() ; 
+			stmt = connection.prepareStatement(SQLstatement); 
+			stmt.setString(1,text) ; 
+			ResultSet rs = stmt.executeQuery() ;
+			result = rs.getString("reply")
+		} catch (SQLException e) {
+			log.info("SQLException while connecting to sql server: {}", e.toString());
+		} finally {
+				if(connection != null) {
+					try {
+						connection.close() ;
+					} catch (SQLException e ) {
+						log.info("SQLException when connection was closed ")
+					}
+				}
+				
+				if(connection != null) {
+					try {
+						stmt.close() ; 
+					} catch (SQLException e ) {
+						log.info("SQLException when sql statement was closed ")
+					}	
+				}
+		}
+		if(result != null ) return result ; 
+		throw new Exception("NOT FOUND");
 	}
 	
 	
