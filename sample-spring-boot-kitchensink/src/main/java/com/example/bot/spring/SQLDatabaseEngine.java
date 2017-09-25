@@ -41,7 +41,7 @@ public class SQLDatabaseEngine extends DatabaseEngine {
 					}
 				}
 				
-				if(connection != null) {
+				if(stmt != null) {
 					try {
 						stmt.close() ; 
 					} catch (SQLException e ) {
