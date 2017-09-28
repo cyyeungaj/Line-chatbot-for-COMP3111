@@ -62,7 +62,7 @@ public class KitchenSinkTester {
 		} catch (Exception e) {
 			thrown = true;
 		}
-		assertThat(thrown);
+		assertThat(thrown).isEqualTo(true);
 	}
 	
 	@Test
@@ -93,8 +93,8 @@ public class KitchenSinkTester {
 				thrownList[counter] = true ; 
 			}
 			String value = m.getValue() ; 
-			assertThat(!thrownList[counter]) ; 
-			assertThat(result.equals(value)) ;
+			assertThat(!thrownList[counter]).isEqualTo(true) ; 
+			assertThat(result).isEqualTo(value) ;
 			counter ++ ; 
 		}
 		

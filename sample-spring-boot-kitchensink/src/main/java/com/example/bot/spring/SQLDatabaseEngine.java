@@ -13,6 +13,7 @@ public class SQLDatabaseEngine extends DatabaseEngine {
 	@Override
 	String search(String text) throws Exception {
 		//Write your code here
+		
 		String result = null ; 
 		String SQLstatement = "SELECT reply FROM keyReply WHERE keyword like concat('%' , ? , '%')" ; 
 		Connection connection = null; 
