@@ -97,6 +97,7 @@ public class SQLDatabaseEngine extends DatabaseEngine {
 				}
 		}
 		if(result != null ) return result ; 
+
 		throw new Exception("NOT FOUND");
 	}
 	
@@ -105,16 +106,17 @@ public class SQLDatabaseEngine extends DatabaseEngine {
 	public static Connection getConnection() throws URISyntaxException, SQLException {
 		Connection connection;
 		URI dbUri = new URI(System.getenv("DATABASE_URL"));
-
+		
 		String username = dbUri.getUserInfo().split(":")[0];
 		String password = dbUri.getUserInfo().split(":")[1];
 		String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath() +  "?ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory";
-
+		
+		
 		log.info("Username: {} Password: {}", username, password);
 		log.info ("dbUrl: {}", dbUrl);
 		
 		connection = DriverManager.getConnection(dbUrl, username, password);
-
+//		connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/chatbotDB", "programmer", "iamaprogrammer");
 		return connection;
 	}
 	
