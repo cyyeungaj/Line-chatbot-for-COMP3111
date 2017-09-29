@@ -19,8 +19,11 @@ public class SQLDatabaseEngine extends DatabaseEngine {
 			.concat(" where ") 
 			.concat(KEYWORD)
 			.concat(" like concat('%', ?, '%') limit 1");
+<<<<<<< HEAD
 
 //	private final 
+=======
+>>>>>>> test
 	@Override
 	String search(String text) throws Exception {
 		//Write your code here
@@ -56,6 +59,7 @@ public class SQLDatabaseEngine extends DatabaseEngine {
 	}
 	
 	
+	
 	private Connection getConnection() throws URISyntaxException, SQLException {
 		Connection connection;
 		URI dbUri = new URI(System.getenv("DATABASE_URL"));
@@ -63,10 +67,19 @@ public class SQLDatabaseEngine extends DatabaseEngine {
 		String username = dbUri.getUserInfo().split(":")[0];
 		String password = dbUri.getUserInfo().split(":")[1];
 		String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath() +  "?ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory";
+<<<<<<< HEAD
+=======
+		
+		
+>>>>>>> test
 		log.info("Username: {} Password: {}", username, password);
 		log.info ("dbUrl: {}", dbUrl);
 		
 		connection = DriverManager.getConnection(dbUrl, username, password);
+<<<<<<< HEAD
+=======
+//		connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/chatbotDB", "programmer", "iamaprogrammer");
+>>>>>>> test
 		return connection;
 	}
 
