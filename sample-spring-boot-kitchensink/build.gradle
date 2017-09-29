@@ -22,5 +22,5 @@ dependencies {
 }
 
 test {
-    environment "DATABASE_URL", "PUT YOUR URI HERE" 
-}
+    environment "DATABASE_URL", "jdbc:postgresql://localhost:5432/chatbotDB"; 
+} 
