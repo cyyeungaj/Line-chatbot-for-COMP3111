@@ -69,13 +69,13 @@ public class SQLDatabaseEngine extends DatabaseEngine {
 			log.info("SQLException while connecting to sql server: {}", e.toString());
 		}
 		
-		
 		try {
 			/*stmt = connection.prepareStatement(SQLstatement); 
 			stmt.setString(1,text) ; */
 			
 			ResultSet rs = stmt.executeQuery() ;
 			if(rs.next()) result = rs.getString("reply") ; 
+
 		
 		} catch (SQLException e) {
 			log.info("SQLException while loading the sql statement to sql server: {}", e.toString());
