@@ -16,7 +16,7 @@ public class SQLDatabaseEngine extends DatabaseEngine {
 		
 		String result = null ; 
 		String SQLstatement = "SELECT reply FROM keyReply WHERE keyword like concat('%' , ? , '%')" ; 
-		Connection co nnection = null; 
+		Connection connection = null;
 		PreparedStatement stmt = null; 
 		
 		try {

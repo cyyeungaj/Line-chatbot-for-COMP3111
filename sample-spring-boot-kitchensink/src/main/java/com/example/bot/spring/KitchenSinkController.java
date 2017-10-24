@@ -127,7 +127,6 @@ public class KitchenSinkController {
 		}
 		DownloadedContent jpg = saveContent("jpg", response);
 		reply(((MessageEvent) event).getReplyToken(), new ImageMessage(jpg.getUri(), jpg.getUri()));
-
 	}
 
 	@EventMapping
@@ -267,7 +266,7 @@ public class KitchenSinkController {
                 log.info("Returns echo message {}: {}", replyToken, reply);
                 this.replyText(
                         replyToken,
-                        itscLOGIN + " says " + reply
+                        BOT_NAME + " says " + reply
                 );
                 break;
         }
@@ -317,11 +316,11 @@ public class KitchenSinkController {
 
 	public KitchenSinkController() {
 		database = new SQLDatabaseEngine();
-		itscLOGIN = System.getenv("ITSC_LOGIN");
+		BOT_NAME = System.getenv("BOT_NAME");
 	}
 
 	private DatabaseEngine database;
-	private String itscLOGIN;
+	private String BOT_NAME;
 	
 
 	//The annontation @Value is from the package lombok.Value
