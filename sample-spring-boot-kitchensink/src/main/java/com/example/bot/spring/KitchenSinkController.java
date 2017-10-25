@@ -151,13 +151,16 @@ public class KitchenSinkController {
 
 	@EventMapping
 	public void handleFollowEvent(FollowEvent event) {
-		String replyToken = event.getReplyToken();
-		this.replyText(replyToken, "Hello I am comp3111 bot ");
+		String replyToken = event.getReplyToken(); 
+		Source src = event.getSource() ; 
+		String userId = src.getUserId() ;
+		this.replyText(replyToken, "Hello" + userId + "I am comp3111 bot \nI am your assistant to help booking tour and answering questions related to tours \n");
+		
 	}
 
 	@EventMapping
 	public void handleJoinEvent(JoinEvent event) {
-		String replyToken = event.getReplyToken();
+		String replyToken = event.getReplyToken(); 
 		this.replyText(replyToken, "Joined " + event.getSource());
 	}
 
