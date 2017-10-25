@@ -152,7 +152,7 @@ public class KitchenSinkController {
 	@EventMapping
 	public void handleFollowEvent(FollowEvent event) {
 		String replyToken = event.getReplyToken();
-		this.replyText(replyToken, "Got followed event");
+		this.replyText(replyToken, "Hello I am comp3111 bot ");
 	}
 
 	@EventMapping
