@@ -53,11 +53,7 @@ public class JDBCBookingManager extends bookingManager {
 		}catch (SQLException e){
 
 		}
-
-
-
-
-		return null ;
+		return result;
 	}
 	public void insertBooking(Booking booking) {}; 
 	public void deleteBookingByLineIdAndTourName ( String lineId , String tourName ) {}
