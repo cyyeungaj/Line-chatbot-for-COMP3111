@@ -10,8 +10,46 @@ import java.net.URI;
 import java.util.*;
 
 public class Manager {
-	private Connection connection ; 
+	private Connection connection ;
+	
+	
 	public void setConnection ( Connection connection ) {
 		this.connection = connection ; 
 	} 
+	
+	public ResultSet SelectionQuery(String sqlStatement ) { 
+		ResultSet result = null ; 
+		
+		Connection connection = this.connection;
+		PreparedStatement stmt = null; 
+		
+		
+		try {
+			stmt = connection.prepareStatement(SQLstatement);  
+			ResultSet rs = stmt.executeQuery() ; 
+		} catch (SQLException e) {
+			log.info("SQLException while loading the sql statement to sql server: {}", e.toString());
+		} finally {
+				if(connection != null) {
+					try {
+						connection.close() ;
+					} catch (SQLException e ) {
+						log.info("SQLException when connection was closed ") ;
+					}
+				}
+				
+				if(stmt != null) {
+					try {
+						stmt.close() ; 
+					} catch (SQLException e ) {
+						log.info("SQLException when sql statement was closed ") ; 
+					}	
+				}
+		}
+		if(result != null ) return result ; 
+		throw new Exception("NOT FOUND");
+
+	} ;
+	public void insertQuery(String sqlStatement) {}
+	
 }
