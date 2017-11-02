@@ -32,4 +32,52 @@ public class Booking {
 		this.confirm = confirm;
 		this.serviceCharge = serviceCharge;
 	}
+
+	public String getDate() {
+		return date;
+	}
+
+	public String getBookingID() {
+		return BookingID;
+	}
+
+	public String getCustomerID() {
+		return CustomerID;
+	}
+
+	public String getTourID() {
+		return tourID;
+	}
+
+	public int getNoOfAdults() {
+		return noOfAdults;
+	}
+
+	public int getNoOfChildrens() {
+		return noOfChildrens;
+	}
+
+	public int getNoOfToodlers() {
+		return noOfToodlers;
+	}
+
+	public double getTourFee() {
+		return tourFee;
+	}
+
+	public double getAmountPaid() {
+		return amountPaid;
+	}
+
+	public String getSpecialRequest() {
+		return specialRequest;
+	}
+
+	public boolean isConfirm() {
+		return confirm;
+	}
+
+	public double getServiceCharge() {
+		return serviceCharge;
+	}
 }

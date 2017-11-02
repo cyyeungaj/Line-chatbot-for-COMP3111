@@ -50,6 +50,33 @@ public class Manager {
 		throw new Exception("NOT FOUND");
 
 	} ;
-	public void insertQuery(String sqlStatement) {}
-	
+	private void insertDeleteQuery(String sqlStatement) {
+		Connection connection = this.connection;
+		PreparedStatement stmt = null;
+
+		try{
+			stmt = connection.prepareStatement(sqlStatement);
+			stmt.execute();
+		}catch(SQLException e){
+			log.info("SQLException while loading the sql statement to sql server: {}", e.toString());
+		}finally {
+			if(connection != null) {
+				try {
+					connection.close() ;
+				} catch (SQLException e ) {
+					log.info("SQLException when connection was closed ") ;
+				}
+			}
+
+			if(stmt != null) {
+				try {
+					stmt.close() ;
+				} catch (SQLException e ) {
+					log.info("SQLException when sql statement was closed ") ;
+				}
+			}
+		}
+
+	}
+
 }
