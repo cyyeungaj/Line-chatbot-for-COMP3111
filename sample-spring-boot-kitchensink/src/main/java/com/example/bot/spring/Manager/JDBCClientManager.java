@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.util.*;
 
-
+@Slf4j
 public class JDBCClientManager extends clientManager {
 	public Client getClientByLineUserId(String lineId) { 
 		String SQLStatement = "SELECT * from Customer WHERE ID=" + lineId + ";";

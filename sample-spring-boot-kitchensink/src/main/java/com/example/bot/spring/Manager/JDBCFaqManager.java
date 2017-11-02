@@ -10,6 +10,7 @@ import java.net.URI;
 import java.util.*;
 import java.lang.StringBuilder;
 
+@Slf4j
 public class JDBCFaqManager extends faqManager {
 	private final String TABLE_NAME = "faq";
 	private final String COL_QUESTION_NUM = "questionNum";
@@ -27,8 +28,13 @@ public class JDBCFaqManager extends faqManager {
 			results = new ArrayList<>();
 			String query = "SELECT * FROM " + TABLE_NAME;
 			
-			ResultSet rs = SelectionQuery(query);
-			
+			ResultSet rs = null ; 
+			try {
+				rs = SelectionQuery(query);
+			} catch( Exception e) {
+				
+				
+			}
 			try {
 				while(rs.next()) {
 					int questionNum = rs.getInt(COL_QUESTION_NUM);
@@ -45,7 +51,7 @@ public class JDBCFaqManager extends faqManager {
 			}
 		}
 		
-		return result;
+		return results;
 	}
 	
 	public boolean insertFAQ(FAQ faq) {
