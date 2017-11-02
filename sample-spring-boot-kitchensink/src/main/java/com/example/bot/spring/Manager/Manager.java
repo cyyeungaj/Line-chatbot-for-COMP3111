@@ -27,7 +27,7 @@ public class Manager {
 		
 		
 		try {
-			stmt = connection.prepareStatement(SQLstatement);  
+			stmt = connection.prepareStatement(sqlStatement);
 			ResultSet rs = stmt.executeQuery() ; 
 		} catch (SQLException e) {
 			log.info("SQLException while loading the sql statement to sql server: {}", e.toString());

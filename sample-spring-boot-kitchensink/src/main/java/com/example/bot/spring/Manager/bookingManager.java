@@ -11,16 +11,8 @@ import java.io.IOException;
 import java.net.URI;
 
 public abstract class bookingManager extends Manager{
-	
-	/* This method is to get all the  
-	 * booking records based on line user id
-	 * 
-	 * 
-	 * 
-	 * 
-	 **/
-	
-	public abstract ArrayList<Booking> getBookingByLineUserId (String LineUserId) ; 
+
+	public abstract ArrayList<Booking> getBookingByLineUserId (String LineUserId);
 	public abstract void insertBooking(Booking booking) ; 
 	public abstract void deleteBookingByLineIdAndTourName ( String lineId , String tourName );
 }
