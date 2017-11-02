@@ -23,8 +23,12 @@ public class JDBCBookingManager extends bookingManager {
 
 
 		String SQLstatement = " SELECT * FROM Booking WHERE LineUserId = " + LineUserId + ";";
-
-		ResultSet rs = SelectionQuery(SQLstatement);
+		ResultSet rs = null ; 
+		try {
+			rs = SelectionQuery(SQLstatement);
+		} catch( Exception e) {
+		}
+		
 		ArrayList<Booking> result = new ArrayList<Booking>();
 		try {
 			while (rs.next()) {
@@ -58,7 +62,7 @@ public class JDBCBookingManager extends bookingManager {
 		}catch (SQLException e){
 
 		}
-		return result; return null ;
+		return result; 
 	}
 	public void insertBooking(Booking booking) {
 
