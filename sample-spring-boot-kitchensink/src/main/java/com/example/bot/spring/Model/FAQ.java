@@ -10,4 +10,5 @@ public class FAQ {
 		this.answer = answer ; 
 	}
 	
+	
 }

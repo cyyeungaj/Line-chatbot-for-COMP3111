@@ -5,8 +5,8 @@ import java.awt.print.Book;
 public class Booking {
 
 	private String date ;
-	private String BookingID ;
-	private String CustomerID ;
+	private String bookingID ;
+	private String customerID ;
 	private String tourID ;
 	private int noOfAdults ;
 	private int noOfChildrens ;
@@ -17,12 +17,12 @@ public class Booking {
 	private boolean isConfirm ;
 	private double serviceCharge ;
 
-	public Booking(String date, String bookTableId, String clientId, String tourId,
+	public Booking(String date, String bookTableId, String customerID, String tourId,
 				   int noOfAdults, int noOfChildrens, int noOfToodlers, double tourFee,
 				   String specialRequest, double amountPaid, boolean confirm, double serviceCharge) {
 		this.date = date;
-		BookingID = bookTableId;
-		this.CustomerID = clientId;
+		this.bookingID = bookTableId;
+		this.customerID = customerID;
 		this.tourID = tourId;
 		this.noOfAdults = noOfAdults;
 		this.noOfChildrens = noOfChildrens;
@@ -35,8 +35,16 @@ public class Booking {
 	}
 	
 	public String getDate() { return this.date ; }
-	public String bookTableId () { return this.bookTableId ; }
-	public String clientId () { return this.clientId  ; }
-	public String tourId () { return this.tourID ; } 
+	public String getCustomerID () { return this.customerID  ;}
+	public String getTourId () { return this.tourID ;} 
+	public int getNoOfAdults () { return this.noOfAdults ; } 
+	public int getNoOfChildrens () { return this.noOfChildrens ; } 
+	public int getnoOfToodlers () { return this.noOfToodlers ; }
+	public double getTourFee () { return this.tourFee ; } 
+	public String getSpecialRequest () { return this.specialRequest ; }
+	public double getAmountPaid () { return this.amountPaid ; } 
+	public boolean isConfirm () { return this.isConfirm ; }
+	public double getServiceCharge () { return this.serviceCharge ; } 
+	
 
 }
