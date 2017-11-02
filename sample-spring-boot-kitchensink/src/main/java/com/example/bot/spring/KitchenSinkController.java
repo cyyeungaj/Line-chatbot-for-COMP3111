@@ -165,7 +165,7 @@ public class KitchenSinkController {
 		controller.setInterface(new GreetingInterface()) ; 
 		this.replyText(replyToken, controller.getCurrentInterfaceMessage());
 		controller.setInterface(new MenuInterface()) ; 
-		lineMessagingClient.pushMessage(new PushMessage(userId, controller.getCurrentInterfaceMessage() ));
+		lineMessagingClient.pushMessage(new PushMessage(userId, new TextMessage(controller.getCurrentInterfaceMessage()) ));
 	}
 
 	@EventMapping
