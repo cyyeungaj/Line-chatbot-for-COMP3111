@@ -23,7 +23,12 @@ public class JDBCTourManager extends tourManager {
 	public ArrayList<Tour> getToursByPriceRange( int low , int high) {
 
 		String SQLstatement = "SELECT * FROM TOUR WHERE PRICE BETWEEN " + low + " AND " + high + " ;" ;
-		ResultSet rs = SelectionQuery(SQLstatement);
+		ResultSet rs = null ; 
+		try{
+			rs = SelectionQuery(SQLstatement);
+		} catch ( Exception e) {
+			
+		}
 		ArrayList<Tour> result = new ArrayList<Tour>();
 
 		try{
@@ -180,7 +185,7 @@ public class JDBCTourManager extends tourManager {
 		}
 		return null ;
 	}
-
+  
 	/**
 	 *
 	 * @param place : Target place
@@ -296,4 +301,9 @@ public class JDBCTourManager extends tourManager {
 		String SQLstatement = "INSERT INTO TOUR VALUES ( );";
 		insertDeleteQuery(SQLstatement);
 	};
+	
+	public ArrayList<Tour> getPromotedTour() {
+		return null ; 
+	}
+
 }
