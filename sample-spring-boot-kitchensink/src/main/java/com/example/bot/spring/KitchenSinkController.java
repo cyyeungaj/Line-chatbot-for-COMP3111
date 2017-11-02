@@ -25,6 +25,8 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
+import java.util.HashSet;
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 import java.util.function.Consumer;
@@ -40,6 +42,8 @@ import com.google.common.io.ByteStreams;
 import com.linecorp.bot.client.LineMessagingClient;
 import com.linecorp.bot.client.MessageContentResponse;
 import com.linecorp.bot.model.ReplyMessage;
+import com.linecorp.bot.model.PushMessage ; 
+import com.linecorp.bot.model.Multicast ; 
 import com.linecorp.bot.model.action.MessageAction;
 import com.linecorp.bot.model.action.PostbackAction;
 import com.linecorp.bot.model.action.URIAction;
@@ -88,9 +92,7 @@ import java.net.URI;
 @LineMessageHandler
 public class KitchenSinkController {
 	
-	private DatabaseEngine database;
-	private String BOT_NAME;
-	private chatboController controller ; 
+
 
 	@Autowired
 	private LineMessagingClient lineMessagingClient;
@@ -156,16 +158,26 @@ public class KitchenSinkController {
 		String replyToken = event.getReplyToken(); 
 		Source src = event.getSource() ; 
 		String userId = src.getUserId() ;
+		String promotedTour = "Here are the promoted tour:..." ;
+		String testingMsgMultcast = "test multicast " ; 
+		Set<String> to = new HashSet<String> () ; 
+		to.add(userId) ; 
+		this.replyText(replyToken, "Hello" + userId + "I am comp3111 bot \nI am your assistant to help booking tour and answering questions related to tours \n");
 		
-		controller.setInterface(new GreetingInterface()) ; 
-		this.replyText(replyToken, controller.getCurrentInterfaceMessage() );
+		lineMessagingClient.multicast(new Multicast(to, new TextMessage(testingMsgMultcast)));
+		lineMessagingClient.pushMessage(new PushMessage(userId, new TextMessage(promotedTour)));
 		
 	}
 
 	@EventMapping
 	public void handleJoinEvent(JoinEvent event) {
 		String replyToken = event.getReplyToken(); 
-		this.replyText(replyToken, "Joined " + event.getSource());
+		Source src = event.getSource() ; 
+		String userId = src.getUserId() ;
+		controller.setInterface(new GreetingInterface()) ; 
+		/*lineMessagingClient.pushMessage(new PushMessage(userId, new TextMessage(greeting)));*/
+		
+		this.replyText(replyToken, controller.getCurrentInterfaceMessage());
 	}
 
 	@EventMapping
@@ -240,7 +252,24 @@ public class KitchenSinkController {
                 this.reply(replyToken, templateMessage);
                 break;
             }
-            
+            case "carousel": {
+                String imageUrl = createUri("/static/buttons/1040.jpg");
+                CarouselTemplate carouselTemplate = new CarouselTemplate(
+                        Arrays.asList(
+                                new CarouselColumn(imageUrl, "hoge", "fuga", Arrays.asList(
+                                        new URIAction("Go to line.me",
+                                                      "https://line.me"),
+                                        new PostbackAction("Say hello1",
+                                                           "hello 瓊嚙賤�����嚙蝓姻�嚙蝓￣�嚙蝓�")
+                                )),
+                                new CarouselColumn(imageUrl, "hoge", "fuga", Arrays.asList(
+                                        new PostbackAction("癡穡� hello2",
+                                                           "hello 瓊嚙賤�����嚙蝓姻�嚙蝓￣�嚙蝓�",
+                                                           "hello 瓊嚙賤�����嚙蝓姻�嚙蝓￣�嚙蝓�"),
+                                        new MessageAction("Say message",
+                                                          "Rice=癟簣糧")
+                                ))
+                        ));
                 TemplateMessage templateMessage = new TemplateMessage("Carousel alt text", carouselTemplate);
                 this.reply(replyToken, templateMessage);
                 break;
@@ -260,7 +289,6 @@ public class KitchenSinkController {
                 );
                 break;
         }
-	
     }
 
 	static String createUri(String path) {
@@ -307,10 +335,13 @@ public class KitchenSinkController {
 
 	public KitchenSinkController() {
 		database = new SQLDatabaseEngine();
-		controller = new chatbotController(null , null) ; 
 		BOT_NAME = System.getenv("BOT_NAME");
+		controller = new chatbotController(null,null);
 	}
 
+	private DatabaseEngine database;
+	private String BOT_NAME;
+	private chatbotController controller; 
 
 	//The annontation @Value is from the package lombok.Value
 	//Basically what it does is to generate constructor and getter for the class below
