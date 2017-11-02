@@ -21,11 +21,9 @@ public class JDBCBookingManager extends bookingManager {
      */
 	public ArrayList<Booking> getBookingByLineUserId ( String LineUserId) {
 
-		/*
-		String SQLstatement = "SELECT * FROM Booking WHERE LineUserId = " + LineUserId;
-=======
+
 		String SQLstatement = " SELECT * FROM Booking WHERE LineUserId = " + LineUserId + ";";
->>>>>>> 687b3a0d1a22825b894ca251490450653395c1ed
+
 		ResultSet rs = SelectionQuery(SQLstatement);
 		ArrayList<Booking> result = new ArrayList<Booking>();
 		try {
@@ -52,13 +50,15 @@ public class JDBCBookingManager extends bookingManager {
 				confirmed = rs.getBoolean("confirmed");
 
 
-				Booking booking = new Booking(bookingID);
+				Booking booking = new Booking(date, bookingID, customerID, tourID, noOfAdults,
+						noOfChildern, noOfToodler, tourFee, specialRequest,
+						amountPaid, confirmed, serviceCharge);
 				result.add(booking);
 			}
 		}catch (SQLException e){
 
 		}
-		return result;*/ return null ; 
+		return result; return null ;
 	}
 	public void insertBooking(Booking booking) {
 
@@ -76,7 +76,7 @@ public class JDBCBookingManager extends bookingManager {
 	} 
 		
 	public void deleteBookingByLineIdAndTourName ( String lineId , String bookingID ) {
-		String SQLstatement = " DELETE FROM BOOKING WHERE BookTableID = " + bookingID + ";";
+		String SQLstatement = " DELETE FROM BOOKING WHERE BookTableID = " + bookingID + "AND CUSTOMER ID = " + lineId + ";";
 
 		insertDeleteQuery(SQLstatement);
 	}
