@@ -60,9 +60,11 @@ public class JDBCTourManager extends tourManager {
 		return null ;
 	}
 	public ArrayList<Tour> getTourByPlace( String place ) { return null ;}
-	public ArrayList<Tour> getTourByPlace( String place , ArrayList<Tour> tours) { return null ;}
+	public ArrayList<Tour> getTourByPlace( String place , ArrayList<Tour> tours) 
+	{ return null ;}
 	public ArrayList<Tour> getToursByTime( String startTime , String endTime ) { return null ;}
 	public ArrayList<Tour> getToursByTime( String startTime , String endTime , ArrayList<Tour> tours) { return null ;}
+	
 	public void insertTour(Tour tour) {
 		String SQLstatement = "INSERT INTO TOUR VALUES ( );";
 		insertDeleteQuery(SQLstatement);
