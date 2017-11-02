@@ -9,6 +9,7 @@ public class FAQ {
 		this.question = question ; 
 		this.answer = answer ; 
 	}
-	
-	
+	public void setQuestionNum(int i) {this.questionNo = i;}
+	public String getQuestion(){return this.question;}
+	public String getAnswer(){return this.answer;}
 }

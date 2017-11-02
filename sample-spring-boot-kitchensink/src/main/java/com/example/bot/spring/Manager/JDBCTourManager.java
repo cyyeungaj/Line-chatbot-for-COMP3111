@@ -11,7 +11,7 @@ import java.util.*;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 
-
+@Slf4j
 public class JDBCTourManager extends tourManager {
 
 	/**
@@ -92,7 +92,14 @@ public class JDBCTourManager extends tourManager {
 		//Case that place is a Country
 		int countryCode = -1;
 		String searchCountry = "SELECT * FROM COUNTRY WHERE COUNTRY_NAME = " + place + ";";
-		ResultSet rs = SelectionQuery(countryCode);
+		ResultSet rs = null ;  
+		
+		try{
+			rs = SelectionQuery(searchCountry);
+		} catch ( Exception e) {
+			
+		}
+		
 		ArrayList<Tour> result = new ArrayList<Tour>();
 		try{
 			countryCode = rs.getInt("COUNTRY_ID");
@@ -101,7 +108,12 @@ public class JDBCTourManager extends tourManager {
 		}
 		if(countryCode == -1) {
 			String SQLstatement = "SELECT * FROM TOURLIST WHERE COUNTRY_ID = " + countryCode + ";";
-			rs = SelectionQuery(SQLstatement);
+			
+			try {
+				rs = SelectionQuery(SQLstatement);
+			} catch ( Exception e) {
+				log.info("Exceptino occur in getTourByPlace function") ; 
+			}
 			try {
 				while (rs.next()) {
 					String tourID, tourName, tourDescription, hotel, departureDate, tourGuideName, tourGuideLine;
@@ -140,14 +152,23 @@ public class JDBCTourManager extends tourManager {
 		{
 			int regionCode = -1;
 			String searchRegion = "SELECT * FROM COUNTRY WHERE COUNTRY_NAME = " + place + ";";
-			rs = SelectionQuery(regionCode);
+			try{
+				rs = SelectionQuery(searchRegion);
+			} catch ( Exception e ) {
+				
+			}
 			try{
 				regionCode = rs.getInt("COUNTRY_ID");
 			}catch(SQLException e){
 				log.info("SQLException while connecting to sql server: {}", e.toString());
 			}
 			String SQLstatement = "SELECT * FROM TOURLIST WHERE REGION_ID = " + regionCode + ";";
-			rs = SelectionQuery(SQLstatement);
+			try{
+				rs = SelectionQuery(SQLstatement);
+			} catch ( Exception e) {
+				
+			}
+			
 			try {
 				while (rs.next()) {
 					String tourID, tourName, tourDescription, hotel, departureDate, tourGuideName, tourGuideLine;
@@ -185,7 +206,7 @@ public class JDBCTourManager extends tourManager {
 		}
 		return null ;
 	}
-  
+
 	/**
 	 *
 	 * @param place : Target place
@@ -198,13 +219,26 @@ public class JDBCTourManager extends tourManager {
 		int countryCode = -1, regionCode = -1;
 		String searchCountryCode = "SELECT * FROM COUNTRY WHERE COUNTRY_NAME = " + place + ";";
 		String searchRegionCode = "SELECT * FROM REGION WHERE REGION_NAME = " + place + ";";
-		ResultSet countrySet = SelectionQuery(searchCountryCode);
-		ResultSet regionSet = SelectionQuery(searchRegionCode);
+		ResultSet countrySet = null ; 
+		try {
+			countrySet = SelectionQuery(searchCountryCode);
+		} catch( Exception e) {
+			log.info("Exception e in calling SelectionQuery from  countrySet ", e.toString());
+		}
+		
+		ResultSet regionSet = null ; 
+		try{
+			regionSet = SelectionQuery(searchRegionCode);
+		} catch( Exception e) {
+			
+		}
+		
 		try {
 			countryCode = countrySet.getInt("");
 		}catch (SQLException e){
 			log.info("SQLException while connecting to sql server: {}", e.toString());
 		}
+		
 		try {
 			regionCode = regionSet.getInt("");
 		}catch (SQLException e){
@@ -230,7 +264,12 @@ public class JDBCTourManager extends tourManager {
 
 		String SQLstatement = "SELECT * FROM TOURLIST WHERE DEPARTURE_DATE >= '"
 				+ startTime + "' AND DEPARTURE_DATE <= '" + endTime + "' ;" ;
-		ResultSet rs = SelectionQuery(SQLstatement);
+		ResultSet rs = null ; 
+		try{ 
+			rs=  SelectionQuery(SQLstatement);
+		} catch ( Exception e) {
+			log.info("Exception occur when rs = SelectionQuery(SQLstatement) in getToursByTime function {}", e.toString());
+		}
 		ArrayList<Tour> result = new ArrayList<Tour>();
 		try{
 			while (rs.next()) {
@@ -286,7 +325,13 @@ public class JDBCTourManager extends tourManager {
 
 		}
 		for(Tour tour: tours){
-			Date departureDate = sdf.parse(tour.getDepartureDate());
+			Date departureDate = null ; 
+			try {
+				departureDate = sdf.parse(tour.getDepartureDate());
+			} catch ( Exception e) {
+				log.info(" Exception occur in function getToursByTime on statement Date departureDate = sdf.parse(tour.getDepartureDate())");
+			}
+			
 			if(departureDate.after(start) && departureDate.before(end))
 				result.add(tour);
 		}
