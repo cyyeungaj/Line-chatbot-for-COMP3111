@@ -7,8 +7,8 @@ import java.sql.*;
 import java.net.URISyntaxException;
 import java.io.IOException;
 import java.net.URI;
-import java.util.*;
 
+@Slf4j
 public class Manager {
 	private Connection connection ;
 	
@@ -18,14 +18,12 @@ public class Manager {
 	} 
 	
 	
-	
-	public ResultSet SelectionQuery(String sqlStatement ) { 
+	public ResultSet SelectionQuery(String sqlStatement ) throws Exception { 
 		
 		ResultSet result = null ; 
 		Connection connection = this.connection;
 		PreparedStatement stmt = null; 
-		
-		
+	
 		try {
 			stmt = connection.prepareStatement(sqlStatement);
 			ResultSet rs = stmt.executeQuery() ; 
@@ -50,9 +48,9 @@ public class Manager {
 		}
 		if(result != null ) return result ; 
 		throw new Exception("NOT FOUND");
-	} ;
-
-	private void insertDeleteQuery(String sqlStatement) {
+}
+	
+	protected void insertDeleteQuery(String sqlStatement) {
 		Connection connection = this.connection;
 		PreparedStatement stmt = null;
 
@@ -80,8 +78,4 @@ public class Manager {
 		}
 
 	}
-
-
-	public void insertQuery(String sqlStatement) {}
-
 }

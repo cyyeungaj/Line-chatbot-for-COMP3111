@@ -4,6 +4,7 @@ import java.awt.print.Book;
 
 public class Booking {
 
+
     private String date;
     private String BookingID;
     private String CustomerID;
@@ -33,8 +34,6 @@ public class Booking {
         this.confirm = confirm;
         this.serviceCharge = serviceCharge;
     }
-
-    <<<<<<<HEAD
 
     public String getDate() {
         return date;
