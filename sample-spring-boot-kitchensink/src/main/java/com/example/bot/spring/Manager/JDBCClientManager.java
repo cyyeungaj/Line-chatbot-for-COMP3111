@@ -11,5 +11,5 @@ import java.util.*;
 
 
 public class JDBCClientManager extends clientManager {
-	public Client getClientByLineUserId(String lineId) { return null ;} 	
+	public Client getClientByLineUserId(String lineId) { return null;} 	
 }
