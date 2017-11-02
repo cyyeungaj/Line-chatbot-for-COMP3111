@@ -4,84 +4,83 @@ import java.awt.print.Book;
 
 public class Booking {
 
-	private String date ;
-	private String BookingID ;
-	private String CustomerID ;
-	private String tourID ;
-	private int noOfAdults ;
-	private int noOfChildrens ;
-	private int noOfToodlers ;
-	private double tourFee ;
-	private double amountPaid ;
-	private String specialRequest ;
-	private boolean confirm ;
-	private double serviceCharge ;
+    private String date;
+    private String BookingID;
+    private String CustomerID;
+    private String tourID;
+    private int noOfAdults;
+    private int noOfChildrens;
+    private int noOfToodlers;
+    private double tourFee;
+    private double amountPaid;
+    private String specialRequest;
+    private boolean confirm;
+    private double serviceCharge;
 
-	public Booking(String date, String bookTableId, String clientId, String tourId,
-				   int noOfAdults, int noOfChildrens, int noOfToodlers, double tourFee,
-				   String specialRequest, double amountPaid, boolean confirm, double serviceCharge) {
-		this.date = date;
-		BookingID = bookTableId;
-		this.CustomerID = clientId;
-		this.tourID = tourId;
-		this.noOfAdults = noOfAdults;
-		this.noOfChildrens = noOfChildrens;
-		this.noOfToodlers = noOfToodlers;
-		this.tourFee = tourFee;
-		this.specialRequest = specialRequest;
-		this.amountPaid = amountPaid;
-		this.confirm = confirm;
-		this.serviceCharge = serviceCharge;
-	}
+    public Booking(String date, String bookTableId, String clientId, String tourId,
+                   int noOfAdults, int noOfChildrens, int noOfToodlers, double tourFee,
+                   String specialRequest, double amountPaid, boolean confirm, double serviceCharge) {
+        this.date = date;
+        BookingID = bookTableId;
+        this.CustomerID = clientId;
+        this.tourID = tourId;
+        this.noOfAdults = noOfAdults;
+        this.noOfChildrens = noOfChildrens;
+        this.noOfToodlers = noOfToodlers;
+        this.tourFee = tourFee;
+        this.specialRequest = specialRequest;
+        this.amountPaid = amountPaid;
+        this.confirm = confirm;
+        this.serviceCharge = serviceCharge;
+    }
 
-<<<<<<< HEAD
-	public String getDate() {
-		return date;
-	}
+    <<<<<<<HEAD
 
-	public String getBookingID() {
-		return BookingID;
-	}
+    public String getDate() {
+        return date;
+    }
 
-	public String getCustomerID() {
-		return CustomerID;
-	}
+    public String getBookingID() {
+        return BookingID;
+    }
 
-	public String getTourID() {
-		return tourID;
-	}
+    public String getCustomerID() {
+        return CustomerID;
+    }
 
-	public int getNoOfAdults() {
-		return noOfAdults;
-	}
+    public String getTourID() {
+        return tourID;
+    }
 
-	public int getNoOfChildrens() {
-		return noOfChildrens;
-	}
+    public int getNoOfAdults() {
+        return noOfAdults;
+    }
 
-	public int getNoOfToodlers() {
-		return noOfToodlers;
-	}
+    public int getNoOfChildrens() {
+        return noOfChildrens;
+    }
 
-	public double getTourFee() {
-		return tourFee;
-	}
+    public int getNoOfToodlers() {
+        return noOfToodlers;
+    }
 
-	public double getAmountPaid() {
-		return amountPaid;
-	}
+    public double getTourFee() {
+        return tourFee;
+    }
 
-	public String getSpecialRequest() {
-		return specialRequest;
-	}
+    public double getAmountPaid() {
+        return amountPaid;
+    }
 
-	public boolean isConfirm() {
-		return confirm;
-	}
+    public String getSpecialRequest() {
+        return specialRequest;
+    }
 
-	public double getServiceCharge() {
-		return serviceCharge;
-	}
-=======
->>>>>>> 713d8071b77aa8d938880a8f1417fae104528985
+    public boolean isConfirm() {
+        return confirm;
+    }
+
+    public double getServiceCharge() {
+        return serviceCharge;
+    }
 }

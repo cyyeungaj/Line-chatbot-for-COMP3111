@@ -50,9 +50,8 @@ public class Manager {
 		}
 		if(result != null ) return result ; 
 		throw new Exception("NOT FOUND");
-<<<<<<< HEAD
-
 	} ;
+
 	private void insertDeleteQuery(String sqlStatement) {
 		Connection connection = this.connection;
 		PreparedStatement stmt = null;
@@ -82,9 +81,7 @@ public class Manager {
 
 	}
 
-=======
-	} 
+
 	public void insertQuery(String sqlStatement) {}
-	
->>>>>>> 713d8071b77aa8d938880a8f1417fae104528985
+
 }
