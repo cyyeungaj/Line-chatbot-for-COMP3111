@@ -1,5 +1,7 @@
 package com.example.bot.spring;
 
 public class QueryInterface extends UserInterface {
-	private int 
+	public void processInput( chatbotController controller, String userReply)  {
+		
+	}
 }

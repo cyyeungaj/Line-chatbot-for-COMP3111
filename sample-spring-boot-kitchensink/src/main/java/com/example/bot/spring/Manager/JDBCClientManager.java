@@ -17,7 +17,7 @@ public class JDBCClientManager extends clientManager {
 		Client result = null;
 		try {
 			ResultSet rs = SelectionQuery(SQLStatement);
-			result = new Client(rs.getString("ID"), rs.getString("Name"), rs.getInt("Phone number"), rs.getInt("age"));
+			result = new Client(rs.getString("lineUserId") , rs.getString("ID"), rs.getString("Name"), rs.getInt("Phone number"), rs.getInt("age"));
 		}catch (Exception e) {
 			e.printStackTrace();
 		}

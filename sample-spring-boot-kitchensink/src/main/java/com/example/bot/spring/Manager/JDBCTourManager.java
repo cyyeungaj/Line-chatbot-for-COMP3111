@@ -15,7 +15,12 @@ public class JDBCTourManager extends tourManager {
 	public ArrayList<Tour> getToursByPriceRange( int low , int high) {
 
 		String SQLstatement = "SELECT * FROM TOUR WHERE PRICE BETWEEN " + low + " AND " + high + " ;" ;
-		ResultSet rs = SelectionQuery(SQLstatement);
+		ResultSet rs = null ; 
+		try{
+			rs = SelectionQuery(SQLstatement);
+		} catch ( Exception e) {
+			
+		}
 		ArrayList<Tour> result = new ArrayList<Tour>();
 
 		try{
@@ -51,7 +56,6 @@ public class JDBCTourManager extends tourManager {
 		}
 		return result;
 
-		return null ;
 	}
 	public ArrayList<Tour> getToursByPriceRange( int low , int high , ArrayList<Tour> tours) {
 
@@ -59,14 +63,29 @@ public class JDBCTourManager extends tourManager {
 
 		return null ;
 	}
+	
 	public ArrayList<Tour> getTourByPlace( String place ) { return null ;}
-	public ArrayList<Tour> getTourByPlace( String place , ArrayList<Tour> tours) 
-	{ return null ;}
-	public ArrayList<Tour> getToursByTime( String startTime , String endTime ) { return null ;}
-	public ArrayList<Tour> getToursByTime( String startTime , String endTime , ArrayList<Tour> tours) { return null ;}
+
+
+	public ArrayList<Tour> getTourByPlace( String place , ArrayList<Tour> tours) { 
+		return null ;
+	}
+	
+	public ArrayList<Tour> getToursByTime( String startTime , String endTime ) { 
+		return null ;
+	}
+	
+	public ArrayList<Tour> getToursByTime( String startTime , String endTime , ArrayList<Tour> tours) { 
+		return null ;
+	}
 	
 	public void insertTour(Tour tour) {
 		String SQLstatement = "INSERT INTO TOUR VALUES ( );";
 		insertDeleteQuery(SQLstatement);
 	};
+	
+	public ArrayList<Tour> getPromotedTour() {
+		return null ; 
+	}
+
 }

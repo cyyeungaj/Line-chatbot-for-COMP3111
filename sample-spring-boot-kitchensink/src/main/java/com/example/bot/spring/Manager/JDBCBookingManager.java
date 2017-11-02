@@ -21,10 +21,14 @@ public class JDBCBookingManager extends bookingManager {
      */
 	public ArrayList<Booking> getBookingByLineUserId ( String LineUserId) {
 
-		/*
+
 		String SQLstatement = " SELECT * FROM Booking WHERE LineUserId = " + LineUserId + ";";
->>>>>>> 687b3a0d1a22825b894ca251490450653395c1ed
-		ResultSet rs = SelectionQuery(SQLstatement);
+		ResultSet rs = null ; 
+		try {
+			rs = SelectionQuery(SQLstatement);
+		} catch( Exception e) {
+		}
+		
 		ArrayList<Booking> result = new ArrayList<Booking>();
 		try {
 			while (rs.next()) {
@@ -50,13 +54,15 @@ public class JDBCBookingManager extends bookingManager {
 				confirmed = rs.getBoolean("confirmed");
 
 
-				Booking booking = new Booking(bookingID);
+				Booking booking = new Booking(date, bookingID, customerID, tourID, noOfAdults,
+						noOfChildern, noOfToodler, tourFee, specialRequest,
+						amountPaid, confirmed, serviceCharge);
 				result.add(booking);
 			}
 		}catch (SQLException e){
 
 		}
-		return result;*/ return null ; 
+		return result; 
 	}
 	public void insertBooking(Booking booking) {
 
@@ -70,11 +76,16 @@ public class JDBCBookingManager extends bookingManager {
 	
 		
 	public double calculateBookingFee ( Booking booking ) {
-		return 0.0 ; 
+		int noOfChildern = booking.getNoOfChildrens();
+		double tourFee = booking.getTourFee();
+		double totalAmount = booking.getNoOfAdults() * tourFee + noOfChildern * (tourFee * 0.8);
+
+		return totalAmount;
+
 	} 
 		
 	public void deleteBookingByLineIdAndTourName ( String lineId , String bookingID ) {
-		String SQLstatement = " DELETE FROM BOOKING WHERE BookTableID = " + bookingID + ";";
+		String SQLstatement = " DELETE FROM BOOKING WHERE BookTableID = " + bookingID + "AND CUSTOMER ID = " + lineId + ";";
 
 		insertDeleteQuery(SQLstatement);
 	}
