@@ -11,5 +11,5 @@ public class FAQ {
 	}
 	public void setQuestionNum(int i) {this.questionNo = i;}
 	public String getQuestion(){return this.question;}
-	public String getAnswer(){return this.question;}
+	public String getAnswer(){return this.answer;}
 }
