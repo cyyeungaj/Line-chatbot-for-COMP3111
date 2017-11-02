@@ -13,13 +13,15 @@ public class Manager {
 	private Connection connection ;
 	
 	
-	public void setConnection ( Connection connection ) {
+	private void setConnection ( Connection connection ) {
 		this.connection = connection ; 
 	} 
 	
+	
+	
 	public ResultSet SelectionQuery(String sqlStatement ) { 
-		ResultSet result = null ; 
 		
+		ResultSet result = null ; 
 		Connection connection = this.connection;
 		PreparedStatement stmt = null; 
 		
@@ -48,8 +50,7 @@ public class Manager {
 		}
 		if(result != null ) return result ; 
 		throw new Exception("NOT FOUND");
-
-	} ;
+	} 
 	public void insertQuery(String sqlStatement) {}
 	
 }
