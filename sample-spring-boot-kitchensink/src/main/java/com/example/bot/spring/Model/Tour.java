@@ -34,49 +34,19 @@ public class Tour {
 		this.tourGuideName = tourGuideName ; 
 		this.tourGuideLine = tourGuideLine ; 
 	}
-	
-	public String getTourId() { 
-		return this.tourId ; 
-	}
-	
-	public String getTourName() { 
-		return this.tourName ; 
-	}
-	
-	public String gettourDescription () { 
-		return this.tourDescription  ;
-	}
-	
-	public String getHotel () { 
-		return this.hotel ;
-	} 
-	
-	public int getDuration () { 
-		return this.duration ;
-	} 
-	
-	public String getDepartureDate () { 
-		return this.departureDate ;
-	} 
-	
-	public int getTourCapacity () { 
-		return this.tourCapacity ;
-	} 
-	
-	public int getMinimumCustomerRequired () { 
-		return this.minimumCustomerRequired;
-	}
-	
-	public double getPrice () { 
-		return this.price; 
-	} 
-	
-	public String getTourGuideName () { 
-		return this.tourGuideName ;
-	}
-	
-	public String getTourGuideLine () { 
-		return this.tourGuideLine ;
-	} 
+
+	public int getCountryId(){ return this.countryId;}
+	public int getRegionId(){ return this.regionId;}
+	public String getTourName() { return this.tourName ; }
+	public String gettourDescription () { return this.tourDescription  ;}
+	public String getHotel () { return this.hotel ;} 
+	public int getDuration () { return this.duration ; } 
+	public String getDepartureDate () { return this.departureDate ; } 
+	public int getTourCapacity () { return this.tourCapacity ; } 
+	public int getMinimumCustomerRequired () { return this.minimumCustomerRequired ; }
+	public double getPrice () { return this.price ; } 
+	public String getTourGuideName () { return this.tourGuideName ; }
+	public String getTourGuideLine () { return this.tourGuideLine ; } 
+
 	
 }
