@@ -207,7 +207,6 @@ public class JDBCTourManager extends tourManager {
 		return null ;
 	}
 
-
 	/**
 	 *
 	 * @param place : Target place
