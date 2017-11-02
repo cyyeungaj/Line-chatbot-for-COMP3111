@@ -155,6 +155,7 @@ public class KitchenSinkController {
 
 	@EventMapping
 	public void handleFollowEvent(FollowEvent event) {
+		/*
 		String replyToken = event.getReplyToken(); 
 		Source src = event.getSource() ; 
 		String userId = src.getUserId() ;
@@ -166,6 +167,14 @@ public class KitchenSinkController {
 		
 		lineMessagingClient.multicast(new Multicast(to, new TextMessage(testingMsgMultcast)));
 		lineMessagingClient.pushMessage(new PushMessage(userId, new TextMessage(promotedTour)));
+		*/
+		String replyToken = event.getReplyToken(); 
+		Source src = event.getSource() ; 
+		String userId = src.getUserId() ;
+		controller.setInterface(new GreetingInterface()) ; 
+		/*lineMessagingClient.pushMessage(new PushMessage(userId, new TextMessage(greeting)));*/
+		
+		this.replyText(replyToken, controller.getCurrentInterfaceMessage());
 		
 	}
 
