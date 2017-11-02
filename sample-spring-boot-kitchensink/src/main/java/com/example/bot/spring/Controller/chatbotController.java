@@ -17,4 +17,8 @@ public class chatbotController {
 		currentInterface.processInput(this , userInput) ; 
 	}
 	
+	public String getCurrentInterfaceMessage () {
+		return currentInterface.getMessage() ; 
+	}
+	
 }

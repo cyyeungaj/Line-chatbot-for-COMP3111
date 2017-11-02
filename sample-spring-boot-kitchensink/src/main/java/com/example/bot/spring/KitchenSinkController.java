@@ -88,7 +88,9 @@ import java.net.URI;
 @LineMessageHandler
 public class KitchenSinkController {
 	
-
+	private DatabaseEngine database;
+	private String BOT_NAME;
+	private chatboController controller ; 
 
 	@Autowired
 	private LineMessagingClient lineMessagingClient;
@@ -154,7 +156,9 @@ public class KitchenSinkController {
 		String replyToken = event.getReplyToken(); 
 		Source src = event.getSource() ; 
 		String userId = src.getUserId() ;
-		this.replyText(replyToken, "Hello" + userId + "I am comp3111 bot \nI am your assistant to help booking tour and answering questions related to tours \n");
+		
+		controller.setInterface(new GreetingInterface()) ; 
+		this.replyText(replyToken, controller.getCurrentInterfaceMessage() );
 		
 	}
 
@@ -236,24 +240,7 @@ public class KitchenSinkController {
                 this.reply(replyToken, templateMessage);
                 break;
             }
-            case "carousel": {
-                String imageUrl = createUri("/static/buttons/1040.jpg");
-                CarouselTemplate carouselTemplate = new CarouselTemplate(
-                        Arrays.asList(
-                                new CarouselColumn(imageUrl, "hoge", "fuga", Arrays.asList(
-                                        new URIAction("Go to line.me",
-                                                      "https://line.me"),
-                                        new PostbackAction("Say hello1",
-                                                           "hello 瓊嚙賤�����嚙蝓姻�嚙蝓￣�嚙蝓�")
-                                )),
-                                new CarouselColumn(imageUrl, "hoge", "fuga", Arrays.asList(
-                                        new PostbackAction("癡穡� hello2",
-                                                           "hello 瓊嚙賤�����嚙蝓姻�嚙蝓￣�嚙蝓�",
-                                                           "hello 瓊嚙賤�����嚙蝓姻�嚙蝓￣�嚙蝓�"),
-                                        new MessageAction("Say message",
-                                                          "Rice=癟簣糧")
-                                ))
-                        ));
+            
                 TemplateMessage templateMessage = new TemplateMessage("Carousel alt text", carouselTemplate);
                 this.reply(replyToken, templateMessage);
                 break;
@@ -273,6 +260,7 @@ public class KitchenSinkController {
                 );
                 break;
         }
+	
     }
 
 	static String createUri(String path) {
@@ -319,12 +307,10 @@ public class KitchenSinkController {
 
 	public KitchenSinkController() {
 		database = new SQLDatabaseEngine();
+		controller = new chatbotController(null , null) ; 
 		BOT_NAME = System.getenv("BOT_NAME");
 	}
 
-	private DatabaseEngine database;
-	private String BOT_NAME;
-	
 
 	//The annontation @Value is from the package lombok.Value
 	//Basically what it does is to generate constructor and getter for the class below
