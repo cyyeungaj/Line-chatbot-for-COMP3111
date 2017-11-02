@@ -72,7 +72,12 @@ public class JDBCBookingManager extends bookingManager {
 	
 		
 	public double calculateBookingFee ( Booking booking ) {
-		return 0.0 ; 
+		int noOfChildern = booking.getNoOfChildrens();
+		double tourFee = booking.getTourFee();
+		double totalAmount = booking.getNoOfAdults() * tourFee + noOfChildern * (tourFee * 0.8);
+
+		return totalAmount;
+
 	} 
 		
 	public void deleteBookingByLineIdAndTourName ( String lineId , String bookingID ) {
