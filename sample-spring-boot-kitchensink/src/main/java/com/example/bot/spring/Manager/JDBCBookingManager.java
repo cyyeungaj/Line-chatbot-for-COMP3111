@@ -22,8 +22,6 @@ public class JDBCBookingManager extends bookingManager {
 	public ArrayList<Booking> getBookingByLineUserId ( String LineUserId) {
 
 		/*
-		String SQLstatement = "SELECT * FROM Booking WHERE LineUserId = " + LineUserId;
-=======
 		String SQLstatement = " SELECT * FROM Booking WHERE LineUserId = " + LineUserId + ";";
 >>>>>>> 687b3a0d1a22825b894ca251490450653395c1ed
 		ResultSet rs = SelectionQuery(SQLstatement);
