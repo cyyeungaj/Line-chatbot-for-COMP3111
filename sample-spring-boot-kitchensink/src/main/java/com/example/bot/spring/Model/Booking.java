@@ -3,6 +3,7 @@ package com.example.bot.spring;
 import java.awt.print.Book;
 
 public class Booking {
+
 	private String date ;
 	private String BookingID ;
 	private String CustomerID ;
@@ -33,6 +34,7 @@ public class Booking {
 		this.serviceCharge = serviceCharge;
 	}
 
+<<<<<<< HEAD
 	public String getDate() {
 		return date;
 	}
@@ -80,4 +82,6 @@ public class Booking {
 	public double getServiceCharge() {
 		return serviceCharge;
 	}
+=======
+>>>>>>> 713d8071b77aa8d938880a8f1417fae104528985
 }
