@@ -15,4 +15,5 @@ public abstract class bookingManager extends Manager{
 	public abstract ArrayList<Booking> getBookingByLineUserId (String LineUserId);
 	public abstract void insertBooking(Booking booking) ; 
 	public abstract void deleteBookingByLineIdAndTourName ( String lineId , String tourName );
+	public abstract double calculateBookingFee ( Booking booking ) ; 
 }

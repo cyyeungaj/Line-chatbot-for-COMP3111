@@ -14,7 +14,7 @@ public class Booking {
 	private double tourFee ;
 	private double amountPaid ;
 	private String specialRequest ;
-	private boolean confirm ;
+	private boolean isConfirm ;
 	private double serviceCharge ;
 
 	public Booking(String date, String bookTableId, String clientId, String tourId,
@@ -30,8 +30,13 @@ public class Booking {
 		this.tourFee = tourFee;
 		this.specialRequest = specialRequest;
 		this.amountPaid = amountPaid;
-		this.confirm = confirm;
+		this.isConfirm = confirm;
 		this.serviceCharge = serviceCharge;
 	}
+	
+	public String getDate() { return this.date ; }
+	public String bookTableId () { return this.bookTableId ; }
+	public String clientId () { return this.clientId  ; }
+	public String tourId () { return this.tourID ; } 
 
 }
