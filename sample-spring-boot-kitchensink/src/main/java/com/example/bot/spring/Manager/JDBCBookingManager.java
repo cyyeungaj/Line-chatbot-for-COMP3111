@@ -20,8 +20,12 @@ public class JDBCBookingManager extends bookingManager {
 	 * @return the result array list of Booking
      */
 	public ArrayList<Booking> getBookingByLineUserId ( String LineUserId) {
+
 		/*
 		String SQLstatement = "SELECT * FROM Booking WHERE LineUserId = " + LineUserId;
+=======
+		String SQLstatement = " SELECT * FROM Booking WHERE LineUserId = " + LineUserId + ";";
+>>>>>>> 687b3a0d1a22825b894ca251490450653395c1ed
 		ResultSet rs = SelectionQuery(SQLstatement);
 		ArrayList<Booking> result = new ArrayList<Booking>();
 		try {
@@ -57,14 +61,24 @@ public class JDBCBookingManager extends bookingManager {
 		return result;*/ return null ; 
 	}
 	public void insertBooking(Booking booking) {
+
+	String SQLstatrment = "INSERT INTO BOOKING VALUES ( " + booking.getDate() + " ,"+ booking.getBookingID() + " ," + booking.getCustomerID() + " ," + booking.getTourID() + " ," + booking.getNoOfAdults()
+	+ " ," + booking.getNoOfChildrens() + " ," + booking.getNoOfToodlers() + " ," + booking.getTourFee() + " ," + booking.getAmountPaid() + " ," + booking.getSpecialRequest() + " ," + booking.isConfirm()
+	+ " ," + booking.getServiceCharge() + ") ;";
+
+	insertDeleteQuery(SQLstatrment);
 		
+}; 
+	
 		
-	}; 
-	
-	
-	public void deleteBookingByLineIdAndTourName ( String lineId , String tourName ) {}
-	
 	public double calculateBookingFee ( Booking booking ) {
 		return 0.0 ; 
 	} 
+		
+	public void deleteBookingByLineIdAndTourName ( String lineId , String bookingID ) {
+		String SQLstatement = " DELETE FROM BOOKING WHERE BookTableID = " + bookingID + ";";
+
+		insertDeleteQuery(SQLstatement);
+	}
+
 }
