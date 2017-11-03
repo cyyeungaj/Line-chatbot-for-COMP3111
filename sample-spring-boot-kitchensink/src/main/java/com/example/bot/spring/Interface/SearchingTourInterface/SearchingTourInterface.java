@@ -291,13 +291,9 @@ public class SearchingTourInterface extends UserInterface {
 	private int currentS = 0;
 
 	private ArrayList<Tour> searchingResult = null;
-
 	private ArrayList<Tour> srForTime = null;
-
 	private ArrayList<Tour> srForPlace = null;
-
 	private ArrayList<Tour> srForPrice = null;
-
 	private JDBCTourManager tourManager = null;
 	private Filter filter = null;
 
