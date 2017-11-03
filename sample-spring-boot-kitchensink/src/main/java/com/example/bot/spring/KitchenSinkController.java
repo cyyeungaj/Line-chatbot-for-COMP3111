@@ -234,10 +234,12 @@ public class KitchenSinkController {
 		Source src = event.getSource() ; 
 		String userId = src.getUserId() ;
 		
+		/*
 		controller.processInput( text , event) ; 
 		this.replyText(replyToken , controller.getCurrentInterfaceMessage()) ; 
+		*/
 		
-		/*
+		
 		if( text.compareTo("3") == 0 )
 		{
 			Manager manager = new JDBCFaqManager() ; 
@@ -245,7 +247,7 @@ public class KitchenSinkController {
 			Connection connection = SQLDatabaseEngine.getConnection() ; 
 			PreparedStatement stmt = connection.prepareStatement("SELECT * from faq;") ; 
 			try{
-				rs = stmt.executeQuery() ;
+				rs = manager.SelectionQuery("SELECT * from faq") ;
 			} catch( Exception e ) {
 				log.info("Exception occur rs = manager.SelectionQuery(\"SELECT * from faq") ; 	
 			}
@@ -259,7 +261,7 @@ public class KitchenSinkController {
 				lineMessagingClient.pushMessage(new PushMessage(userId, new TextMessage(currentNo+".  " + q + "\n" + a + "\n")));
 			}
 		}
-		*/
+		
 		/*
 		String result = null ; 
 		try {
