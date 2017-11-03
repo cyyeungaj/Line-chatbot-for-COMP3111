@@ -175,7 +175,7 @@ public class SearchingTourInterface extends UserInterface {
 			currentS = 3;
 			messageBuilder.append("Please enter minimum Price: ");
 			super.setMessage(messageBuilder.toString());
-			lineMessagingClient.pushMessage(new PushMessage(userId, new TextMessage(super.getMessage())));
+			lineMessagingClient.pushMessage(new PushMessage("U2336052073d2a3192d088b3215554ee1", new TextMessage(super.getMessage())));
 		}
 		if (currentS == 1) {
 			currentS = 11; //ask for end date

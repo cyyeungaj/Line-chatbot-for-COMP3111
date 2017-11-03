@@ -1,6 +1,6 @@
 package com.example.bot.spring;
 
-
+import com.linecorp.bot.client.LineMessagingClientImpl;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.UncheckedIOException;
@@ -88,10 +88,13 @@ public class FAQInterface extends UserInterface {
 	private String message = "";
 	private StringBuilder messageBuilder = null;
 	
+	@Autowired
+	private LineMessagingClient lineMessagingClient;
+
 	public FAQInterface () {
 		currentState = SHOW_FAQ_STATE;
-		super.setMessage(getFAQList()) ; 
-		
+		//super.setMessage(getFAQList()) ; 
+		lineMessagingClient.pushMessage(new PushMessage("U2336052073d2a3192d088b3215554ee1", new TextMessage(super.getMessage())));
 	}
 	
 
@@ -152,6 +155,7 @@ public class FAQInterface extends UserInterface {
 				messageBuilder.append(Integer.toString(i) + ". ");
 				messageBuilder.append(FAQlist.get(i).getQuestion()+ "\n\n"); 
 				messageBuilder.append(FAQlist.get(i).getAnswer()+"\n") ; 
+				System.out.println(messageBuilder);
 			}
 
 			messageBuilder.append("Could I answer you question?\n");
