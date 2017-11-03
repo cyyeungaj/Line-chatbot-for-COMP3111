@@ -140,8 +140,8 @@ public class MenuInterface extends UserInterface {
 			controller.setInterface(new BookingInterface()) ; 
 		} else if ( userInput == SELECT_FAQ_ACTION ) {
 			controller.setInterface(new FAQInterface()) ; 
-
 		} 
+		
 	}
 
 	
