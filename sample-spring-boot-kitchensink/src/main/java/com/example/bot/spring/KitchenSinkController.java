@@ -234,12 +234,12 @@ public class KitchenSinkController {
 		Source src = event.getSource() ; 
 		String userId = src.getUserId() ;
 		
-		/*
+		
 		controller.processInput( text , event) ; 
 		this.replyText(replyToken , controller.getCurrentInterfaceMessage()) ; 
-		*/
 		
 		
+		/*
 		if( text.compareTo("3") == 0 )
 		{
 			JDBCFaqManager manager = new JDBCFaqManager() ; 
@@ -257,21 +257,15 @@ public class KitchenSinkController {
 			String q = null ; 
 			String a = null ; 
 			while(rs.next()) {
-				/*
+				
 				currentNo = rs.getInt("question_no") ; 
 				q = rs.getString("question") ;
-				a = rs.getString("answer") ;*/
+				a = rs.getString("answer") ;
 			}
-			lineMessagingClient.pushMessage(new PushMessage(userId, new TextMessage(str)));
-		}
-		
-		/*
-		String result = null ; 
-		try {
-			result = this.databaseEngine.faq() ; 
-		} catch (Exception e) {
-			log.info("Exception occur in result = this.databaseEngine.faq() ") ; 	
+			//lineMessagingClient.pushMessage(new PushMessage(userId, new TextMessage(str)));
 		}*/
+		
+		
 		
 		
 		

@@ -155,7 +155,6 @@ public class FAQInterface extends UserInterface {
 				messageBuilder.append(Integer.toString(i) + ". ");
 				messageBuilder.append(FAQlist.get(i).getQuestion()+ "\n\n"); 
 				messageBuilder.append(FAQlist.get(i).getAnswer()+"\n") ; 
-				System.out.println(messageBuilder);
 			}
 
 			messageBuilder.append("Could I answer you question?\n");
