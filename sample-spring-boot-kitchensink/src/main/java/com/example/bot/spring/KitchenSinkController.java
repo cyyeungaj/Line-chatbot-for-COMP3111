@@ -216,9 +216,6 @@ public class KitchenSinkController {
 		if (replyToken.isEmpty()) {
 			throw new IllegalArgumentException("replyToken must not be empty");
 		}
-		if (message.length() > 1000) {
-			message = message.substring(0, 1000 - 2) + "..";
-		}
 		this.reply(replyToken, new TextMessage(message));
 	}
 
@@ -236,7 +233,7 @@ public class KitchenSinkController {
 		JDBCFaqManager manager = new JDBCFaqManager() ; 
 		
 		//controller.processInput( text , event) ; 
-		this.replyText(replyToken , manager.getAllFAQString()) ; 
+		this.replyText(replyToken , controller.getCurrentInterfaceMessage()) ; 
 		
 		
 		/*
