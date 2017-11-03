@@ -261,8 +261,8 @@ public class KitchenSinkController {
 				currentNo = rs.getInt("question_no") ; 
 				q = rs.getString("question") ;
 				a = rs.getString("answer") ;*/
-				lineMessagingClient.pushMessage(new PushMessage(userId, new TextMessage(str)));
 			}
+			lineMessagingClient.pushMessage(new PushMessage(userId, new TextMessage(str)));
 		}
 		
 		/*

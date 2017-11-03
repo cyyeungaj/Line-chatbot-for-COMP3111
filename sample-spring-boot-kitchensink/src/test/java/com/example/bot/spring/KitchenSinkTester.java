@@ -85,6 +85,19 @@ public class KitchenSinkTester {
 	}
 	
 	@Test
+	public void testforgetAllFAQ () throws Exception {
+		JDBCFaqManager manager = new JDBCFaqManager() ; 
+		ArrayList<FAQ> results ;
+		results = manager.getAllFAQ() ; 
+		assertThat(results.get(0).getQuestionNum()).isEqualTo(1) ; 
+		assertThat(results.get(0).getQuestion()).isEqualTo("How to apply?");
+		//assertThat(results.get(1))
+	}
+	
+	
+	
+	
+	@Test
 	public void testFound() throws Exception {
 		
 		

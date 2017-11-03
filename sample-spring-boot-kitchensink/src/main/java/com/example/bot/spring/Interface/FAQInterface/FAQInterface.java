@@ -93,8 +93,8 @@ public class FAQInterface extends UserInterface {
 
 	public FAQInterface () {
 		currentState = SHOW_FAQ_STATE;
-		//super.setMessage(getFAQList()) ; 
-		lineMessagingClient.pushMessage(new PushMessage("U2336052073d2a3192d088b3215554ee1", new TextMessage("testing for push")));
+		super.setMessage(getFAQList()) ; 
+		//lineMessagingClient.pushMessage(new PushMessage("U2336052073d2a3192d088b3215554ee1", new TextMessage("testing for push")));
 	}
 	
 
