@@ -94,6 +94,7 @@ public class KitchenSinkTester {
 		//assertThat(results.get(1))
 	}
 	
+	@Test
 	public void testforInterfaceProcess () {
 		chatbotController controller = new chatbotController() ; 
 		controller.processInput("3" , null) ; 
