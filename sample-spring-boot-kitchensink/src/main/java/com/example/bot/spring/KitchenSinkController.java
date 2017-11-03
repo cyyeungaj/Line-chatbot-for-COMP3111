@@ -226,6 +226,11 @@ public class KitchenSinkController {
 
 	private void handleTextContent(String replyToken, Event event, TextMessageContent content)
             throws Exception {
+		String text = content.getText() ; 
+		controller.processInput(text) ; 
+        this.replyText(replyToken, controller.getCurrentInterfaceMessage()) ; 
+		
+		/*
         String text = content.getText();
 
         log.info("Got text message from {}: {}", replyToken, text);
@@ -287,7 +292,8 @@ public class KitchenSinkController {
                         BOT_NAME + " says " + reply
                 );
                 break;
-        }
+        }*/
+		
     }
 
 	static String createUri(String path) {
@@ -335,7 +341,7 @@ public class KitchenSinkController {
 	public KitchenSinkController() {
 		database = new SQLDatabaseEngine();
 		BOT_NAME = System.getenv("BOT_NAME");
-		controller = new chatbotController(null,null);
+		controller = new chatbotController( null);
 	}
 
 	private DatabaseEngine database;

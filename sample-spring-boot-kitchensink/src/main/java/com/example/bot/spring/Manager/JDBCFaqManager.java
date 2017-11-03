@@ -18,6 +18,10 @@ public class JDBCFaqManager extends faqManager {
 	private final String COL_ANSWER = "answer";
 	private ArrayList<FAQ> results = null;
 	
+	public JDBCFaqManager () {
+		
+	}
+	
 	public int getNumOfFAQ() {
 		if(results == null)
 			return 0;
