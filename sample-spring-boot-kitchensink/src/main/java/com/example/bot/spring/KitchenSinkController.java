@@ -232,7 +232,7 @@ public class KitchenSinkController {
 		String userId = src.getUserId() ;
 		JDBCFaqManager manager = new JDBCFaqManager() ; 
 		
-		controller.processInput( text , event) ; 
+		controller.processInput( text , null) ; 
 		this.replyText(replyToken , controller.getCurrentInterfaceMessage()) ; 
 		
 		
