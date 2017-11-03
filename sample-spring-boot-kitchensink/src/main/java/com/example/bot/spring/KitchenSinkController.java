@@ -229,7 +229,7 @@ public class KitchenSinkController {
 		String text = content.getText() ; 
 
 		controller.processInput(text , event) ; 
-
+        this.replyText(replyToken, "testing") ; 
         this.replyText(replyToken, controller.getCurrentInterfaceMessage()) ; 
 		
 		/*
