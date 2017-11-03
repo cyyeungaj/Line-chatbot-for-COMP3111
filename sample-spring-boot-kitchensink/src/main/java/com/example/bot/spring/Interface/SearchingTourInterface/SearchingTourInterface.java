@@ -1,131 +1,267 @@
 package com.example.bot.spring;
+<<<<<<< HEAD
 
 import com.linecorp.bot.client.LineMessagingClientImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import java.lang.StringBuilder;
+
 import java.sql.ResultSet;
+
 import lombok.extern.slf4j.Slf4j;
+
 import java.util.*;
+
 import com.linecorp.bot.model.profile.UserProfileResponse;
+
 import com.linecorp.bot.client.LineMessagingClient;
+
 import com.linecorp.bot.client.MessageContentResponse;
+
 import com.linecorp.bot.model.ReplyMessage;
+
 import com.linecorp.bot.model.PushMessage ; 
+
 import com.linecorp.bot.model.Multicast ; 
+
 import com.linecorp.bot.model.action.MessageAction;
+
 import com.linecorp.bot.model.action.PostbackAction;
+
 import com.linecorp.bot.model.action.URIAction;
+
 import com.linecorp.bot.model.event.BeaconEvent;
+
 import com.linecorp.bot.model.event.Event;
+
 import com.linecorp.bot.model.event.FollowEvent;
+
 import com.linecorp.bot.model.event.JoinEvent;
+
 import com.linecorp.bot.model.event.MessageEvent;
+
 import com.linecorp.bot.model.event.PostbackEvent;
+
 import com.linecorp.bot.model.event.UnfollowEvent;
+
 import com.linecorp.bot.model.event.message.AudioMessageContent;
+
 import com.linecorp.bot.model.event.message.ImageMessageContent;
+
 import com.linecorp.bot.model.event.message.LocationMessageContent;
+
 import com.linecorp.bot.model.event.message.StickerMessageContent;
+
 import com.linecorp.bot.model.event.message.TextMessageContent;
+
 import com.linecorp.bot.model.event.source.GroupSource;
+
 import com.linecorp.bot.model.event.source.RoomSource;
+
 import com.linecorp.bot.model.event.source.Source;
+
 import com.linecorp.bot.model.message.AudioMessage;
+
 import com.linecorp.bot.model.message.ImageMessage;
+
 import com.linecorp.bot.model.message.ImagemapMessage;
+
 import com.linecorp.bot.model.message.LocationMessage;
+
 import com.linecorp.bot.model.message.Message;
+
 import com.linecorp.bot.model.message.StickerMessage;
+
 import com.linecorp.bot.model.message.TemplateMessage;
+
 import com.linecorp.bot.model.message.TextMessage;
+
 import com.linecorp.bot.model.message.imagemap.ImagemapArea;
+
 import com.linecorp.bot.model.message.imagemap.ImagemapBaseSize;
+
 import com.linecorp.bot.model.message.imagemap.MessageImagemapAction;
+
 import com.linecorp.bot.model.message.imagemap.URIImagemapAction;
+
 import com.linecorp.bot.model.message.template.ButtonsTemplate;
+
 import com.linecorp.bot.model.message.template.CarouselColumn;
+
 import com.linecorp.bot.model.message.template.CarouselTemplate;
+
 import com.linecorp.bot.model.message.template.ConfirmTemplate;
+
 import com.linecorp.bot.model.response.BotApiResponse;
+
 import com.linecorp.bot.spring.boot.annotation.EventMapping;
+
 import com.linecorp.bot.spring.boot.annotation.LineMessageHandler;
+
 import java.util.Date;
+
 import java.text.SimpleDateFormat;
+
 import java.io.IOException;
+
 import java.io.OutputStream;
+
 import java.io.UncheckedIOException;
+
 import java.nio.file.Files;
+
 import java.nio.file.Path;
+
 import java.time.LocalDateTime;
+
 import java.util.Arrays;
+
 import java.util.Collections;
+
 import java.util.List;
+
 import java.util.Set;
+
 import java.util.HashSet;
+
 import java.util.UUID;
+
 import java.util.concurrent.ExecutionException;
+
 import java.util.function.Consumer;
+
 import java.util.concurrent.CompletableFuture;
+
 import java.util.function.BiConsumer;
+
 import com.linecorp.bot.model.profile.UserProfileResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+
+
+
 import com.google.common.io.ByteStreams;
+
+
 import com.linecorp.bot.client.LineMessagingClient;
+
 import com.linecorp.bot.client.MessageContentResponse;
+
 import com.linecorp.bot.model.ReplyMessage;
+
 import com.linecorp.bot.model.PushMessage ; 
+
 import com.linecorp.bot.model.Multicast ; 
+
 import com.linecorp.bot.model.action.MessageAction;
+
 import com.linecorp.bot.model.action.PostbackAction;
+
 import com.linecorp.bot.model.action.URIAction;
+
 import com.linecorp.bot.model.event.BeaconEvent;
+
 import com.linecorp.bot.model.event.Event;
+
 import com.linecorp.bot.model.event.FollowEvent;
+
 import com.linecorp.bot.model.event.JoinEvent;
+
 import com.linecorp.bot.model.event.MessageEvent;
+
 import com.linecorp.bot.model.event.PostbackEvent;
+
 import com.linecorp.bot.model.event.UnfollowEvent;
+
 import com.linecorp.bot.model.event.message.AudioMessageContent;
+
 import com.linecorp.bot.model.event.message.ImageMessageContent;
+
 import com.linecorp.bot.model.event.message.LocationMessageContent;
+
 import com.linecorp.bot.model.event.message.StickerMessageContent;
+
 import com.linecorp.bot.model.event.message.TextMessageContent;
+
 import com.linecorp.bot.model.event.source.GroupSource;
+
 import com.linecorp.bot.model.event.source.RoomSource;
+
 import com.linecorp.bot.model.event.source.Source;
+
 import com.linecorp.bot.model.message.AudioMessage;
+
 import com.linecorp.bot.model.message.ImageMessage;
+
 import com.linecorp.bot.model.message.ImagemapMessage;
+
 import com.linecorp.bot.model.message.LocationMessage;
+
 import com.linecorp.bot.model.message.Message;
+
 import com.linecorp.bot.model.message.StickerMessage;
+
 import com.linecorp.bot.model.message.TemplateMessage;
+
 import com.linecorp.bot.model.message.TextMessage;
+
 import com.linecorp.bot.model.message.imagemap.ImagemapArea;
+
 import com.linecorp.bot.model.message.imagemap.ImagemapBaseSize;
+
 import com.linecorp.bot.model.message.imagemap.MessageImagemapAction;
+
 import com.linecorp.bot.model.message.imagemap.URIImagemapAction;
+
 import com.linecorp.bot.model.message.template.ButtonsTemplate;
+
 import com.linecorp.bot.model.message.template.CarouselColumn;
+
 import com.linecorp.bot.model.message.template.CarouselTemplate;
+
 import com.linecorp.bot.model.message.template.ConfirmTemplate;
+
 import com.linecorp.bot.model.response.BotApiResponse;
+
 import com.linecorp.bot.spring.boot.annotation.EventMapping;
+
 import com.linecorp.bot.spring.boot.annotation.LineMessageHandler;
+
 import lombok.NonNull;
+
 import lombok.Value;
+
 import lombok.extern.slf4j.Slf4j;
+
 import javax.annotation.PostConstruct;
+
 import javax.sql.DataSource;
+
 import java.nio.channels.SelectableChannel;
+
 import java.sql.*;
+
 import java.util.ArrayList;
+
 import java.util.HashMap;
+
 import java.net.URISyntaxException;
+
 import java.io.IOException;
+
 import java.net.URI;
+
 import java.util.*;
+
+import java.net.URI;
+
+
+
+
+
 import java.net.URI;
 
 
@@ -134,23 +270,37 @@ import java.net.URI;
 public class SearchingTourInterface extends UserInterface {
 
 	private final static int SEARCH_BY_TIME_FILTER = 1;
+
 	private boolean timeF = false;
+
 	private final static int SEARCH_BY_PLACE_FILTER = 2;
+
 	private boolean placeF = false;
+
 	private final static int SEARCH_BY_PRICE_FILTER = 3;
+
 	private boolean priceF = false;
+
 	private Event event = null;
 
+
 	private String startD, endD, place;
+
 	private double minPrice = -1, maxPrice = -1;
+
 	private int currentS = 0;
+
 	private ArrayList<Tour> searchingResult = null;
+
 	private ArrayList<Tour> srForTime = null;
+
 	private ArrayList<Tour> srForPlace = null;
+
 	private ArrayList<Tour> srForPrice = null;
 
 	private JDBCTourManager tourManager = null;
 	private Filter filter = null;
+
 	@Autowired
 
 	private LineMessagingClient lineMessagingClient;
@@ -158,12 +308,12 @@ public class SearchingTourInterface extends UserInterface {
 	public SearchingTourInterface() {
 		StringBuilder messageBuilder = new StringBuilder();
 		super.setManager(null);
-
 		messageBuilder.append("1.Search by time \n");
 		messageBuilder.append("2.Search by place \n");
 		messageBuilder.append("3.Search by price \n");
 
 		super.setMessage(messageBuilder.toString()) ; 
+
 		tourManager = new JDBCTourManager();
 		filter = new Filter();
 		currentS = 0 ; 
@@ -178,9 +328,16 @@ public class SearchingTourInterface extends UserInterface {
 
 	}
 
+	
+
+
+
 	public void processInput(chatbotController controller, String userReply, Event event) {
 		//this.event  = event;
+		this.event  = event;
+
 		StringBuilder messageBuilder = new StringBuilder();
+
 		super.setManager(null);
 		
 		if( (timeF || placeF || priceF) && userReply.compareTo("yes") == 0 ){
@@ -188,6 +345,10 @@ public class SearchingTourInterface extends UserInterface {
 		}
 		
 		if (userReply.compareTo("1") == 0  && currentS == 0) {
+			Source src = event.getSource(); 
+			String userId = src.getUserId();
+
+		if (userReply == "1" && currentS == 0) {
 			currentS = 1;
 			messageBuilder.append("Please enter starting Date(YYYY-MM-DD): ");
 			super.setMessage(messageBuilder.toString());
@@ -195,6 +356,11 @@ public class SearchingTourInterface extends UserInterface {
 		}
 
 		if (userReply.compareTo("2") == 0 && currentS == 0) {
+			lineMessagingClient.pushMessage(new PushMessage(userId, new TextMessage(super.getMessage())));
+
+		}
+
+		if (userReply == "2" && currentS == 0) {
 			currentS = 2;
 			messageBuilder.append("Please enter Place: ");
 			super.setMessage(messageBuilder.toString());
@@ -203,8 +369,14 @@ public class SearchingTourInterface extends UserInterface {
 		}
 
 		if (userReply.compareTo("3") == 0 && currentS == 0) {
+			lineMessagingClient.pushMessage(new PushMessage(userId, new TextMessage(super.getMessage())));
+		}
+
+		if (userReply == "3" && currentS == 0) {
 			currentS = 3;
+
 			messageBuilder.append("Please enter minimum Price: ");
+
 			super.setMessage(messageBuilder.toString());
 			//lineMessagingClient.pushMessage(new PushMessage(userId, new TextMessage(super.getMessage())));
 			return ; 
@@ -213,6 +385,10 @@ public class SearchingTourInterface extends UserInterface {
 		
 		if (  currentS == 1) {
 			//not yet do checking for date-format
+			lineMessagingClient.pushMessage(new PushMessage(userId, new TextMessage(super.getMessage())));
+		}
+
+		if (currentS == 1) {
 			currentS = 11; //ask for end date
 			startD = userReply;
 			messageBuilder.append("Please enter ending Date(YYYY-MM-DD): ");
@@ -236,6 +412,15 @@ public class SearchingTourInterface extends UserInterface {
 				return;
 			}
 			currentS = 0;
+
+			lineMessagingClient.pushMessage(new PushMessage(userId, new TextMessage(super.getMessage())));
+
+		}
+
+		if (currentS == 2) {
+			currentS = 0;
+			place = userReply;
+			searchByPlace(userReply);
 			placeF = true;
 			searchByPlace();
 			refreshPage("2");
@@ -248,16 +433,20 @@ public class SearchingTourInterface extends UserInterface {
 			messageBuilder.append("Please enter maximum Price: ");
 			super.setMessage(messageBuilder.toString());
 			//lineMessagingClient.pushMessage(new PushMessage(userId, new TextMessage(super.getMessage())));
-			return ; 
+			return ;
+
+			lineMessagingClient.pushMessage(new PushMessage(userId, new TextMessage(super.getMessage())));
 		}
 
 		// After entering end date, do search
+
 		if (currentS == 11) {
 			currentS = 0;
 			endD = userReply;
 			filter.setTimeFilter(startD, endD);
 			searchByTime();
 			timeF = true;
+
 			refreshPage("1");
 			return ; 
 		}
@@ -265,6 +454,7 @@ public class SearchingTourInterface extends UserInterface {
 		// After entering max Price, do search
 
 		if (currentS == 13) {
+
 			currentS = 0;
 			maxPrice = Double.parseDouble(userReply);
 			filter.setPriceRangeFilter(Double.toString(minPrice), Double.toString(maxPrice));
@@ -273,7 +463,9 @@ public class SearchingTourInterface extends UserInterface {
 			refreshPage("3");
 			return ; 
 		}
+
 		// turn off time filter
+
 		if (currentS == 0 && userReply == "4") {
 			filter.removeTimeFilter();
 			timeF = false;
@@ -283,17 +475,21 @@ public class SearchingTourInterface extends UserInterface {
 			refreshPage("4");
 			return ; 
 		}
+
 		// turn off place filter
+
 		if (currentS == 0 && userReply == "5") {
 			filter.removePlaceFilter();
 			placeF = false;
+
 			place = null;
 			searchByPlace() ; 
 			refreshPage("5");
 			return ; 
+			}
 
-		}
 		// turn off price filter
+
 		if (currentS == 0 && userReply == "6") {
 			filter.removePriceFilter();
 			priceF = false;
@@ -301,6 +497,7 @@ public class SearchingTourInterface extends UserInterface {
 			maxPrice = -1;
 			searchByPrice() ; 
 			refreshPage("6");
+
 			return ; 
 
 		}
@@ -308,9 +505,28 @@ public class SearchingTourInterface extends UserInterface {
 	}
 
 			
+		private void searchByTime() {
+			// if startD and endD = null, then search all date
+			this.searchingResult = new JDBCTourManager().getToursByTime(startD, endD);
+			this.srForTime = searchingResult ; 
+		}
+		private void searchByPlace(String p) {
+			// if minPrice and place = null, then search all place
+			
+		}
+
+
+	}
+
+			
+
+	
+
 	private void searchByTime() {
+
+		;
+
 		// if startD and endD = null, then search all date
-		
 		
 		this.searchingResult = new JDBCTourManager().getToursByFilter(filter.getWhere()) ; 
 		this.srForTime = new ArrayList<Tour> (); 
@@ -325,14 +541,15 @@ public class SearchingTourInterface extends UserInterface {
 			srForPlace.add(tour) ; 
 	}
 
+	
+
 	private void searchByPrice() {
+
 		// if minPrice and maxPrice = -1, then search all price
 		this.searchingResult = new JDBCTourManager().getToursByFilter(filter.getWhere()) ; 
 		srForPrice = new ArrayList<Tour>() ; 
 		for( Tour tour : searchingResult ) 
 			srForPrice.add(tour) ; 
-		
-		
 	}
 
 	
@@ -344,6 +561,11 @@ public class SearchingTourInterface extends UserInterface {
 		//	if (!searchingResult.contains(t))
 		//		searchingResult.add(t);
 		searchingResult = tourManager.getToursByFilter(filter.getWhere());
+		searchingResult.clear();
+		for (Tour t:srForPrice)
+			if (!searchingResult.contains(t))
+				searchingResult.add(t);
+
 	}
 
 	private void refreshPage(String option) {
@@ -354,17 +576,16 @@ public class SearchingTourInterface extends UserInterface {
 			String timeFChecker = "Off", placeFChecker = "Off", priceFChecker = "Off";
 			if (timeF == true)
 				timeFChecker = "On";
+
 			if (placeF == true )
 				placeFChecker = "On";
 			if (priceF == true )
 				priceFChecker = "On";
-			
-			
-			
-			
 			messageBuilder.append("Time filter is now turn" + timeFChecker + " \n");
 			messageBuilder.append("Place filter is now turn" + placeFChecker + " \n");
-			messageBuilder.append("Price filter is now turn" + priceFChecker + " \n");	
+			messageBuilder.append("Price filter is now turn" + priceFChecker + " \n");
+
+	
 			messageBuilder.append("1.Search by time \n");
 			messageBuilder.append("2.Search by place \n");
 			messageBuilder.append("3.Search by pricen \n");
@@ -472,13 +693,19 @@ class Filter{
 			}else{
 				return; //no matching place name
 			}
+
 		}
+
 		
 //		hm.put(PLACE_TAG, " LOWER(" + COL_COUNTRY + ") = LOWER('" + placeName + "')");
 		
 		keys.add(PLACE_TAG);
+		Source src = event.getSource() ; 
+		String userId = src.getUserId() ;
+		super.setMessage(messageBuilder.toString());
+		lineMessagingClient.pushMessage(new PushMessage(userId, new TextMessage(super.getMessage())));	
+
 	}
-	
 	
 	/**
 	 * @param price: max price of the tour
