@@ -83,7 +83,7 @@ import java.lang.StringBuilder;
 
 public abstract class UserInterface {
 	
-	private String message ;
+	protected String message ;
 	private Manager manager ; 
 	public String getMessage() { return message ; }
 
