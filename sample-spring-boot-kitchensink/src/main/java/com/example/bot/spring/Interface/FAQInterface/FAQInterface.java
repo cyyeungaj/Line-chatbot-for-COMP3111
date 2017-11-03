@@ -85,7 +85,6 @@ public class FAQInterface extends UserInterface {
 	 
 	
 	private int currentState; 
-	private String message = "";
 	private StringBuilder messageBuilder = null;
 	
 	@Autowired
