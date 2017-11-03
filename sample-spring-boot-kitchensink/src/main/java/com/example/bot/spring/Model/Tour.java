@@ -35,7 +35,7 @@ public class Tour {
 		this.tourGuideLine = tourGuideLine ; 
 	}
 
-
+    
 	public int getCountryId(){ return this.countryId;}
 	public int getRegionId(){ return this.regionId;}
 	public String getTourName() { return this.tourName ; }
