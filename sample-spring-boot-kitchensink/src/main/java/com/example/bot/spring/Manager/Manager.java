@@ -12,11 +12,6 @@ import java.net.URI;
 public class Manager {
 	
 	public Manager ( ) {
-		try {
-			this.setConnection () ;
-		} catch( Exception e) {
-			log.info("Exception occur in manager constructor on setConnection statement") ; 
-		}
 		
 	}
 	
