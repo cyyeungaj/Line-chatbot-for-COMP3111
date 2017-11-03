@@ -58,6 +58,9 @@ public class SearchingTourInterface extends UserInterface {
 	private boolean priceF = false;
 	private Event event = null;
 	
+	private String startD, endD, place;
+	private int minPrice, maxPrice;
+	private int currentS = 0;
 	private ArrayList<Tour> searchingResult = null;
 	@Autowired
 	private LineMessagingClient lineMessagingClient;
@@ -73,15 +76,99 @@ public class SearchingTourInterface extends UserInterface {
 		super.setMessage(messageBuilder.toString()) ; 
 	}
 	
-	public void processInput( chatbotController controller, String userReply)  {
-		
-	}
+
 	public void processInput(chatbotController controller, String userReply, Event event) {
 		this.event  = event;
+		StringBuilder messageBuilder = new StringBuilder();
+		super.setManager(null);
+		Source src = event.getSource(); 
+		String userId = src.getUserId();
+		if (userReply == "1" && currentS == 0) {
+			currentS = 1;
+			messageBuilder.append("Please enter starting Date(YYYY-MM-DD): ");
+			super.setMessage(messageBuilder.toString());
+			lineMessagingClient.pushMessage(new PushMessage(userId, new TextMessage(super.getMessage())));
+		}
+		if (userReply == "2" && currentS == 0) {
+			currentS = 2;
+			messageBuilder.append("Please enter Place: ");
+			super.setMessage(messageBuilder.toString());
+			lineMessagingClient.pushMessage(new PushMessage(userId, new TextMessage(super.getMessage())));
+		}
+		if (userReply == "3" && currentS == 0) {
+			currentS = 3;
+			messageBuilder.append("Please enter minimum Price: ");
+			super.setMessage(messageBuilder.toString());
+			lineMessagingClient.pushMessage(new PushMessage(userId, new TextMessage(super.getMessage())));
+		}
+		if (currentS == 1) {
+			currentS = 11; //ask for end date
+			startD = userReply;
+			messageBuilder.append("Please enter ending Date(YYYY-MM-DD): ");
+			super.setMessage(messageBuilder.toString());
+			lineMessagingClient.pushMessage(new PushMessage(userId, new TextMessage(super.getMessage())));
+		}
+		if (currentS == 2) {
+			currentS = 0;
+			place = userReply;
+			searchByPlace(userReply);
+			placeF = true;
+			refreshPage("2");
+		}
+		if (currentS == 3) {
+			currentS = 13; // ask for max price
+			minPrice = Integer.parseInt(userReply);
+			messageBuilder.append("Please enter maximum Price: ");
+			super.setMessage(messageBuilder.toString());
+			lineMessagingClient.pushMessage(new PushMessage(userId, new TextMessage(super.getMessage())));
+		}
+		// After entering end date, do search
+		if (currentS == 11) {
+			currentS = 0;
+			endD = userReply;
+			searchByTime();
+			timeF = true;
+			refreshPage("1");
+		}
+		// After entering max Price, do search
+		if (currentS == 13) {
+			currentS = 0;
+			maxPrice = Integer.parseInt(userReply);
+			searchByPrice();
+			priceF = true;
+			refreshPage("3");
+		}
+		// turn off time filter
+		if (currentS == 0 && userReply == "4") {
+			timeF = false;
+		}
+		// turn off place filter
+		if (currentS == 0 && userReply == "5") {
+			placeF = false;
+		}
+		// turn off price filter
+		if (currentS == 0 && userReply == "6") {
+			priceF = false;
+		}
+	}
+			
+	
+	private void searchByTime() {
 		
 	}
 	
-	public void refreshPage(String option) {
+	private void searchByPlace(String p) {
+		
+	}
+	
+	private void searchByPrice() {
+		
+	}
+	
+	private void searchingPage(String searchingOp) {
+		
+	}
+	private void refreshPage(String option) {
 		StringBuilder messageBuilder = new StringBuilder();
 		super.setManager(null);
 		// Refresh the page if user select to search not enter to see description of tour (if (-1))
