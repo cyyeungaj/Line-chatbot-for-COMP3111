@@ -36,7 +36,6 @@ public class JDBCFaqManager extends faqManager {
 			ResultSet rs = null ; 
 			try {
 				rs = SelectionQuery(query);
-
 			} catch ( Exception e ) {
 				log.info("Exception occur in statement rs=SelectQuery in getAllFAQ function") ; 
 			}

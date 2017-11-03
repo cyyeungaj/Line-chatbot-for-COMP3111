@@ -10,7 +10,53 @@ import java.net.URI;
 
 @Slf4j
 public class SQLDatabaseEngine extends DatabaseEngine {
-	@Override
+
+	
+	public String faq() throws Exception {
+		String result = null ; 
+		String SQLstatement = "SELECT * FROM faq" ; 
+		Connection connection = null;
+		PreparedStatement stmt = null; 
+		
+		try {
+			connection = getConnection() ; 
+		} catch (SQLException e) {
+			log.info("SQLException while connecting to sql server: {}", e.toString());
+		}
+		
+		
+		try {
+			stmt = connection.prepareStatement(SQLstatement); 
+			ResultSet rs = stmt.executeQuery() ;
+			while(rs.next()) { 
+				result += rs.getString("question") ;
+				result += "\n" ; 
+			}
+		
+		} catch (SQLException e) {
+			log.info("SQLException while loading the sql statement to sql server: {}", e.toString());
+		} finally {
+				if(connection != null) {
+					try {
+						connection.close() ;
+					} catch (SQLException e ) {
+						log.info("SQLException when connection was closed ") ;
+					}
+				}
+				
+				if(stmt != null) {
+					try {
+						stmt.close() ; 
+					} catch (SQLException e ) {
+						log.info("SQLException when sql statement was closed ") ; 
+					}	
+				}
+		}
+		if(result != null ) return result ; 
+		throw new Exception("NOT FOUND");
+	}
+	
+	
 	String search(String text) throws Exception {
 		//Write your code here
 		

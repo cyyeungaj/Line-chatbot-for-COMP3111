@@ -233,9 +233,9 @@ public class KitchenSinkController {
 		//controller.processInput(text , event) ; 
         //this.replyText(replyToken, "testing2") ; 
         JDBCFaqManager manager = new JDBCFaqManager() ; 
-
         
-        this.replyText(replyToken, manager.getAllFAQString()) ; 
+        
+        this.replyText(replyToken, database.faq()) ; 
 		
 		/*
         String text = content.getText();
