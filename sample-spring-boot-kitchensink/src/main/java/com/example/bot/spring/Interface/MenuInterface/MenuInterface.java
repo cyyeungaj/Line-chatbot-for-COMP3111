@@ -112,7 +112,9 @@ public class MenuInterface extends UserInterface {
 			userInput= Integer.parseInt(userReply) ; 
 		}catch (NumberFormatException e) {
 			controller.setInterface(new ErrorInterface()) ; 
-		} 
+		}
+		
+		/*
 		switch(userInput) {
 			case SELECT_BOOKING_ACTION : 
 				controller.setInterface(new BookingInterface()) ; 
@@ -133,6 +135,13 @@ public class MenuInterface extends UserInterface {
 				controller.setInterface(new ErrorInterface()) ; 
 				break ; 
 		}
+		*/
+		if( userInput == SELECT_BOOKING_ACTION ) {
+			controller.setInterface(new BookingInterface()) ; 
+		} else if ( userInput == SELECT_FAQ_ACTION ) {
+			controller.setInterface(new FAQInterface()) ; 
+
+		} 
 	}
 
 	
