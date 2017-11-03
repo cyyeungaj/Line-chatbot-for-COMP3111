@@ -3,6 +3,11 @@ package com.example.bot.spring;
 import java.util.Arrays;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.io.IOException;
 import lombok.extern.slf4j.Slf4j;
 
@@ -23,7 +28,7 @@ import lombok.extern.slf4j.Slf4j;
 ////
 
 @Slf4j
-public class DatabaseEngine {
+public abstract class DatabaseEngine {
 	String search(String text) throws Exception {
 		String result = null;
 		BufferedReader br = null;
@@ -56,7 +61,8 @@ public class DatabaseEngine {
 			return result;
 		throw new Exception("NOT FOUND");
     }
-	
 	private final String FILENAME = "/static/database.txt";
 
 }
+
+	

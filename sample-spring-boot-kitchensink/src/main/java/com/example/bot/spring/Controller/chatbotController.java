@@ -1,11 +1,10 @@
 package com.example.bot.spring;
 
 public class chatbotController {
-	private Manager manager ; 
+	
 	private UserInterface currentInterface ; 
 	
-	public chatbotController ( Manager manager , UserInterface currentInterface) {
-		this.manager = manager ; 
+	public chatbotController ( UserInterface currentInterface) { 
 		this.currentInterface = currentInterface ; 
 	}
 	
@@ -16,5 +15,10 @@ public class chatbotController {
 	public void processInput ( String userInput ) {
 		currentInterface.processInput(this , userInput) ; 
 	}
+	
+	public String getCurrentInterfaceMessage () {
+		return currentInterface.getMessage() ; 
+	}
+	
 	
 }

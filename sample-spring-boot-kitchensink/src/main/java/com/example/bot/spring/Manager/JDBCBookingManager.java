@@ -27,6 +27,7 @@ public class JDBCBookingManager extends bookingManager {
 		try {
 			rs = SelectionQuery(SQLstatement);
 		} catch( Exception e) {
+			
 		}
 		
 		ArrayList<Booking> result = new ArrayList<Booking>();
