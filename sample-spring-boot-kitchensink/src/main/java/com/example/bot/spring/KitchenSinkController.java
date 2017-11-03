@@ -21,6 +21,9 @@ import java.io.OutputStream;
 import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collections;
@@ -228,9 +231,42 @@ public class KitchenSinkController {
             throws Exception {
 		String text = content.getText() ; 
 		String testing = null ;
-        JDBCFaqManager manager = new JDBCFaqManager() ; 
-        testing = manager.getAllFAQString();
-        this.replyText(replyToken, testing) ; 
+		
+		
+		Manager manager = new JDBCFaqManager() ; 
+		ResultSet rs = null ;
+		Connection connection = SQLDatabaseEngine.getConnection() ; 
+		PreparedStatement stmt = connection.prepareStatement("SELECT * from faq;") ; 
+		try{
+			rs = stmt.executeQuery() ;
+		} catch( Exception e ) {
+			log.info("Exception occur rs = manager.SelectionQuery(\"SELECT * from faq") ; 	
+		}
+		int currentNo = 0 ; 
+		String q = null ; 
+		String a = null ; 
+		while(rs.next()) {
+			currentNo = rs.getInt("question_no") ; 
+			q = rs.getString("question") ;
+			a = rs.getString("answer") ;
+            this.replyText(replyToken, currentNo+q+a);
+
+		}
+		/*
+		String result = null ; 
+		try {
+			result = this.databaseEngine.faq() ; 
+		} catch (Exception e) {
+			log.info("Exception occur in result = this.databaseEngine.faq() ") ; 	
+		}*/
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		/*
         String text = content.getText();

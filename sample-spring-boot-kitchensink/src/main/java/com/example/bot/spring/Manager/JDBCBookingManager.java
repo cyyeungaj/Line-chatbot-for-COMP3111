@@ -67,12 +67,16 @@ public class JDBCBookingManager extends bookingManager {
 	}
 	public void insertBooking(Booking booking) {
 
-	String SQLstatrment = "INSERT INTO BOOKING VALUES ( " + booking.getDate() + " ,"+ booking.getBookingID() + " ," + booking.getCustomerID() + " ," + booking.getTourID() + " ," + booking.getNoOfAdults()
+	String SQLstatement = "INSERT INTO BOOKING VALUES ( " + booking.getDate() + " ,"+ booking.getBookingID() + " ," + booking.getCustomerID() + " ," + booking.getTourID() + " ," + booking.getNoOfAdults()
 	+ " ," + booking.getNoOfChildrens() + " ," + booking.getNoOfToodlers() + " ," + booking.getTourFee() + " ," + booking.getAmountPaid() + " ," + booking.getSpecialRequest() + " ," + booking.isConfirm()
 	+ " ," + booking.getServiceCharge() + ") ;";
-
-	insertDeleteQuery(SQLstatrment);
+	
+	try{
+		insertDeleteQuery(SQLstatement) ; 
+	} catch(Exception e) {
 		
+	}		
+	
 }; 
 	
 		
@@ -88,7 +92,11 @@ public class JDBCBookingManager extends bookingManager {
 	public void deleteBookingByLineIdAndTourName ( String lineId , String bookingID ) {
 		String SQLstatement = " DELETE FROM BOOKING WHERE BookTableID = " + bookingID + "AND CUSTOMER ID = " + lineId + ";";
 
-		insertDeleteQuery(SQLstatement);
+		try{
+			insertDeleteQuery(SQLstatement) ; 
+		} catch(Exception e) {
+			
+		}
 	}
 
 }

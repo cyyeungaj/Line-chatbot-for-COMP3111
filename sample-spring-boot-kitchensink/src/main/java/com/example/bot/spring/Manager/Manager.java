@@ -10,7 +10,6 @@ import java.net.URI;
 
 @Slf4j
 public class Manager {
-	private Connection connection ;
 	
 	public Manager ( ) {
 		try {
@@ -29,23 +28,36 @@ public class Manager {
 		String password = dbUri.getUserInfo().split(":")[1];
 		String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath() +  "?ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory";
 
+		log.info("In setConnection Username: {} Password: {}", username, password);
+		log.info ("dbUrl: {}", dbUrl);
+		
+		connection = DriverManager.getConnection(dbUrl, username, password);
+		//this.connection = connection ; 
+	}
+	
+	protected Connection getConnection () throws URISyntaxException, SQLException{
+		Connection connection;
+		URI dbUri = new URI(System.getenv("DATABASE_URL"));
+
+		String username = dbUri.getUserInfo().split(":")[0];
+		String password = dbUri.getUserInfo().split(":")[1];
+		String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath() +  "?ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory";
+
 		log.info("Username: {} Password: {}", username, password);
 		log.info ("dbUrl: {}", dbUrl);
 		
 		connection = DriverManager.getConnection(dbUrl, username, password);
-		this.connection = connection ; 
+		return connection;
 	}
-	
 	
 	public ResultSet SelectionQuery(String sqlStatement ) throws Exception { 
 		
 		ResultSet result = null ; 
-		Connection connection = this.connection;
 		PreparedStatement stmt = null; 
-	
+		Connection connection = getConnection() ; 
 		try {
 			stmt = connection.prepareStatement(sqlStatement);
-			ResultSet rs = stmt.executeQuery() ; 
+			result = stmt.executeQuery() ; 
 		} catch (SQLException e) {
 			log.info("SQLException while loading the sql statement to sql server: {}", e.toString()); 
 		} finally {
@@ -69,8 +81,8 @@ public class Manager {
 		throw new Exception("NOT FOUND");
 }
 	
-	protected void insertDeleteQuery(String sqlStatement) {
-		Connection connection = this.connection;
+	protected void insertDeleteQuery(String sqlStatement) throws URISyntaxException, SQLException {
+		Connection connection = getConnection();
 		PreparedStatement stmt = null;
 
 		try{

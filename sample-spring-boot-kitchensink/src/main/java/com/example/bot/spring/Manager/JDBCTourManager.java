@@ -273,7 +273,11 @@ public class JDBCTourManager extends tourManager {
      */
 	public void insertTour(Tour tour) {
 		String SQLstatement = "INSERT INTO TOUR VALUES ( );";
-		insertDeleteQuery(SQLstatement);
+		try {
+			insertDeleteQuery(SQLstatement);
+		} catch(Exception e) {
+			
+		}
 	};
 	
 	public ArrayList<Tour> getPromotedTour() {

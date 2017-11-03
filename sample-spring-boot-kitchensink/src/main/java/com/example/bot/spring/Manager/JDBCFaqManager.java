@@ -19,11 +19,7 @@ public class JDBCFaqManager extends faqManager {
 	private ArrayList<FAQ> results = null;
 	
 	public JDBCFaqManager () {
-		try {
-			setConnection () ;
-		} catch( Exception e) {
-			
-		}
+		super() ; 
 	}
 	
 	public int getNumOfFAQ() {
@@ -37,7 +33,8 @@ public class JDBCFaqManager extends faqManager {
 			results = new ArrayList<>();
 			String query = "SELECT * FROM " + TABLE_NAME;
 			
-			ResultSet rs = null ; 
+			ResultSet rs = null ;
+			
 			try {
 				rs = SelectionQuery(query);
 			} catch ( Exception e ) {
@@ -76,7 +73,11 @@ public class JDBCFaqManager extends faqManager {
 					+ "', '"
 					+ answer 
 					+ "');";
-			insertDeleteQuery(sqlStatement);
+			try{
+				insertDeleteQuery(sqlStatement) ; 
+			} catch(Exception e) {
+				
+			}
 			return true;
 		}else {
 			return false;
