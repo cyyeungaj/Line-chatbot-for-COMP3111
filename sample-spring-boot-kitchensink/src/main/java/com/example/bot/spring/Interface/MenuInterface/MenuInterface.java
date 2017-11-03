@@ -109,7 +109,6 @@ public class MenuInterface extends UserInterface {
 	public void processInput( chatbotController controller, String userReply, Event event) {
 		int userInput = 0 ; 
 		lineMessagingClient.pushMessage(new PushMessage("U2336052073d2a3192d088b3215554ee1", new TextMessage("testing in menu process")));
-
 		try {
 			userInput= Integer.parseInt(userReply) ; 
 		}catch (NumberFormatException e) {

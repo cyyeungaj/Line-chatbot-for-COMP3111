@@ -233,10 +233,10 @@ public class KitchenSinkController {
 		String testing = null ;
 		Source src = event.getSource() ; 
 		String userId = src.getUserId() ;
+		JDBCFaqManager manager = new JDBCFaqManager() ; 
 		
-		
-		controller.processInput( text , event) ; 
-		this.replyText(replyToken , controller.getCurrentInterfaceMessage()) ; 
+		//controller.processInput( text , event) ; 
+		this.replyText(replyToken , manager.getAllFAQString()) ; 
 		
 		
 		/*
