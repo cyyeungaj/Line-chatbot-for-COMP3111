@@ -1,6 +1,13 @@
 package com.example.bot.spring;
 import java.util.* ; 
-
+import com.linecorp.bot.model.profile.UserProfileResponse;
+import com.linecorp.bot.model.event.BeaconEvent;
+import com.linecorp.bot.model.event.Event;
+import com.linecorp.bot.model.event.FollowEvent;
+import com.linecorp.bot.model.event.JoinEvent;
+import com.linecorp.bot.model.event.MessageEvent;
+import com.linecorp.bot.model.event.PostbackEvent;
+import com.linecorp.bot.model.event.UnfollowEvent;
 public class FAQInterface extends UserInterface {
 	
 	private final static int SHOW_FAQ_STATE = 0 ; 
@@ -26,7 +33,7 @@ public class FAQInterface extends UserInterface {
         messageBuilder.append("Is your question included in the list of faq?\n") ; 
 	}
 	
-	public void processInput( chatbotController controller, String userReply) {
+	public void processInput( chatbotController controller, String userReply, Event event) {
 		String lowerCaseUserReply = userReply.toLowerCase() ; 
 		
 	} 
