@@ -33,6 +33,8 @@ import com.linecorp.bot.model.Multicast ;
 import com.linecorp.bot.model.action.MessageAction;
 import com.linecorp.bot.model.action.PostbackAction;
 import com.linecorp.bot.model.action.URIAction;
+
+import com.linecorp.bot.model.profile.UserProfileResponse;
 import com.linecorp.bot.model.event.BeaconEvent;
 import com.linecorp.bot.model.event.Event;
 import com.linecorp.bot.model.event.FollowEvent;
@@ -77,6 +79,7 @@ import java.net.URI;
 
 public class PromotedToursInterface extends UserInterface {
 	public void processInput( chatbotController controller, String userReply , Event event )  {
+
 		
 	}
 

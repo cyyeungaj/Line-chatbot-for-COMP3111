@@ -13,76 +13,28 @@ import java.text.SimpleDateFormat;
 
 @Slf4j
 public class JDBCTourManager extends tourManager {
+	private final String TOUR_ID = "tour_id";
+	private final String TOUR_NAME = "tour_name";
+	private final String TOUR_DEC = "tour_shortdec";
+	private final String HOT = "hotel";
+	private final String DEPART_DATE = "departure_date";
+	private final String TG_NAME = "tour_guide";
+	private final String TG_LINE = "tour_guide_line_ac";
+	private final String COUNTRY_ID = "country_id";
 	
-	public ArrayList<Tour> getAllTours() {
-		String SQLstatement = "SELECT * FROM tourList;" ;
-		return null ;
-	} 
-
+	private final String REGION_ID = "region_id";
+	private final String DUR = "duration";
+	private final String TOUR_CAP = "tour_cap";
+	private final String MIN_REQ_CAP = "min_req_cap";
+	private final String FEE = "tour_fee";
+	
+	
 	/**
 	 *
 	 * @param low : lower boundary of range
 	 * @param high : upper boundary of proce
      * @return List of tours that price ranged (low,high) from the database
      */
-	
-	public ArrayList<Tour> getToursGroupedByName () {
-		ArrayList<Tour> result = new ArrayList<Tour>();
-		String SQLstatement = "Select * from tourlist group by  tour_name;";
-		ResultSet rs = null;
-		
-		try{ 
-	    	 rs = SelectionQuery(SQLstatement);
-		}  catch ( Exception e) {
-		   log.info("Exception occur when rs = SQLstatement.executeQuery(); in getToursGroupedByName ()", e.toString());
-		}
-	  
-		try {
-			while(rs.next()) 
-				result.add(getRecord(rs));
-		} catch ( Exception e) {
-		 log.info("SQLException while connecting to sql server: {}", e.toString());
-		}
-		
-		try {
-			rs.close();
-		} catch (SQLException e) {
-			
-		}
-
-		return result; 
-	}
-	
-	public ArrayList<Tour> getToursByName ( String tourName ) {
-		ArrayList<Tour> result = new ArrayList<Tour>();
-		String SQLstatement = "Select * from tourlist where tour_name = tourName;";
-		ResultSet rs = null;
-		try{ 
-	    	 rs = SelectionQuery(SQLstatement);
-		}  catch ( Exception e) {
-		   log.info("Exception occur when rs = SQLstatement.executeQuery(); in getToursByName ()", e.toString());
-		}
-	  
-		try 
-		{
-			while(rs.next()) 
-				result.add(getRecord(rs));
-		} catch (Exception e){
-		 log.info("SQLException while connecting to sql server: {}", e.toString());
-		}
-		
-		try {
-			rs.close();
-		} catch (SQLException e) {
-			
-		}
-		//SQLstatement.close();
-		return result;
-		
-	}
-	
-	
-	
 	public ArrayList<Tour> getToursByPriceRange( int low , int high) {
 
 		String SQLstatement = "SELECT * FROM TOUR WHERE PRICE BETWEEN " + low + " AND " + high + " ;" ;
@@ -96,35 +48,14 @@ public class JDBCTourManager extends tourManager {
 
 		try{
 			while(rs.next()){
-				String tourID, tourName, tourDescription, hotel, departureDate, tourGuideName, tourGuideLine;
-				int countryID, regionID, duration, tourCapacity, minimumCustomerRequired;
-				double price;
-
-				tourID = rs.getString("");
-				tourName = rs.getString("");
-				tourDescription = rs.getString("");
-				hotel = rs.getString("");
-				departureDate = rs.getString("");
-				tourGuideName = rs.getString("");
-				tourGuideLine = rs.getString("");
-
-				countryID = rs.getInt("");
-				regionID = rs.getInt("");
-				duration = rs.getInt("");
-				tourCapacity = rs.getInt("");
-				minimumCustomerRequired = rs.getInt("");
-
-				price = rs.getDouble("");
-
-				Tour tour = new Tour(tourID, countryID, regionID, tourName, tourDescription,
-						hotel, duration, departureDate, tourCapacity, minimumCustomerRequired,
-						price, tourGuideName, tourGuideLine);
-				result.add(tour);
+				result.add(getRecord(rs));
 			}
 
 		}catch (SQLException e){
 
 		}
+		
+		
 		return result;
 	}
 
@@ -179,36 +110,14 @@ public class JDBCTourManager extends tourManager {
 			}
 			try {
 				while (rs.next()) {
-					String tourID, tourName, tourDescription, hotel, departureDate, tourGuideName, tourGuideLine;
-					int countryID, regionID, duration, tourCapacity, minimumCustomerRequired;
-					double price;
-
-					tourID = rs.getString(" ");
-					tourName = rs.getString("");
-					tourDescription = rs.getString("");
-					hotel = rs.getString("");
-					departureDate = rs.getString("");
-					tourGuideName = rs.getString("");
-					tourGuideLine = rs.getString("");
-
-					countryID = rs.getInt("");
-					regionID = rs.getInt("");
-					duration = rs.getInt("");
-					tourCapacity = rs.getInt("");
-					minimumCustomerRequired = rs.getInt("");
-
-					price = rs.getDouble("");
-
-					Tour tour = new Tour(tourID, countryID, regionID, tourName, tourDescription,
-							hotel, duration, departureDate, tourCapacity, minimumCustomerRequired,
-							price, tourGuideName, tourGuideLine);
-					result.add(tour);
+					result.add(getRecord(rs));
 				}
 
 			} catch (SQLException e) {
 				log.info("SQLException while connecting to sql server: {}", e.toString());
 			}
-
+       
+        
 		if(result != null)
 			return result;
 		}else // Case that place is a region
@@ -234,36 +143,14 @@ public class JDBCTourManager extends tourManager {
 			
 			try {
 				while (rs.next()) {
-					String tourID, tourName, tourDescription, hotel, departureDate, tourGuideName, tourGuideLine;
-					int countryID, regionID, duration, tourCapacity, minimumCustomerRequired;
-					double price;
-
-					tourID = rs.getString("");
-					tourName = rs.getString(" ");
-					tourDescription = rs.getString("");
-					hotel = rs.getString("");
-					departureDate = rs.getString("");
-					tourGuideName = rs.getString("");
-					tourGuideLine = rs.getString("");
-
-					countryID = rs.getInt("");
-					regionID = rs.getInt("");
-					duration = rs.getInt("");
-					tourCapacity = rs.getInt("");
-					minimumCustomerRequired = rs.getInt("");
-
-					price = rs.getDouble("");
-
-					Tour tour = new Tour(tourID, countryID, regionID, tourName, tourDescription,
-							hotel, duration, departureDate, tourCapacity, minimumCustomerRequired,
-							price, tourGuideName, tourGuideLine);
-					result.add(tour);
+					result.add(getRecord(rs));
 				}
 
 			} catch (SQLException e) {
 				log.info("SQLException while connecting to sql server: {}", e.toString());
 			}
-
+         
+         
 			if(result != null)
 				return result;
 		}
@@ -335,37 +222,16 @@ public class JDBCTourManager extends tourManager {
 		}
 		ArrayList<Tour> result = new ArrayList<Tour>();
 		try{
-			while (rs.next()) {
-				String tourID, tourName, tourDescription, hotel, departureDate, tourGuideName, tourGuideLine;
-				int countryID, regionID, duration, tourCapacity, minimumCustomerRequired;
-				double price;
-
-				tourID = rs.getString(" ");
-				tourName = rs.getString(" ");
-				tourDescription = rs.getString("");
-				hotel = rs.getString("");
-				departureDate = rs.getString("");
-				tourGuideName = rs.getString("");
-				tourGuideLine = rs.getString("");
-
-				countryID = rs.getInt("");
-				regionID = rs.getInt("");
-				duration = rs.getInt("");
-				tourCapacity = rs.getInt("");
-				minimumCustomerRequired = rs.getInt("");
-
-				price = rs.getDouble("");
-
-				Tour tour = new Tour(tourID, countryID, regionID, tourName, tourDescription,
-						hotel, duration, departureDate, tourCapacity, minimumCustomerRequired,
-						price, tourGuideName, tourGuideLine);
-				result.add(tour);
+			while (rs.next()) 
+			{
+				result.add(getRecord(rs));
 			}
 
 		}catch (SQLException e){
 			log.info("SQLException while connecting to sql server: {}", e.toString());
 		}
-
+		
+		
 		return result;
 	}
 
@@ -411,40 +277,123 @@ public class JDBCTourManager extends tourManager {
 	};
 	
 	public ArrayList<Tour> getPromotedTour() {
-		return null ; 
+		String SQLstatement = "SELECT * FROM tourlist inner join promotion on tourlist.tour_id = promotion.tour_id; ";
+		ResultSet rs = null;
+		 ArrayList<Tour> result = new  ArrayList<Tour>();
+	   try{ 
+		   rs =  SelectionQuery(SQLstatement);
+		}  catch ( Exception e) {
+		   log.info("Exception occur when rs = SelectionQuery(SQLstatement); in getPromotionTour ()", e.toString());
+		}
+	  
+	    try {
+	    while (rs.next())
+	    {
+	    	result.add(getRecord(rs));
+	    }	
+	    }catch (SQLException e)
+	    {log.info("SQLException while connecting to sql server: {}", e.toString());}
+	   
+	    
+		
+		return result;
+		
+	}
+
+	public ArrayList<Tour> getToursGroupedByName () {
+		ArrayList<Tour> result = new ArrayList<Tour>();
+		String SQLstatement = "Select * from tourlist group by  tour_name;";
+		ResultSet rs = null;
+		try{ 
+			rs =  SelectionQuery(SQLstatement);
+		}  
+		catch ( Exception e) 
+		{
+		   log.info("Exception occur when rs = SelectionQuery(SQLstatement); in getToursGroupedByName ()", e.toString());
+		}
+	  
+		try 
+			{
+				while(rs.next()) 
+					{
+						result.add(getRecord(rs));
+						}
+				}
+		catch (SQLException e)
+			{
+				log.info("SQLException while connecting to sql server: {}", e.toString());
+				}
+					
+		
+		
+		
+		return result; 
 	}
 	
+	public ArrayList<Tour> getToursByName ( String tourName ) {
+		ArrayList<Tour> result = new ArrayList<Tour>();
+		String SQLstatement = "Select * from tourlist where tour_name = tourName;";
+		ResultSet rs = null;
+		try{ 
+	    	 rs =  SelectionQuery(SQLstatement);
+		}  catch (Exception e) 
+		{
+		   log.info("Exception occur when rs = SelectionQuery(SQLstatement); in getToursByName ()", e.toString());
+		}
+	  
+		try 
+		{
+		while(rs.next()) 
+		{
+			result.add(getRecord(rs));
+		}
+		}
+		catch (SQLException e)
+		{
+		 log.info("SQLException while connecting to sql server: {}", e.toString());
+		}
+		
+		
+		
+		
+		return result;
+		
+	}
+	
+	
 	public Tour getRecord(ResultSet rs){
-		Tour tour = null ; 
+				
 		try {
-		String tourID, tourName, tourDescription, hotel, departureDate, tourGuideName, tourGuideLine;
-		int countryID, regionID, duration, tourCapacity, minimumCustomerRequired;
-		double price;
+			String tourID, tourName, tourDescription, hotel, departureDate, tourGuideName, tourGuideLine;
+			int countryID, regionID, duration, tourCapacity, minimumCustomerRequired ;
+			double price;
 
-		tourID = rs.getString("");
-		tourName = rs.getString(" ");
-		tourDescription = rs.getString("");
-		hotel = rs.getString("");
-		departureDate = rs.getString("");
-		tourGuideName = rs.getString("");
-		tourGuideLine = rs.getString("");
-
-		countryID = rs.getInt("");
-		regionID = rs.getInt("");
-		duration = rs.getInt("");
-		tourCapacity = rs.getInt("");
-		minimumCustomerRequired = rs.getInt("");
-
-		price = rs.getDouble("");
-
-		tour = new Tour(tourID, countryID, regionID, tourName, tourDescription,
+		tourID = rs.getString(TOUR_ID);
+		tourName = rs.getString(TOUR_NAME);
+		tourDescription = rs.getString(TOUR_DEC );
+		hotel = rs.getString(HOT);
+		departureDate = rs.getString(DEPART_DATE);
+		tourGuideName = rs.getString(TG_NAME);
+		tourGuideLine = rs.getString(TG_LINE);
+		countryID = rs.getInt(COUNTRY_ID);
+		regionID = rs.getInt(REGION_ID);
+		duration = rs.getInt(DUR);
+		tourCapacity = rs.getInt(TOUR_CAP);
+		minimumCustomerRequired = rs.getInt(MIN_REQ_CAP);
+		price = rs.getDouble(FEE);
+	
+		Tour tour = new Tour(tourID, countryID, regionID, tourName, tourDescription,
 				hotel, duration, departureDate, tourCapacity, minimumCustomerRequired,
 				price, tourGuideName, tourGuideLine);
 		
-		} catch (SQLException e) {
-			log.info("SQLException while connecting to sql server: {}", e.toString());
-		}	
 		return tour;
+		
+		}catch (Exception e) {}
+		
+		return null;
+	
 	}
-
+	
+	
+	
 }

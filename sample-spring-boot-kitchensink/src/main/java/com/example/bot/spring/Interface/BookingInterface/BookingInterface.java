@@ -1,9 +1,21 @@
 package com.example.bot.spring;
+import java.lang.StringBuilder;
 
 import java.util.* ;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter ; 
+
+import java.sql.ResultSet;
+import com.linecorp.bot.model.profile.UserProfileResponse;
+import com.linecorp.bot.model.event.BeaconEvent;
+import com.linecorp.bot.model.event.Event;
+import com.linecorp.bot.model.event.FollowEvent;
+import com.linecorp.bot.model.event.JoinEvent;
+import com.linecorp.bot.model.event.MessageEvent;
+import com.linecorp.bot.model.event.PostbackEvent;
+import com.linecorp.bot.model.event.UnfollowEvent;
+import java.util.ArrayList;
 
 
 
@@ -99,7 +111,7 @@ public class BookingInterface extends UserInterface {
 	private String SHOW_ASSEMBLY_POINT_MESSAGE = "" ; 
 	private String ASK_FOR_HKID_STATE_MESSAGE = "What is your HKID?" ; 
 	
-	
+
 	private int currentState ;
 	private String currentMessage ; 
 	private ArrayList<Tour> tourList ; 
@@ -107,6 +119,8 @@ public class BookingInterface extends UserInterface {
 	private static int counter ; 
 	private Tour selectedTour  ; 
 	
+
+
 	public BookingInterface () {
 			init() ; 
 	}
@@ -194,7 +208,11 @@ public class BookingInterface extends UserInterface {
 				controller.setInterface(new MenuInterface()) ; 
 				break ;
 		}
+
+
 	}
+	
+
 
 	
 }

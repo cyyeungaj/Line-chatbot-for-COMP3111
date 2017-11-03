@@ -31,6 +31,8 @@ import com.linecorp.bot.model.Multicast ;
 import com.linecorp.bot.model.action.MessageAction;
 import com.linecorp.bot.model.action.PostbackAction;
 import com.linecorp.bot.model.action.URIAction;
+
+import com.linecorp.bot.model.profile.UserProfileResponse;
 import com.linecorp.bot.model.event.BeaconEvent;
 import com.linecorp.bot.model.event.Event;
 import com.linecorp.bot.model.event.FollowEvent;
@@ -38,6 +40,7 @@ import com.linecorp.bot.model.event.JoinEvent;
 import com.linecorp.bot.model.event.MessageEvent;
 import com.linecorp.bot.model.event.PostbackEvent;
 import com.linecorp.bot.model.event.UnfollowEvent;
+
 import com.linecorp.bot.model.event.message.AudioMessageContent;
 import com.linecorp.bot.model.event.message.ImageMessageContent;
 import com.linecorp.bot.model.event.message.LocationMessageContent;
@@ -83,9 +86,10 @@ public class chatbotController {
 	public void setInterface ( UserInterface currentInterface) {
 		this.currentInterface = currentInterface ; 
 	}
-	
+
 	public void processInput ( String userInput , Event event ) {
 		currentInterface.processInput(this , userInput , event) ; 
+
 	}
 	
 	public String getCurrentInterfaceMessage () {
