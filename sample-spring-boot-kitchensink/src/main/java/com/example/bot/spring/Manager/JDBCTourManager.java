@@ -348,7 +348,72 @@ public class JDBCTourManager extends tourManager {
 	};
 	
 	public ArrayList<Tour> getPromotedTour() {
+		ArrayList<Tour> result = new ArrayList<Tour>();
+		DateFormat dateFormat = new SimpleDateFormat ("yyyy-MM-dd");
+		Date date = new Date();
+		String SQLstatement = "SELECT * FROM promotion WHERE " + date + " <= end_date;";
+		ResultSet rs = null;
+		
+	  
+	    try{ 
+	    	 rs = SQLstatement.executeQuery)();
+		}  catch ( Exception e) {
+		   log.info("Exception occur when rs = SQLstatement.executeQuery(); in getPromotionTour ()", e.toString());
+		}
+	  
+	    try {
+	    While (rs.next()){
+	    	System.out.println("Prom");
+	   
+	    }	
+	    }catch {log.info("SQLException while connecting to sql server: {}", e.toString());}
+		
 		return null ; 
 	}
 
+	public ArrayList<Tour> getToursGroupedByName () {
+	
+	}
+	
+	public ArrayList<Tour> getToursByName ( String tourName ) {
+	
+		
+	}
+	
+	
+	public Tour getRecord(ResultSet rs){
+				
+		try {
+		String tourID, tourName, tourDescription, hotel, departureDate, tourGuideName, tourGuideLine;
+		int countryID, regionID, duration, tourCapacity, minimumCustomerRequired;
+		double price;
+
+		tourID = rs.getString("");
+		tourName = rs.getString(" ");
+		tourDescription = rs.getString("");
+		hotel = rs.getString("");
+		departureDate = rs.getString("");
+		tourGuideName = rs.getString("");
+		tourGuideLine = rs.getString("");
+
+		countryID = rs.getInt("");
+		regionID = rs.getInt("");
+		duration = rs.getInt("");
+		tourCapacity = rs.getInt("");
+		minimumCustomerRequired = rs.getInt("");
+
+		price = rs.getDouble("");
+
+		Tour tour = new Tour(tourID, countryID, regionID, tourName, tourDescription,
+				hotel, duration, departureDate, tourCapacity, minimumCustomerRequired,
+				price, tourGuideName, tourGuideLine);
+		
+} catch (SQLException e) {
+	log.info("SQLException while connecting to sql server: {}", e.toString());
+}	
+		return tour;
+	}
+	
+	
+	
 }

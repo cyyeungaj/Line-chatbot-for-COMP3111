@@ -1,6 +1,7 @@
 package com.example.bot.spring;
 
 
+import java.lang.StringBuilder;
 public abstract class UserInterface {
 	
 	private String message ;

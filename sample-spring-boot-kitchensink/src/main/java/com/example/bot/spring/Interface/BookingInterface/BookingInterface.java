@@ -1,4 +1,5 @@
 package com.example.bot.spring;
+import java.lang.StringBuilder;
 
 
 public class BookingInterface extends UserInterface {
@@ -13,11 +14,18 @@ public class BookingInterface extends UserInterface {
 	private final static int SHOW_ASSEMBLY_POINT_STATE = 7 ; 
 	private int currentState ;
 	
-	public BookingInterface ( ) {
-		 
+	public BookingInterface ( )
+	{
+	
+		
+		
 	}
 	
-	public void processInput( chatbotController controller, String userReply) {
+	public void processInput( chatbotController controller, String userReply) 
+	{
+		
+		
+		
 		
 	}
 
