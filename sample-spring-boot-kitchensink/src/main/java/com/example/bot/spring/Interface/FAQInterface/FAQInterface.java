@@ -1,4 +1,5 @@
 package com.example.bot.spring;
+
 import java.util.* ; 
 import com.linecorp.bot.model.profile.UserProfileResponse;
 import com.linecorp.bot.model.event.BeaconEvent;
@@ -39,5 +40,8 @@ public class FAQInterface extends UserInterface {
 	} 
 	
 	
-
+	
+	public void processInput( chatbotController controller, String userReply) 
+	{
+	}
 }

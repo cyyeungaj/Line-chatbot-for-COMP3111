@@ -1,4 +1,5 @@
 package com.example.bot.spring;
+import java.lang.StringBuilder;
 
 
 import java.sql.ResultSet;
@@ -28,12 +29,14 @@ public class BookingInterface extends UserInterface {
 	private ArrayList<Tour> tourList ; 
 	
 
+
 	public BookingInterface () {
 		//JDBCTourManager manager = new JDBCTourManager() ; 
 
 	}
 	
 	public void processInput( chatbotController controller, String userReply, Event event) {
+
 		
 	}
 

@@ -8,6 +8,7 @@ import com.linecorp.bot.model.event.PostbackEvent;
 import com.linecorp.bot.model.event.UnfollowEvent;
 
 
+import java.lang.StringBuilder;
 public abstract class UserInterface {
 	
 	private String message ;
