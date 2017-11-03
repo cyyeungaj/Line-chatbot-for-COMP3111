@@ -229,10 +229,13 @@ public class KitchenSinkController {
 		String text = content.getText() ; 
 
         this.replyText(replyToken, "testing1") ; 
-		lineMessagingClient.pushMessage(new PushMessage("U2336052073d2a3192d088b3215554ee1", new TextMessage("testing for push")));
-		controller.processInput(text , event) ; 
-        this.replyText(replyToken, "testing2") ; 
-        this.replyText(replyToken, controller.getCurrentInterfaceMessage()) ; 
+		//lineMessagingClient.pushMessage(new PushMessage("U2336052073d2a3192d088b3215554ee1", new TextMessage("testing for push")));
+		//controller.processInput(text , event) ; 
+        //this.replyText(replyToken, "testing2") ; 
+        JDBCFaqManager manager = new JDBCFaqManager() ; 
+
+        
+        this.replyText(replyToken, manager.getAllFAQString()) ; 
 		
 		/*
         String text = content.getText();
