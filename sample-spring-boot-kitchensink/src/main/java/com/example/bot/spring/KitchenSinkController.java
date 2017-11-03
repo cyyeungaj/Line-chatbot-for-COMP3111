@@ -228,9 +228,9 @@ public class KitchenSinkController {
             throws Exception {
 		String text = content.getText() ; 
 
-        this.replyText(replyToken, "testing") ; 
+        this.replyText(replyToken, "testing1") ; 
 		controller.processInput(text , event) ; 
-        this.replyText(replyToken, "testing") ; 
+        this.replyText(replyToken, "testing2") ; 
         this.replyText(replyToken, controller.getCurrentInterfaceMessage()) ; 
 		
 		/*
