@@ -28,11 +28,8 @@ public class SQLDatabaseEngine extends DatabaseEngine {
 		try {
 			stmt = connection.prepareStatement(SQLstatement); 
 			ResultSet rs = stmt.executeQuery() ;
-			while(rs.next()) { 
-				result += rs.getString("question") ;
-				result += "\n" ; 
-			}
-		
+			if (rs.next()) result = rs.getString("question") ;
+			
 		} catch (SQLException e) {
 			log.info("SQLException while loading the sql statement to sql server: {}", e.toString());
 		} finally {
@@ -54,6 +51,7 @@ public class SQLDatabaseEngine extends DatabaseEngine {
 		}
 		if(result != null ) return result ; 
 		throw new Exception("NOT FOUND");
+		
 	}
 	
 	
