@@ -14,14 +14,14 @@ public class Manager {
 	
 	public Manager ( ) {
 		try {
-				this.setConnection () ;
+			this.setConnection () ;
 		} catch( Exception e) {
 			log.info("Exception occur in manager constructor on setConnection statement") ; 
 		}
 		
 	}
 	
-	private void setConnection () throws URISyntaxException, SQLException{
+	protected void setConnection () throws URISyntaxException, SQLException{
 		Connection connection;
 		URI dbUri = new URI(System.getenv("DATABASE_URL"));
 

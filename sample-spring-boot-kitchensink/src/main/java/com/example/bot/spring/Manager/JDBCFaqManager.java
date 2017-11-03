@@ -19,7 +19,11 @@ public class JDBCFaqManager extends faqManager {
 	private ArrayList<FAQ> results = null;
 	
 	public JDBCFaqManager () {
-		
+		try {
+			setConnection () ;
+		} catch( Exception e) {
+			
+		}
 	}
 	
 	public int getNumOfFAQ() {
