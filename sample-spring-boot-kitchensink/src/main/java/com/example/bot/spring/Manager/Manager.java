@@ -7,28 +7,28 @@ import java.sql.*;
 import java.net.URISyntaxException;
 import java.io.IOException;
 import java.net.URI;
-import java.util.*;
 
+@Slf4j
 public class Manager {
 	private Connection connection ;
 	
 	
-	public void setConnection ( Connection connection ) {
+	private void setConnection ( Connection connection ) {
 		this.connection = connection ; 
 	} 
 	
-	public ResultSet SelectionQuery(String sqlStatement ) { 
-		ResultSet result = null ; 
+	
+	public ResultSet SelectionQuery(String sqlStatement ) throws Exception { 
 		
+		ResultSet result = null ; 
 		Connection connection = this.connection;
 		PreparedStatement stmt = null; 
-		
-		
+	
 		try {
-			stmt = connection.prepareStatement(SQLstatement);  
+			stmt = connection.prepareStatement(sqlStatement);
 			ResultSet rs = stmt.executeQuery() ; 
 		} catch (SQLException e) {
-			log.info("SQLException while loading the sql statement to sql server: {}", e.toString());
+			log.info("SQLException while loading the sql statement to sql server: {}", e.toString()); 
 		} finally {
 				if(connection != null) {
 					try {
@@ -48,8 +48,34 @@ public class Manager {
 		}
 		if(result != null ) return result ; 
 		throw new Exception("NOT FOUND");
-
-	} ;
-	public void insertQuery(String sqlStatement) {}
+}
 	
+	protected void insertDeleteQuery(String sqlStatement) {
+		Connection connection = this.connection;
+		PreparedStatement stmt = null;
+
+		try{
+			stmt = connection.prepareStatement(sqlStatement);
+			stmt.execute();
+		}catch(SQLException e){
+			log.info("SQLException while loading the sql statement to sql server: {}", e.toString());
+		}finally {
+			if(connection != null) {
+				try {
+					connection.close() ;
+				} catch (SQLException e ) {
+					log.info("SQLException when connection was closed ") ;
+				}
+			}
+
+			if(stmt != null) {
+				try {
+					stmt.close() ;
+				} catch (SQLException e ) {
+					log.info("SQLException when sql statement was closed ") ;
+				}
+			}
+		}
+
+	}
 }
