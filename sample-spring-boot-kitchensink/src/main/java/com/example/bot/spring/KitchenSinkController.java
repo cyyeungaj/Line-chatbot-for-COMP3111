@@ -227,7 +227,7 @@ public class KitchenSinkController {
 	private void handleTextContent(String replyToken, Event event, TextMessageContent content)
             throws Exception {
 		String text = content.getText() ; 
-		controller.processInput(text) ; 
+		controller.processInput(text, event) ; 
         this.replyText(replyToken, controller.getCurrentInterfaceMessage()) ; 
 		
 		/*

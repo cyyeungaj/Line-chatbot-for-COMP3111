@@ -1,6 +1,14 @@
 package com.example.bot.spring;
-import java.util.* ; 
 
+import java.util.* ; 
+import com.linecorp.bot.model.profile.UserProfileResponse;
+import com.linecorp.bot.model.event.BeaconEvent;
+import com.linecorp.bot.model.event.Event;
+import com.linecorp.bot.model.event.FollowEvent;
+import com.linecorp.bot.model.event.JoinEvent;
+import com.linecorp.bot.model.event.MessageEvent;
+import com.linecorp.bot.model.event.PostbackEvent;
+import com.linecorp.bot.model.event.UnfollowEvent;
 public class FAQInterface extends UserInterface {
 	private final int SHOW_FAQ_STATE = 0; 
 	private final int ASK_ANY_QUESTION_ELSE_STATE = 1;
@@ -99,7 +107,10 @@ public class FAQInterface extends UserInterface {
 	
 	public void quitInterface(chatbotController controller) {
 		/*  quit FAQ interface   */
-	}
+    }
+
+	
+	
 }
 
 
