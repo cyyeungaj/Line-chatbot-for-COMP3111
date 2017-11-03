@@ -18,11 +18,16 @@ public class JDBCFaqManager extends faqManager {
 	private final String COL_ANSWER = "answer";
 	private ArrayList<FAQ> results = null;
 	
+	public JDBCFaqManager () {
+		
+	}
+	
 	public int getNumOfFAQ() {
 		if(results == null)
 			return 0;
 		return results.size();
 	}
+	
 	public ArrayList<FAQ> getAllFAQ(){
 		if(results == null) {
 			results = new ArrayList<>();
@@ -31,10 +36,11 @@ public class JDBCFaqManager extends faqManager {
 			ResultSet rs = null ; 
 			try {
 				rs = SelectionQuery(query);
-			} catch( Exception e) {
-				
-				
+
+			} catch ( Exception e ) {
+				log.info("Exception occur in statement rs=SelectQuery in getAllFAQ function") ; 
 			}
+			
 			try {
 				while(rs.next()) {
 					int questionNum = rs.getInt(COL_QUESTION_NUM);
