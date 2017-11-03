@@ -15,14 +15,14 @@ public class BookingInterface extends UserInterface {
 	private final static int ASK_FOR_TOODLERNO_STATE = 5 ; 
 	private final static int ASK_FOR_FEECONFIRM_STATE = 6 ; 
 	private final static int SHOW_ASSEMBLY_POINT_STATE = 7 ;
-	
-
 
 	private int currentState ;
 	private ArrayList<Tour> tourList ; 
 	
+
 	public BookingInterface () {
 		//JDBCTourManager manager = new JDBCTourManager() ; 
+
 	}
 	
 	public void processInput( chatbotController controller, String userReply) {
