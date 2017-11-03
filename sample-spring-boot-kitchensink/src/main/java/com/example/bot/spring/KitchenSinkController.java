@@ -231,27 +231,31 @@ public class KitchenSinkController {
             throws Exception {
 		String text = content.getText() ; 
 		String testing = null ;
-		
-		
-		Manager manager = new JDBCFaqManager() ; 
-		ResultSet rs = null ;
-		Connection connection = SQLDatabaseEngine.getConnection() ; 
-		PreparedStatement stmt = connection.prepareStatement("SELECT * from faq;") ; 
-		try{
-			rs = stmt.executeQuery() ;
-		} catch( Exception e ) {
-			log.info("Exception occur rs = manager.SelectionQuery(\"SELECT * from faq") ; 	
-		}
-		int currentNo = 0 ; 
-		String q = null ; 
-		String a = null ; 
-		while(rs.next()) {
-			currentNo = rs.getInt("question_no") ; 
-			q = rs.getString("question") ;
-			a = rs.getString("answer") ;
-            this.replyText(replyToken, currentNo+q+a);
+		Source src = event.getSource() ; 
+		String userId = src.getUserId() ;
 
+		if( text.compareTo("3") == 0 )
+		{
+			Manager manager = new JDBCFaqManager() ; 
+			ResultSet rs = null ;
+			Connection connection = SQLDatabaseEngine.getConnection() ; 
+			PreparedStatement stmt = connection.prepareStatement("SELECT * from faq;") ; 
+			try{
+				rs = stmt.executeQuery() ;
+			} catch( Exception e ) {
+				log.info("Exception occur rs = manager.SelectionQuery(\"SELECT * from faq") ; 	
+			}
+			int currentNo = 0 ; 
+			String q = null ; 
+			String a = null ; 
+			while(rs.next()) {
+				currentNo = rs.getInt("question_no") ; 
+				q = rs.getString("question") ;
+				a = rs.getString("answer") ;
+				lineMessagingClient.pushMessage(new PushMessage(userId, new TextMessage(currentNo+".  " + q + "\n" + a + "\n")));
+			}
 		}
+		
 		/*
 		String result = null ; 
 		try {
