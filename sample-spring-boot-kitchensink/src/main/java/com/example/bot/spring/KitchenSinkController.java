@@ -119,7 +119,7 @@ public class KitchenSinkController {
 	}
 
 	@EventMapping
-	public void handleImageMessageEvent(MessageEvent<ImageMessageContent> event) throws IOException {
+	public void handleEvent(MessageEvent<ImageMessageContent> event) throws IOException {
 		final MessageContentResponse response;
 		String replyToken = event.getReplyToken();
 		String messageId = event.getMessage().getId();
@@ -227,7 +227,7 @@ public class KitchenSinkController {
 	private void handleTextContent(String replyToken, Event event, TextMessageContent content)
             throws Exception {
 		String text = content.getText() ; 
-		controller.processInput(text) ; 
+		controller.processInput(text , event) ; 
         this.replyText(replyToken, controller.getCurrentInterfaceMessage()) ; 
 		
 		/*
