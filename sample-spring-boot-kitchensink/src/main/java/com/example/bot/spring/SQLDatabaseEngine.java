@@ -71,8 +71,9 @@ public class SQLDatabaseEngine extends DatabaseEngine {
 		
 		
 		try {
-			stmt = connection.prepareStatement(SQLstatement); 
-			stmt.setString(1,text) ; 
+			/*stmt = connection.prepareStatement(SQLstatement); 
+			stmt.setString(1,text) ; */
+			
 			ResultSet rs = stmt.executeQuery() ;
 			if(rs.next()) result = rs.getString("reply") ; 
 		

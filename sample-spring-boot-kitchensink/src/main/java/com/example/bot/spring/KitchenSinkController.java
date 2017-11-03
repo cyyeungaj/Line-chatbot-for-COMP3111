@@ -233,7 +233,11 @@ public class KitchenSinkController {
 		String testing = null ;
 		Source src = event.getSource() ; 
 		String userId = src.getUserId() ;
-
+		
+		controller.processInput( text , event) ; 
+		this.replyText(replyToken , controller.getCurrentInterfaceMessage()) ; 
+		
+		/*
 		if( text.compareTo("3") == 0 )
 		{
 			Manager manager = new JDBCFaqManager() ; 
@@ -255,7 +259,7 @@ public class KitchenSinkController {
 				lineMessagingClient.pushMessage(new PushMessage(userId, new TextMessage(currentNo+".  " + q + "\n" + a + "\n")));
 			}
 		}
-		
+		*/
 		/*
 		String result = null ; 
 		try {

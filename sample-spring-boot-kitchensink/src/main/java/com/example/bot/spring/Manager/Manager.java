@@ -5,7 +5,7 @@ import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
 import java.sql.*;
 import java.net.URISyntaxException;
-import java.io.IOException;
+import java.io.IOException ; 
 import java.net.URI;
 
 @Slf4j
@@ -60,23 +60,9 @@ public class Manager {
 			result = stmt.executeQuery() ; 
 		} catch (SQLException e) {
 			log.info("SQLException while loading the sql statement to sql server: {}", e.toString()); 
-		} finally {
-				if(connection != null) {
-					try {
-						connection.close() ;
-					} catch (SQLException e ) {
-						log.info("SQLException when connection was closed ") ;
-					}
-				}
-				
-				if(stmt != null) {
-					try {
-						stmt.close() ; 
-					} catch (SQLException e ) {
-						log.info("SQLException when sql statement was closed ") ; 
-					}	
-				}
-		}
+		} 
+		
+		
 		if(result != null ) return result ; 
 		throw new Exception("NOT FOUND");
 }
@@ -90,22 +76,6 @@ public class Manager {
 			stmt.execute();
 		}catch(SQLException e){
 			log.info("SQLException while loading the sql statement to sql server: {}", e.toString());
-		}finally {
-			if(connection != null) {
-				try {
-					connection.close() ;
-				} catch (SQLException e ) {
-					log.info("SQLException when connection was closed ") ;
-				}
-			}
-
-			if(stmt != null) {
-				try {
-					stmt.close() ;
-				} catch (SQLException e ) {
-					log.info("SQLException when sql statement was closed ") ;
-				}
-			}
 		}
 
 	}

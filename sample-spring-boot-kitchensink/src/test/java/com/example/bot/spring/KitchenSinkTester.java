@@ -127,13 +127,12 @@ public class KitchenSinkTester {
 			stmt.setString(1,text) ; 
 			ResultSet rs = stmt.executeQuery() ;
 			if(rs.next()) result = rs.getString("reply") ;
-		
+		*/
 		Manager manager = new JDBCFaqManager() ; 
 		ResultSet rs = null ;
 		Connection connection = SQLDatabaseEngine.getConnection() ; 
 		PreparedStatement stmt = connection.prepareStatement("SELECT * from faq;") ; 
 		try{
-			//rs = manager.SelectionQuery("SELECT * from faq;");
 			rs=manager.SelectionQuery("SELECT * from faq;"); 
 		} catch( Exception e ) {
 			log.info("Exception occur rs = manager.SelectionQuery(\"SELECT * from faq") ; 	
@@ -146,18 +145,18 @@ public class KitchenSinkTester {
 			q = rs.getString("question") ;
 			a = rs.getString("answer") ; 
 		}
-		
+		/*
 		String result = null ; 
 		try {
 			result = this.databaseEngine.faq() ; 
 		} catch (Exception e) {
 			log.info("Exception occur in result = this.databaseEngine.faq() ") ; 	
-		}
+		}*/
 		
 		assertThat(q).isEqualTo("How to apply?") ;
 		assertThat(currentNo).isEqualTo(1) ; 
 		//assertThat(a).isEqualTo("Customers shall approach the company by phone or visit our store (in Clearwater bay) with the choosen tour code and departure date. If it is not full, customers will be advised by the staff to pay the tour fee. Tour fee is non refundable. Customer can pay their fee by ATM to 123-345-432-211 of ABC Bank or by cash in our store. Customer shall send their pay-in slip to us by email or LINE.");
-	*/
+	
 	}
 	
 	

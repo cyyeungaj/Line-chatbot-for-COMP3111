@@ -336,8 +336,7 @@ public class SearchingTourInterface extends UserInterface {
 		Source src = event.getSource() ; 
 		String userId = src.getUserId() ;
 		super.setMessage(messageBuilder.toString());
-		lineMessagingClient.pushMessage(new PushMessage(userId, new TextMessage(super.getMessage())));
-		
+		lineMessagingClient.pushMessage(new PushMessage(userId, new TextMessage(super.getMessage())));	
 	}
 	
 }
