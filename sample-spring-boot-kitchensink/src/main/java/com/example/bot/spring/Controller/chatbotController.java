@@ -89,7 +89,6 @@ public class chatbotController {
 
 	public void processInput ( String userInput , Event event ) {
 		currentInterface.processInput(this , userInput , event) ; 
-
 	}
 	
 	public String getCurrentInterfaceMessage () {
