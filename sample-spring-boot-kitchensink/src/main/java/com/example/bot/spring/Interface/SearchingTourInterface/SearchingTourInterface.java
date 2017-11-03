@@ -1,5 +1,4 @@
 package com.example.bot.spring;
-<<<<<<< HEAD
 
 import com.linecorp.bot.client.LineMessagingClientImpl;
 import org.springframework.beans.factory.annotation.Autowired;
