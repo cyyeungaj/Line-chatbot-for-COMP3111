@@ -83,6 +83,10 @@ public class chatbotController {
 		this.currentInterface = currentInterface ; 
 	}
 	
+	public chatbotController () {
+		this.currentInterface = new MenuInterface() ; 
+	}
+	
 	public void setInterface ( UserInterface currentInterface) {
 		this.currentInterface = currentInterface ; 
 	}

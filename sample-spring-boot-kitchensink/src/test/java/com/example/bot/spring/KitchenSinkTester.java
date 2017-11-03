@@ -94,6 +94,12 @@ public class KitchenSinkTester {
 		//assertThat(results.get(1))
 	}
 	
+	public void testforInterfaceProcess () {
+		chatbotController controller = new chatbotController() ; 
+		controller.processInput("3" , null) ; 
+		assertThat(controller.getCurrentInterfaceMessage()).isEqualTo("testing") ; 
+	}
+	
 	
 	
 	
