@@ -1,20 +1,17 @@
 package com.example.bot.spring;
-import java.lang.StringBuilder;
 
+import com.linecorp.bot.model.profile.UserProfileResponse;
+import com.linecorp.bot.model.event.BeaconEvent;
+import com.linecorp.bot.model.event.Event;
+import com.linecorp.bot.model.event.FollowEvent;
+import com.linecorp.bot.model.event.JoinEvent;
+import com.linecorp.bot.model.event.MessageEvent;
+import com.linecorp.bot.model.event.PostbackEvent;
+import com.linecorp.bot.model.event.UnfollowEvent;
 
 public class PromotedToursInterface extends UserInterface {
-	
-	public PromotedToursInterface(){
-	StringBuilder messageBuilder = new StringBuilder();
-	super.setManager(null);
-	
-	
-	}
+	public void processInput( chatbotController controller, String userReply, Event event)  {
 
-	
-	
-	
-	public void processInput( chatbotController controller, String userReply)  {
 		
 	}
 

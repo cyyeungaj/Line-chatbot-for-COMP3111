@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.util.*;
 
-
+@Slf4j
 public class JDBCBookingManager extends bookingManager {
 
 	/**
@@ -27,6 +27,7 @@ public class JDBCBookingManager extends bookingManager {
 		try {
 			rs = SelectionQuery(SQLstatement);
 		} catch( Exception e) {
+			
 		}
 		
 		ArrayList<Booking> result = new ArrayList<Booking>();

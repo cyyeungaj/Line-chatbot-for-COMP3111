@@ -13,6 +13,11 @@ import java.text.SimpleDateFormat;
 
 @Slf4j
 public class JDBCTourManager extends tourManager {
+	
+	public ArrayList<Tour> getAllTours() {
+		String SQLstatement = "SELECT * FROM tourList;" ;
+		return null ;
+	} 
 
 	/**
 	 *

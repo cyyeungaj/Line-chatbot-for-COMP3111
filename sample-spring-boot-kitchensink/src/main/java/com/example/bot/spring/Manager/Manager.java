@@ -12,10 +12,29 @@ import java.net.URI;
 public class Manager {
 	private Connection connection ;
 	
+	public Manager ( ) {
+		try {
+				this.setConnection () ;
+		} catch( Exception e) {
+			log.info("Exception occur in manager constructor on setConnection statement") ; 
+		}
+		
+	}
 	
-	private void setConnection ( Connection connection ) {
+	private void setConnection () throws URISyntaxException, SQLException{
+		Connection connection;
+		URI dbUri = new URI(System.getenv("DATABASE_URL"));
+
+		String username = dbUri.getUserInfo().split(":")[0];
+		String password = dbUri.getUserInfo().split(":")[1];
+		String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath() +  "?ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory";
+
+		log.info("Username: {} Password: {}", username, password);
+		log.info ("dbUrl: {}", dbUrl);
+		
+		connection = DriverManager.getConnection(dbUrl, username, password);
 		this.connection = connection ; 
-	} 
+	}
 	
 	
 	public ResultSet SelectionQuery(String sqlStatement ) throws Exception { 

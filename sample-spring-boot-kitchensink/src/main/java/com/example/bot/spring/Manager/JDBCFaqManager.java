@@ -10,6 +10,7 @@ import java.net.URI;
 import java.util.*;
 import java.lang.StringBuilder;
 
+@Slf4j
 public class JDBCFaqManager extends faqManager {
 	private final String TABLE_NAME = "faq";
 	private final String COL_QUESTION_NUM = "questionNum";
@@ -17,17 +18,28 @@ public class JDBCFaqManager extends faqManager {
 	private final String COL_ANSWER = "answer";
 	private ArrayList<FAQ> results = null;
 	
+	public JDBCFaqManager () {
+		
+	}
+	
 	public int getNumOfFAQ() {
 		if(results == null)
 			return 0;
 		return results.size();
 	}
+	
 	public ArrayList<FAQ> getAllFAQ(){
 		if(results == null) {
 			results = new ArrayList<>();
 			String query = "SELECT * FROM " + TABLE_NAME;
 			
-			ResultSet rs = SelectionQuery(query);
+			ResultSet rs = null ; 
+			try {
+				rs = SelectionQuery(query);
+
+			} catch ( Exception e ) {
+				log.info("Exception occur in statement rs=SelectQuery in getAllFAQ function") ; 
+			}
 			
 			try {
 				while(rs.next()) {
@@ -45,7 +57,7 @@ public class JDBCFaqManager extends faqManager {
 			}
 		}
 		
-		return result;
+		return results;
 	}
 	
 	public boolean insertFAQ(FAQ faq) {

@@ -25,6 +25,8 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
+import java.util.HashSet;
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 import java.util.function.Consumer;
@@ -40,6 +42,8 @@ import com.google.common.io.ByteStreams;
 import com.linecorp.bot.client.LineMessagingClient;
 import com.linecorp.bot.client.MessageContentResponse;
 import com.linecorp.bot.model.ReplyMessage;
+import com.linecorp.bot.model.PushMessage ; 
+import com.linecorp.bot.model.Multicast ; 
 import com.linecorp.bot.model.action.MessageAction;
 import com.linecorp.bot.model.action.PostbackAction;
 import com.linecorp.bot.model.action.URIAction;
@@ -151,17 +155,28 @@ public class KitchenSinkController {
 
 	@EventMapping
 	public void handleFollowEvent(FollowEvent event) {
+		/*
+		lineMessagingClient.multicast(new Multicast(to, new TextMessage(testingMsgMultcast)));
+		lineMessagingClient.pushMessage(new PushMessage(userId, new TextMessage(promotedTour)));
+		*/
 		String replyToken = event.getReplyToken(); 
 		Source src = event.getSource() ; 
 		String userId = src.getUserId() ;
-		this.replyText(replyToken, "Hello" + userId + "I am comp3111 bot \nI am your assistant to help booking tour and answering questions related to tours \n");
-		
+		controller.setInterface(new GreetingInterface()) ; 
+		this.replyText(replyToken, controller.getCurrentInterfaceMessage());
+		controller.setInterface(new MenuInterface()) ; 
+		lineMessagingClient.pushMessage(new PushMessage(userId, new TextMessage(controller.getCurrentInterfaceMessage()) ));
 	}
 
 	@EventMapping
 	public void handleJoinEvent(JoinEvent event) {
 		String replyToken = event.getReplyToken(); 
-		this.replyText(replyToken, "Joined " + event.getSource());
+		Source src = event.getSource() ; 
+		String userId = src.getUserId() ;
+		controller.setInterface(new GreetingInterface()) ; 
+		/*lineMessagingClient.pushMessage(new PushMessage(userId, new TextMessage(greeting)));*/
+		
+		this.replyText(replyToken, controller.getCurrentInterfaceMessage());
 	}
 
 	@EventMapping
@@ -211,6 +226,11 @@ public class KitchenSinkController {
 
 	private void handleTextContent(String replyToken, Event event, TextMessageContent content)
             throws Exception {
+		String text = content.getText() ; 
+		controller.processInput(text, event) ; 
+        this.replyText(replyToken, controller.getCurrentInterfaceMessage()) ; 
+		
+		/*
         String text = content.getText();
 
         log.info("Got text message from {}: {}", replyToken, text);
@@ -272,7 +292,8 @@ public class KitchenSinkController {
                         BOT_NAME + " says " + reply
                 );
                 break;
-        }
+        }*/
+		
     }
 
 	static String createUri(String path) {
@@ -320,11 +341,12 @@ public class KitchenSinkController {
 	public KitchenSinkController() {
 		database = new SQLDatabaseEngine();
 		BOT_NAME = System.getenv("BOT_NAME");
+		controller = new chatbotController( null);
 	}
 
 	private DatabaseEngine database;
 	private String BOT_NAME;
-	
+	private chatbotController controller; 
 
 	//The annontation @Value is from the package lombok.Value
 	//Basically what it does is to generate constructor and getter for the class below
