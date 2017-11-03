@@ -13,7 +13,7 @@ import java.lang.StringBuilder;
 @Slf4j
 public class JDBCFaqManager extends faqManager {
 	private final String TABLE_NAME = "faq";
-	private final String COL_QUESTION_NUM = "questionNum";
+	private final String COL_QUESTION_NUM = "question_no";
 	private final String COL_QUESTION = "question";
 	private final String COL_ANSWER = "answer";
 	private ArrayList<FAQ> results = null;

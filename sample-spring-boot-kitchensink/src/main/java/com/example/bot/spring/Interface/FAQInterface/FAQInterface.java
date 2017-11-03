@@ -90,6 +90,8 @@ public class FAQInterface extends UserInterface {
 	
 	public FAQInterface () {
 		currentState = SHOW_FAQ_STATE;
+		super.setMessage(getFAQList()) ; 
+		
 	}
 	
 
