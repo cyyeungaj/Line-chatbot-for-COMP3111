@@ -1,8 +1,11 @@
 package com.example.bot.spring;
 import com.linecorp.bot.client.LineMessagingClientImpl;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.lang.StringBuilder;
+import java.sql.ResultSet;
+
 import lombok.extern.slf4j.Slf4j;
 import java.util.*;
 import com.linecorp.bot.model.profile.UserProfileResponse;
@@ -48,6 +51,11 @@ import com.linecorp.bot.model.message.template.ConfirmTemplate;
 import com.linecorp.bot.model.response.BotApiResponse;
 import com.linecorp.bot.spring.boot.annotation.EventMapping;
 import com.linecorp.bot.spring.boot.annotation.LineMessageHandler;
+
+
+
+import java.util.Date;
+import java.text.SimpleDateFormat;
 
 
 import java.io.IOException;
@@ -120,7 +128,19 @@ import lombok.NonNull;
 import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
 
+import javax.annotation.PostConstruct;
+import javax.sql.DataSource;
+import java.nio.channels.SelectableChannel;
+import java.sql.*;
+import java.util.ArrayList;
+import java.net.URISyntaxException;
+import java.io.IOException;
 import java.net.URI;
+import java.util.*;
+
+import java.net.URI;
+
+@Slf4j
 
 public class SearchingTourInterface extends UserInterface {
 
@@ -135,9 +155,12 @@ public class SearchingTourInterface extends UserInterface {
 	private Event event = null;
 	
 	private String startD, endD, place;
-	private int minPrice, maxPrice;
+	private int minPrice = -1, maxPrice = -1;
 	private int currentS = 0;
 	private ArrayList<Tour> searchingResult = null;
+	private ArrayList<Tour> srForTime = null;
+	private ArrayList<Tour> srForPlace = null;
+	private ArrayList<Tour> srForPrice = null;
 	@Autowired
 	private LineMessagingClient lineMessagingClient;
 	
@@ -217,32 +240,59 @@ public class SearchingTourInterface extends UserInterface {
 		// turn off time filter
 		if (currentS == 0 && userReply == "4") {
 			timeF = false;
+			startD = null;
+			endD = null;
 		}
 		// turn off place filter
 		if (currentS == 0 && userReply == "5") {
 			placeF = false;
+			place = null;
 		}
 		// turn off price filter
 		if (currentS == 0 && userReply == "6") {
 			priceF = false;
+			minPrice = -1;
+			maxPrice = -1;
 		}
 	}
 			
 	
 	private void searchByTime() {
-		
+		;
+		// if startD and endD = null, then search all date
 	}
 	
 	private void searchByPlace(String p) {
-		
+		;
+		// if minPrice and place = null, then search all place
 	}
 	
 	private void searchByPrice() {
-		
+		// if minPrice and maxPrice = -1, then search all price
+		String SQLStatement = "SELECT * from tourlist WHERE tour_fee BETWEEN " + minPrice + " AND " + maxPrice + ";";
+		ResultSet rs = null;
+		try {
+			Manager manager = new Manager();
+			rs = manager.SelectionQuery(SQLStatement);
+		} catch(Exception e) {
+			
+		}
+		srForPrice = new ArrayList<Tour>();
+		try {
+			while (rs.next()) {
+				Tour tour = new Tour(rs.getString("tour_id"), rs.getInt("country_id"), rs.getInt("region_id"), rs.getString("tour_name"), rs.getString("tour_shortdec"), rs.getString("hotel"), rs.getInt("duration"), rs.getDate("departure_date").toString(), rs.getInt("tour_cap"), rs.getInt("min_req_cap"), rs.getDouble("tour_fee"), rs.getString("tour_guide"), rs.getString("tour_guide_line_ac"));
+				srForPrice.add(tour);
+			}
+		} catch (SQLException e) {
+			
+		}
 	}
 	
-	private void searchingPage(String searchingOp) {
-		
+	private void mapping() {
+		searchingResult.clear();
+		for (Tour t:srForPrice)
+			if (!searchingResult.contains(t))
+				searchingResult.add(t);
 	}
 	private void refreshPage(String option) {
 		StringBuilder messageBuilder = new StringBuilder();
