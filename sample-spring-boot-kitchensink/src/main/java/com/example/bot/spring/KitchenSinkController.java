@@ -228,7 +228,7 @@ public class KitchenSinkController {
             throws Exception {
 		String text = content.getText() ; 
 		String testing = database.faq() ;
-        this.replyText(replyToken, "testing1") ; 
+        //this.replyText(replyToken, "testing1") ; 
 		//lineMessagingClient.pushMessage(new PushMessage("U2336052073d2a3192d088b3215554ee1", new TextMessage("testing for push")));
 		//controller.processInput(text , event) ; 
         //this.replyText(replyToken, "testing2") ; 

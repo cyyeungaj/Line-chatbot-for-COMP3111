@@ -100,6 +100,7 @@ public class SQLDatabaseEngine extends DatabaseEngine {
 	}
 	
 	
+	
 	public static Connection getConnection() throws URISyntaxException, SQLException {
 		Connection connection;
 		URI dbUri = new URI(System.getenv("DATABASE_URL"));

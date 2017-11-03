@@ -56,7 +56,7 @@ public class KitchenSinkTester {
 	
 	@Test
 	public void testNotFound() throws Exception {
-		/*boolean thrown = false;
+		/*
 		try {
 			this.databaseEngine.search("no");
 		} catch (Exception e) {
@@ -68,6 +68,9 @@ public class KitchenSinkTester {
 	
 	@Test
 	public void testFound() throws Exception {
+		
+		
+		
 		/*
 		int NoOfCase = 5 ; 
 		boolean thrown = false;
@@ -100,7 +103,12 @@ public class KitchenSinkTester {
 			counter ++ ; 
 		}
 		*/
-		
+		String result = null ; 
+		try {
+			result = this.databaseEngine.faq() ; 
+		} catch (Exception e) {
+					}
+		assertThat(result).isEqualTo("How to apply?") ; 
 	}
 	
 	
