@@ -82,8 +82,10 @@ import java.net.URI;
 
 public class ErrorInterface extends UserInterface {
 
+	public ErrorInterface () {
+		setMessage("Error interface") ; 
+	}
 	public void processInput( chatbotController controller, String userReply , Event event) {
-
 		
 	} 
 
