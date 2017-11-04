@@ -233,8 +233,7 @@ public class KitchenSinkController {
 		JDBCFaqManager manager = new JDBCFaqManager() ; 
 		
 		controller.processInput( text , event) ; 
-		//this.replyText(replyToken , controller.getCurrentInterfaceMessage()) ; 
-		lineMessagingClient.pushMessage(new PushMessage(userId, new TextMessage(controller.getCurrentInterfaceMessage())));
+		this.replyText(replyToken , controller.getCurrentInterfaceMessage()) ; 
 		
 		/*
 		if( text.compareTo("3") == 0 )

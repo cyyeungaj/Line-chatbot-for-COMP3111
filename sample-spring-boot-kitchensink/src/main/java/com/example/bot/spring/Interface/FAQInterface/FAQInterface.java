@@ -87,9 +87,6 @@ public class FAQInterface extends UserInterface {
 	private int currentState; 
 	private StringBuilder messageBuilder = null;
 	
-	@Autowired
-	private LineMessagingClient lineMessagingClient;
-
 	public FAQInterface () {
 		currentState = SHOW_FAQ_STATE;
 		super.setMessage(new JDBCFaqManager().getAllFAQString()) ; 

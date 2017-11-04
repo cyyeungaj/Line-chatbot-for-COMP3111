@@ -30,7 +30,7 @@ public class JDBCFaqManager extends faqManager {
 	
 	public ArrayList<FAQ> getAllFAQ(){
 		if(results == null) {
-			results = new ArrayList<>();
+			results = new ArrayList<FAQ>();
 			String query = "SELECT * FROM " + TABLE_NAME;
 			
 			ResultSet rs = null ;

@@ -101,6 +101,15 @@ public class KitchenSinkTester {
 		assertThat(controller.getCurrentInterfaceMessage()).isEqualTo(new JDBCFaqManager().getAllFAQString()) ; 
 	}
 	
+	@Test
+	public void testForFAQString () {
+		chatbotController controller = new chatbotController() ; 
+		controller.processInput("3" , null) ; 
+		log.info(controller.getCurrentInterfaceMessage()) ; 
+		log.info("test done in testForFAQString ()") ; 
+	}
+	
+	
 	
 	
 	
