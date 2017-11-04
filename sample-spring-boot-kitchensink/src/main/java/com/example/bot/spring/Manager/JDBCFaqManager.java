@@ -23,7 +23,26 @@ public class JDBCFaqManager extends faqManager {
 	}
 	
 	public String getAnswerByQuestionNo ( int questionNo ) {
-		return null ; 
+		String sqlStatement = "SELECT * FROM "  + TABLE_NAME +
+							  " WHERE question_no = " +  questionNo ; 
+		ResultSet rs = null ;
+		StringBuilder builder = new StringBuilder() ; 
+		try {
+			rs = SelectionQuery(sqlStatement);
+		} catch ( Exception e) {
+			log.info("Exception occur in statement rs = SelectionQuery(query) on getQuestionString()") ; 
+		}
+		try {
+			if(rs.next()) {
+			int questionNum = rs.getInt(COL_QUESTION_NUM);
+			String question = rs.getString(COL_QUESTION);
+			String answer = rs.getString(COL_ANSWER);
+			builder.append( questionNum + ". " + question + "\n" + answer ) ; }
+		} catch ( Exception e) {
+			log.info("Exception occur in if(rs.next()) on getAnswerByQuestionNo ");
+		}
+		
+		return builder.toString(); 
 	}
 	
 	public String getQuestionString() {
@@ -33,8 +52,7 @@ public class JDBCFaqManager extends faqManager {
 							  TABLE_NAME ; 
 		ResultSet rs = null ;
 		//String result = "FAQ question list \n Those are the possible question you may ask:\n" ; 
-		StringBuilder builder = new StringBuilder() ;
-		builder.append("FAQ question list \n Those are the possible question you may ask:\n") ; 
+		StringBuilder builder = new StringBuilder() ; 
 		try {
 			rs = SelectionQuery(sqlStatement);
 		} catch ( Exception e) {

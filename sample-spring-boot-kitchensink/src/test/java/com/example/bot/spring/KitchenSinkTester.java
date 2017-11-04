@@ -96,9 +96,25 @@ public class KitchenSinkTester {
 	
 	@Test
 	public void testforInterfaceProcess () {
-		chatbotController controller = new chatbotController() ; 
-		controller.processInput("3" , null) ; 
-		assertThat(controller.getCurrentInterfaceMessage()).isEqualTo(new JDBCFaqManager().getAllFAQString()) ; 
+		
+		log.info("Entry point of testforInterfaceProcess\n") ;
+		chatbotController controller = new chatbotController() ;
+		log.info("User type 3\n") ;
+		controller.processInput("3" , null) ;
+		
+		log.info("interface Output:\n") ; 
+		log.info(controller.getCurrentInterfaceMessage()) ;
+		
+		log.info("User type no\n") ;
+		controller.processInput("no" , null) ;
+		log.info("interfaceOutput:\n") ;
+		log.info(controller.getCurrentInterfaceMessage()) ;
+
+		log.info("User type 5 to look for answer of question 5\n") ;
+		controller.processInput("5" , null) ;
+		log.info("interfaceOutput:\n") ;
+		log.info(controller.getCurrentInterfaceMessage()) ;
+
 	}
 	
 	@Test

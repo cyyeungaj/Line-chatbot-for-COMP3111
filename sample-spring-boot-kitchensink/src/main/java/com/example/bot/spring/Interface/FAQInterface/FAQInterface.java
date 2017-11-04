@@ -75,25 +75,29 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.net.URI;
 
+@Slf4j
 public class FAQInterface extends UserInterface {
 	private final int SHOW_FAQ_STATE = 0; 
 	private final int ASK_ANY_QUESTION_ELSE_STATE = 1;
+	
 	private final int ASK_FOR_QUESTION_STATE = 2 ;
+	private final int ASK_FOR_QUESTION_NUM = 3 ;
+	private final int SHOW_ANSWER_STATE = 4 ; 
+	
 	private final int QUIT_STATE = -1;
 	private final String SELECT_ASK_FOR_QUESTION_ACTION = "yes" ;
-	private final String SELECT_NO_QUESTION_ACTION = "no" ; 
-	 
+	private final String SELECT_QUESTION_NO_ACTION = "no" ; 
+	
 	
 	private int currentState; 
 	private StringBuilder messageBuilder = null;
 	
 	public FAQInterface () {
 		currentState = SHOW_FAQ_STATE;
-		super.setMessage(new JDBCFaqManager().getQuestionString()) ; 
-		
-		//super.setMessage("test") ; work 
-		
-		//lineMessagingClient.pushMessage(new PushMessage("U2336052073d2a3192d088b3215554ee1", new TextMessage("testing for push")));
+		super.setMessage("FAQ question list \nThose are the possible question you may ask"
+						+new JDBCFaqManager().getQuestionString()
+						+"If the question is not included in the list , please type yes , then type a question.\n"
+						+ "Otherwise type no , then type a question number ") ; 
 	}
 	
 
@@ -107,10 +111,18 @@ public class FAQInterface extends UserInterface {
 			case ASK_ANY_QUESTION_ELSE_STATE:
 				message = getAnyQuestionMessage(controller, userReply);
 				break ; 
-			
 			case ASK_FOR_QUESTION_STATE:
-				message = getAskForQuestionMessage(userReply);
+				message = "Please type question number.";
+				currentState = SHOW_ANSWER_STATE ;   
 				break ; 
+			case ASK_FOR_QUESTION_NUM:
+				message = getAnswerOfQuestionNo(userReply) ; 
+				currentState = SHOW_FAQ_STATE ;  
+				break ;
+			case SHOW_ANSWER_STATE : 
+				message = getAnswerOfQuestionNo(userReply) ; 
+				currentState = SHOW_FAQ_STATE ; 
+				break; 
 			case QUIT_STATE:
 				message = "Quit FAQ section\n";
 				quitInterface(controller);
@@ -121,28 +133,49 @@ public class FAQInterface extends UserInterface {
 		}
 	} 
 	
-	private String getFAQMessage(String userReply){
-		currentState = ASK_ANY_QUESTION_ELSE_STATE;
-		return getFAQList();
+	private String getAnswerOfQuestionNo( String userInput ) {
+		 int userNumInput = 0  ;
+		 try {
+			 userNumInput = Integer.parseInt(userInput) ; 
+		 } catch( Exception e) {
+			 log.info("Exception occur in statement no = Integer.parseInt(userInput) on getAnswerOfQuestionNo of FAQInterface");
+		 }
+		 
+		 return new JDBCFaqManager().getAnswerByQuestionNo(userNumInput) ; 
 	}
+	
+	private String getFAQMessage(String userReply){
+		//currentState = ASK_ANY_QUESTION_ELSE_STATE;
+		if(userReply.compareTo(SELECT_ASK_FOR_QUESTION_ACTION) == 0 ){
+			currentState = ASK_FOR_QUESTION_STATE;
+			return "Please tell me your question \n";
+			
+		}else if(userReply.compareTo(SELECT_QUESTION_NO_ACTION) == 0 ){
+			currentState = ASK_FOR_QUESTION_NUM ; 
+			//quitInterface(controller);
+			return "Which question would you choose?";
+		}
+		return "invalid Input , please try agin"; 
+	}
+	
 	private String getAnyQuestionMessage(chatbotController controller, String userReply){
-		if(userReply == SELECT_ASK_FOR_QUESTION_ACTION){
+		if(userReply.compareTo(SELECT_ASK_FOR_QUESTION_ACTION) == 0 ){
 			currentState = ASK_FOR_QUESTION_STATE;
 			return "Please tell me your question. \n";
 			
-		}else if(userReply == SELECT_NO_QUESTION_ACTION){
-			currentState = QUIT_STATE;
-			quitInterface(controller);
+		}else if(userReply.compareTo(SELECT_QUESTION_NO_ACTION) == 0 ){
+			
+			currentState = SHOW_ANSWER_STATE;
+			//quitInterface(controller);
 			return "End of FAQ section\n";
 			
 		}else{
 			return "Invalid input, please try again. \n";
-			
-		}
+		}	
 	}
+	
 	private String getAskForQuestionMessage(String userReply){
 		currentState = ASK_ANY_QUESTION_ELSE_STATE;
-		
 		return processQuestion(userReply);	
 	}
 	
