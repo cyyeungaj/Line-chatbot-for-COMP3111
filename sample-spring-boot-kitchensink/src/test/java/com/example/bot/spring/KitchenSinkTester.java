@@ -105,20 +105,27 @@ public class KitchenSinkTester {
 		log.info("interface Output:\n") ; 
 		log.info(controller.getCurrentInterfaceMessage()) ;
 		
-		log.info("User type no\n") ;
+		log.info("User type no") ;
 		controller.processInput("no" , null) ;
-		log.info("interfaceOutput:\n") ;
+		log.info("interfaceOutput:") ;
 		log.info(controller.getCurrentInterfaceMessage()) ;
 
 		log.info("User type 5 to look for answer of question 5\n") ;
 		controller.processInput("5" , null) ;
-		log.info("interfaceOutput:\n") ;
+		log.info("interfaceOutput:") ;
 		log.info(controller.getCurrentInterfaceMessage()) ;
-
+		
+		log.info("User type 1 \n") ;
+		controller.processInput("1",null) ; 
+		log.info("interfaceOutput:") ;
+		log.info(controller.getCurrentInterfaceMessage()) ;
+		
+		log.info("leave point of testforInterfaceProcess()") ; 
 	}
 	
 	@Test
 	public void testForFAQString () {
+		log.info("entry point of testForFAQString") ;
 		chatbotController controller = new chatbotController() ; 
 		controller.processInput("3" , null) ; 
 		log.info(controller.getCurrentInterfaceMessage()) ; 
@@ -137,75 +144,6 @@ public class KitchenSinkTester {
 	@Test
 	public void testFound() throws Exception {
 		
-		
-		
-		/*
-		int NoOfCase = 5 ; 
-		boolean thrown = false;
-		String result = null;
-		boolean []thrownList =  new boolean[NoOfCase] ;
-		
-		HashMap<String, String> mp = new HashMap<String , String> () ; 
-		for(int i = 0 ; i < NoOfCase ; i ++ ) {
-			thrownList[i] = false  ;
-		}
-		
-		mp.put("abc" , "def") ;
-		mp.put("Hi" , "Hey, how things going?") ; 
-		mp.put("I am fine" , "Great!") ;
-		mp.put("Who is Prof Kim" , "Well, this is your instructor.") ; 
-		mp.put("How is the grade of this course" , "This is absolute good grade for good student. And I am sure you are!") ;
-		
-		
-		int counter = 0 ; 
-		for(Map.Entry<String , String> m : mp.entrySet()) {
-			try {
-				String target = m.getKey() ; 
-				result  = this.databaseEngine.search(target) ; 
-			} catch ( Exception e) {
-				thrownList[counter] = true ; 
-			}
-			String value = m.getValue() ; 
-			assertThat(!thrownList[counter]).isEqualTo(true) ; 
-			assertThat(result).isEqualTo(value) ;
-			counter ++ ; 
-		}
-		*/
-		
-		/*
-		 stmt = connection.prepareStatement(SQLstatement); 
-			stmt.setString(1,text) ; 
-			ResultSet rs = stmt.executeQuery() ;
-			if(rs.next()) result = rs.getString("reply") ;
-		*/
-		Manager manager = new JDBCFaqManager() ; 
-		ResultSet rs = null ;
-		Connection connection = SQLDatabaseEngine.getConnection() ; 
-		PreparedStatement stmt = connection.prepareStatement("SELECT * from faq;") ; 
-		try{
-			rs=manager.SelectionQuery("SELECT * from faq;"); 
-		} catch( Exception e ) {
-			log.info("Exception occur rs = manager.SelectionQuery(\"SELECT * from faq") ; 	
-		}
-		int currentNo = 0 ; 
-		String q = null ; 
-		String a = null ; 
-		if(rs.next()) {
-			currentNo = rs.getInt("question_no") ; 
-			q = rs.getString("question") ;
-			a = rs.getString("answer") ; 
-		}
-		/*
-		String result = null ; 
-		try {
-			result = this.databaseEngine.faq() ; 
-		} catch (Exception e) {
-			log.info("Exception occur in result = this.databaseEngine.faq() ") ; 	
-		}*/
-		
-		assertThat(q).isEqualTo("How to apply?") ;
-		assertThat(currentNo).isEqualTo(1) ; 
-		//assertThat(a).isEqualTo("Customers shall approach the company by phone or visit our store (in Clearwater bay) with the choosen tour code and departure date. If it is not full, customers will be advised by the staff to pay the tour fee. Tour fee is non refundable. Customer can pay their fee by ATM to 123-345-432-211 of ABC Bank or by cash in our store. Customer shall send their pay-in slip to us by email or LINE.");
 	
 	}
 	
