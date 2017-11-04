@@ -109,7 +109,12 @@ public class KitchenSinkTester {
 		log.info("test done in testForFAQString ()") ; 
 	}
 	
-	
+	@Test
+	public void testForGetQuestionString() {
+		log.info("entry point of testForGetQuestionString") ; 
+		log.info(new JDBCFaqManager().getQuestionString()) ; 
+		log.info("end point of testForGetQuestionString") ; 
+	}
 	
 	
 	

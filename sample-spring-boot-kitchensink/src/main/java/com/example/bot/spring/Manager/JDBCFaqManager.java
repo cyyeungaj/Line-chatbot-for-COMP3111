@@ -22,6 +22,40 @@ public class JDBCFaqManager extends faqManager {
 		super() ; 
 	}
 	
+	public String getAnswerByQuestionNo ( int questionNo ) {
+		return null ; 
+	}
+	
+	public String getQuestionString() {
+		String sqlStatement = "SELECT " +  COL_QUESTION_NUM +
+							  ", " + COL_QUESTION +
+							  " FROM " + 
+							  TABLE_NAME ; 
+		ResultSet rs = null ;
+		//String result = "FAQ question list \n Those are the possible question you may ask:\n" ; 
+		StringBuilder builder = new StringBuilder() ;
+		builder.append("FAQ question list \n Those are the possible question you may ask:\n") ; 
+		try {
+			rs = SelectionQuery(sqlStatement);
+		} catch ( Exception e) {
+			log.info("Exception occur in statement rs = SelectionQuery(query) on getQuestionString()") ; 
+		}
+		
+		try {
+			while(rs.next()) {
+				int questionNum = rs.getInt(COL_QUESTION_NUM);
+				String question = rs.getString(COL_QUESTION);
+				builder.append(questionNum + ". ") ; 
+				builder.append(question + "\n") ; 
+			}
+		} catch (Exception e ) {
+			log.info("Exception occur in statement while(rs.next()) on getQuestionString()") ; 
+		}
+		builder.append("\n") ; 
+		return builder.toString() ; 
+		
+	}
+	
 	public int getNumOfFAQ() {
 		if(results == null)
 			return 0;

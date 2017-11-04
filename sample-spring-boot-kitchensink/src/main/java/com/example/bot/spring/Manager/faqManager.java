@@ -13,4 +13,6 @@ import java.util.*;
 public abstract class faqManager extends Manager{
 	public abstract ArrayList<FAQ> getAllFAQ();
 	public abstract boolean insertFAQ(FAQ faq);
+	public abstract String getAnswerByQuestionNo ( int questionNo ) ; 
+	public abstract String getQuestionString() ; 
 }
