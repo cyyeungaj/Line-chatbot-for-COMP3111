@@ -123,7 +123,7 @@ import javax.sql.DataSource;
 import java.nio.channels.SelectableChannel;
 import java.sql.*;
 import java.util.ArrayList;
-
+>>>>>>> SearchInterface Filter done
 import java.util.HashMap;
 import java.net.URISyntaxException;
 import java.io.IOException;
@@ -511,7 +511,6 @@ class Filter{
      * @return 
      */
 	 
-	
 	public void setPriceFilter(String price) {
 		if(hm.containsKey(PRICE_TAG))
 			removePriceFilter();
@@ -523,6 +522,50 @@ class Filter{
 		if(hm.containsKey(PRICE_TAG))
 			removePriceFilter();
 		hm.put(PRICE_TAG, COL_FEE + " BETWEEN " + min + " AND " + max);
+	//select region_id from region where region like '%Guangdong%';
+}
+
+
+class Filter{
+	HashMap<String, String> hm = new HashMap<>();
+	
+	private final String COL_COUNTRY_ID = "country_id";
+	private final String COL_COUNTRY = "country";
+	private final String COL_DEP_DATE = "departure_date";
+	private final String COL_FEE = "tour_fee";
+	
+	private final String TIME_TAG = "time";
+	private final String PLACE_TAG = "place";
+	private final String PRICE_TAG = "price";
+	
+	private ArrayList<String> keys = new ArrayList<>();
+	
+	public void setTimeFilter(String startDate, String endDate) {
+		if(hm.containsKey(TIME_TAG))
+			removeTimeFilter();
+		hm.put(TIME_TAG, COL_DEP_DATE + " BETWEEN '" + startDate + "' AND '" + endDate + "' ");
+		keys.add(TIME_TAG);
+	}
+	
+	public int getCountryId(String placeName) {
+		String sqlStatement = " LOWER(" + COL_COUNTRY + ") = LOWER('" + placeName + "')";
+		//selection(sqlStatement);
+		return 1;
+	}
+	
+	public void setPlaceFilter(String placeName) {
+		if(hm.containsKey(PLACE_TAG))
+			removePlaceFilter();
+		int country_id = getCountryId(placeName);
+//		hm.put(PLACE_TAG, " LOWER(" + COL_COUNTRY + ") = LOWER('" + placeName + "')");
+		hm.put(PLACE_TAG, COL_COUNTRY_ID + " = " + Integer.toString(country_id));
+		keys.add(PLACE_TAG);
+	}
+	
+	public void setPriceFilter(String price) {
+		if(hm.containsKey(PRICE_TAG))
+			removePriceFilter();
+		hm.put(PRICE_TAG, COL_FEE + " < " + price);
 		keys.add(PRICE_TAG);
 	}
 	
