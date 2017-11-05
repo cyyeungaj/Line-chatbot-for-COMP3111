@@ -95,9 +95,9 @@ public class KitchenSinkTester {
 	}
 	
 	@Test
-	public void testforInterfaceProcess () {
+	public void testforFAQInterfaceProcess () {
 		
-		log.info("Entry point of testforInterfaceProcess\n") ;
+		log.info("Entry point of testforFAQInterfaceProcess\n") ;
 		chatbotController controller = new chatbotController() ;
 		log.info("User type 3\n") ;
 		controller.processInput("3" , null) ;
@@ -121,6 +121,58 @@ public class KitchenSinkTester {
 		log.info(controller.getCurrentInterfaceMessage()) ;
 		
 		log.info("leave point of testforInterfaceProcess()") ; 
+	}
+	
+	
+	@Test
+	public void testForBookingInterface () {
+		
+		log.info("Entry point of testForBookingInterface\n") ;
+		chatbotController controller = new chatbotController() ;
+		log.info(controller.getCurrentInterfaceMessage()) ;
+		
+		log.info("User type 1\n") ;
+		controller.processInput("1" , null) ;
+		
+		log.info("interface Output:") ; 
+		log.info(controller.getCurrentInterfaceMessage()) ;
+		
+		log.info("User type 1\n") ;
+		controller.processInput("1" , null) ;
+		log.info("interface Output:") ; 
+		log.info(controller.getCurrentInterfaceMessage()) ;
+		
+		log.info("User type 1\n") ;
+		controller.processInput("1" , null) ;
+		log.info("interface Output:") ; 
+		log.info(controller.getCurrentInterfaceMessage()) ;
+		
+		log.info("User type 1\n") ;
+		controller.processInput("1" , null) ;
+		log.info("interface Output:") ; 
+		log.info(controller.getCurrentInterfaceMessage()) ;
+		
+		log.info("User type 1\n") ;
+		controller.processInput("1" , null) ;
+		log.info("interface Output:") ; 
+		log.info(controller.getCurrentInterfaceMessage()) ;
+		
+		log.info("User type 1\n") ;
+		controller.processInput("1" , null) ;
+		log.info("interface Output:") ; 
+		log.info(controller.getCurrentInterfaceMessage()) ;
+		
+		
+		log.info("User type yes\n") ;
+		controller.processInput("yes" , null) ;
+		log.info("interface Output:") ; 
+		log.info(controller.getCurrentInterfaceMessage()) ;
+		
+		log.info("User type A111111\n") ;
+		controller.processInput("A111111" , null) ;
+		log.info("interface Output:") ; 
+		log.info(controller.getCurrentInterfaceMessage()) ;
+		
 	}
 	
 	@Test

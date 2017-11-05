@@ -67,9 +67,12 @@ public class JDBCBookingManager extends bookingManager {
 	}
 	public void insertBooking(Booking booking) {
 
-	String SQLstatement = "INSERT INTO BOOKING VALUES ( " + booking.getDate() + " ,"+ booking.getBookingID() + " ," + booking.getCustomerID() + " ," + booking.getTourID() + " ," + booking.getNoOfAdults()
-	+ " ," + booking.getNoOfChildrens() + " ," + booking.getNoOfToodlers() + " ," + booking.getTourFee() + " ," + booking.getAmountPaid() + " ," + booking.getSpecialRequest() + " ," + booking.isConfirm()
+	String SQLstatement = "INSERT INTO BOOKING VALUES ( '" + booking.getDate() + "' , '"+ booking.getBookingID() + "' ,'" + booking.getCustomerID() + "' ,'" + booking.getTourID() + "' ," + booking.getNoOfAdults()
+	+ " ," + booking.getNoOfChildrens() + " ," + booking.getNoOfToodlers() + " ," + booking.getTourFee() + " ," + booking.getAmountPaid() + " ,'" + booking.getSpecialRequest() + "' ," + booking.isConfirm()
 	+ " ," + booking.getServiceCharge() + ") ;";
+	
+	
+	
 	
 	try{
 		insertDeleteQuery(SQLstatement) ; 

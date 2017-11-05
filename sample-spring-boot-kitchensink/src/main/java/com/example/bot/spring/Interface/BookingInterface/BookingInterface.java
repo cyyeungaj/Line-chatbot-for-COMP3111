@@ -1,6 +1,7 @@
 package com.example.bot.spring;
 import java.lang.StringBuilder;
 
+
 import java.util.* ;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -90,6 +91,7 @@ import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
 
 import java.net.URI;
+@Slf4j
 public class BookingInterface extends UserInterface {
 	
 	private final static int INITIAL_STATE = 0 ; 
@@ -102,7 +104,7 @@ public class BookingInterface extends UserInterface {
 	private final static int ASK_FOR_FEECONFIRM_STATE = 6 ; 
 	private final static int ASK_FOR_HKID_STATE = 7 ;
 	
-	private String ASK_FOR_TOUR_MESSSAGE = "Welcome. Here is the choices of the tours for your to choose:" ;   
+	private String ASK_FOR_TOUR_MESSSAGE = "Welcome. Here is the choices of the tours for your to choose:\n" ;   
 	private String ASK_FOR_TOUR_CHOICE_MESSAGE = "" ;
 	private String ASK_FOR_ADULTSNO_STATE_MESSAGE = "How many adults?" ; 
 	private String ASK_FOR_TOODLERNO_STATE_MESSAGE = "How many children (Age 0 - 3) ?" ; 
@@ -131,21 +133,29 @@ public class BookingInterface extends UserInterface {
 		currentBooking = new Booking () ; 
         StringBuilder messageBuilder = new StringBuilder();
         messageBuilder.append(ASK_FOR_TOUR_MESSSAGE) ; 
-		currentState = ASK_FOR_TOUR_STATE ; 
 		tourList=new JDBCTourManager().getToursGroupedByName () ; 
 		int index = 1 ; 
 		for( Tour currentTour : tourList ) {
 			messageBuilder.append(index + ". ") ; 
-			messageBuilder.append(currentTour.getTourName() + "\n") ; 
+			messageBuilder.append(currentTour.getTourName() + "\n") ;
+			index ++ ; 
 		}
 		messageBuilder.append("\n") ; 
 		ASK_FOR_TOUR_MESSSAGE = messageBuilder.toString() ; 
 		setMessage(ASK_FOR_TOUR_MESSSAGE) ; 
+		currentState = ASK_FOR_TOUR_STATE ; 
 	}
 	
 	
 	public void processInput( chatbotController controller, String userReply , Event event) {
-		int userNoInput = Integer.parseInt(userReply) ; 
+		
+		int userNoInput = 0 ; 
+		try {
+			Integer.parseInt(userReply) ; 
+		} catch ( Exception e ) {
+			log.info("NumberFormat Exception ") ; 
+		} finally {
+		
         StringBuilder messageBuilder = new StringBuilder();
 		switch(currentState) {
 			case ASK_FOR_TOUR_STATE: 
@@ -159,6 +169,7 @@ public class BookingInterface extends UserInterface {
 					messageBuilder.append(currentTour.gettourDescription() + "\n") ; 
 					messageBuilder.append(currentTour.getHotel() + "\n") ; 
 					messageBuilder.append(currentTour.getDepartureDate() + "\n") ; 
+					index ++ ; 
 				}
 				messageBuilder.append("\n") ; 
 				super.setMessage(messageBuilder.toString()) ; 
@@ -182,11 +193,11 @@ public class BookingInterface extends UserInterface {
 			case ASK_FOR_CHILDREN_STATE: 
 				currentBooking.setNoOfChildrens(userNoInput) ; 
 				currentState ++ ; 
-				super.setMessage(ASK_FOR_FEECONFIRM_STATE_MESSAGE) ; 
-				currentBooking.setTourFee(selectedTour) ; 
+				currentBooking.setTourFee(selectedTour) ;  
+				super.setMessage(ASK_FOR_FEECONFIRM_STATE_MESSAGE + currentBooking.getTourFee() + "\nAre you confirmed to book this tour?") ; 
 				break ;
 			case ASK_FOR_FEECONFIRM_STATE: 
-				if(userReply.toLowerCase() == "yes") {
+				if(userReply.compareTo("yes") == 0 ) {
 					currentState ++ ; 
 					String date = null ; 
 					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -199,7 +210,7 @@ public class BookingInterface extends UserInterface {
 					currentBooking.SetServiceCharge(selectedTour); 
 					super.setMessage(ASK_FOR_HKID_STATE_MESSAGE) ; 
 				} else {
-					controller.setInterface(new MenuInterface()) ; 
+					controller.setInterface(new BookingInterface()) ; 
 				}
 				break ;
 			case ASK_FOR_HKID_STATE: 
@@ -207,8 +218,8 @@ public class BookingInterface extends UserInterface {
 				new JDBCBookingManager().insertBooking(currentBooking) ; 
 				controller.setInterface(new MenuInterface()) ; 
 				break ;
+			}
 		}
-
 
 	}
 	

@@ -281,7 +281,7 @@ public class JDBCTourManager extends tourManager {
 	};
 	
 	public ArrayList<Tour> getPromotedTour() {
-		String SQLstatement = "SELECT * FROM tourlist inner join promotion on tourlist.tour_id = promotion.tour_id; ";
+		String SQLstatement = "SELECT DISTINCT tourName FROM tourlist inner join promotion on tourlist.tour_id = promotion.tour_id; ";
 		ResultSet rs = null;
 		 ArrayList<Tour> result = new  ArrayList<Tour>();
 	   try{ 
@@ -306,37 +306,30 @@ public class JDBCTourManager extends tourManager {
 
 	public ArrayList<Tour> getToursGroupedByName () {
 		ArrayList<Tour> result = new ArrayList<Tour>();
-		String SQLstatement = "Select * from tourlist group by  tour_name;";
+		String SQLstatement = "Select DISTINCT on (" + TOUR_NAME +
+							  ") * FROM tourlist " ;
 		ResultSet rs = null;
 		try{ 
 			rs =  SelectionQuery(SQLstatement);
-		}  
-		catch ( Exception e) 
-		{
+		}  catch ( Exception e) {
 		   log.info("Exception occur when rs = SelectionQuery(SQLstatement); in getToursGroupedByName ()", e.toString());
 		}
-	  
 		try 
 			{
-				while(rs.next()) 
-					{
+				while(rs.next()) {
 						result.add(getRecord(rs));
 						}
 				}
-		catch (SQLException e)
-			{
+		catch (SQLException e) {
 				log.info("SQLException while connecting to sql server: {}", e.toString());
-				}
+		}
 					
-		
-		
-		
 		return result; 
 	}
 	
 	public ArrayList<Tour> getToursByName ( String tourName ) {
 		ArrayList<Tour> result = new ArrayList<Tour>();
-		String SQLstatement = "Select * from tourlist where tour_name = tourName;";
+		String SQLstatement = "Select * from tourlist where tour_name = '" + tourName + "';";
 		ResultSet rs = null;
 		try{ 
 	    	 rs =  SelectionQuery(SQLstatement);
@@ -345,15 +338,11 @@ public class JDBCTourManager extends tourManager {
 		   log.info("Exception occur when rs = SelectionQuery(SQLstatement); in getToursByName ()", e.toString());
 		}
 	  
-		try 
-		{
-		while(rs.next()) 
-		{
-			result.add(getRecord(rs));
-		}
-		}
-		catch (SQLException e)
-		{
+		try {
+			while(rs.next()) {
+				result.add(getRecord(rs));
+			}
+		} catch (SQLException e)	{
 		 log.info("SQLException while connecting to sql server: {}", e.toString());
 		}
 		
