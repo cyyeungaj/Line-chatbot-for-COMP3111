@@ -151,7 +151,7 @@ public class BookingInterface extends UserInterface {
 		
 		int userNoInput = 0 ; 
 		try {
-			Integer.parseInt(userReply) ; 
+			userNoInput = Integer.parseInt(userReply) ; 
 		} catch ( Exception e ) {
 			log.info("NumberFormat Exception ") ; 
 		} finally {
@@ -194,6 +194,10 @@ public class BookingInterface extends UserInterface {
 				currentBooking.setNoOfChildrens(userNoInput) ; 
 				currentState ++ ; 
 				currentBooking.setTourFee(selectedTour) ;  
+				log.info("selectedtour fee:"+selectedTour.getPrice ());
+				log.info("getNoOfAdults()" +currentBooking.getNoOfAdults());
+				log.info("getNoOfChildrens" +currentBooking.getNoOfChildrens());
+
 				super.setMessage(ASK_FOR_FEECONFIRM_STATE_MESSAGE + currentBooking.getTourFee() + "\nAre you confirmed to book this tour?") ; 
 				break ;
 			case ASK_FOR_FEECONFIRM_STATE: 

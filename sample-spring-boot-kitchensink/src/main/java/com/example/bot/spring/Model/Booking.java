@@ -102,7 +102,7 @@ public class Booking {
     }
     
     public void setTourFee ( Tour tour ) {
-    	this.tourFee = getNoOfAdults() * tour.getPrice() + noOfChildrens * ( tour.getPrice() * 0.8);
+    	this.tourFee = noOfAdults* tour.getPrice() + noOfChildrens * ( tour.getPrice() * 0.8);
     }
 
     public double getAmountPaid() {
