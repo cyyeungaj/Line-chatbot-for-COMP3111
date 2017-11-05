@@ -49,7 +49,14 @@ public class Manager {
 		
 		ResultSet result = null ; 
 		PreparedStatement stmt = null; 
-		Connection connection = getConnection() ; 
+		Connection connection = null ;
+		
+		try {
+			connection = getConnection() ; 
+		} catch (SQLException e) {
+			log.info("SQLException while connecting to sql server: {}", e.toString());
+		}
+		
 		try {
 			stmt = connection.prepareStatement(sqlStatement);
 			result = stmt.executeQuery() ; 

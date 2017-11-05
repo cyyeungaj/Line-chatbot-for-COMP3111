@@ -89,6 +89,7 @@ public class FAQInterface extends UserInterface {
 
 	public void processInput( chatbotController controller, String userReply, Event event) {
 		String lowerCaseUserReply = userReply.toLowerCase() ; 
+
 		if(userReply.compareTo("yes") == 0 ) {
 			controller.setInterface(new AskForQuestionState()) ; 
 		}else if(userReply.compareTo("no") == 0 ) {

@@ -239,6 +239,15 @@ public class KitchenSinkController {
 		if( text.compareTo("3") == 0 )
 		{
 			JDBCFaqManager manager = new JDBCFaqManager() ; 
+
+		UserInterface ui = null;
+		if( text.compareTo("3") == 0 )
+		{
+			ui = new FAQInterface();
+			ui.processInput(this, text, event);
+			lineMessagingClient.pushMessage(new PushMessage(userId, new TextMessage(ui.getMessage())));
+			/*
+			Manager manager = new JDBCFaqManager() ; 
 			ResultSet rs = null ;
 			String str = null ; 
 			Connection connection = SQLDatabaseEngine.getConnection() ; 
@@ -259,6 +268,16 @@ public class KitchenSinkController {
 				a = rs.getString("answer") ;
 			}
 			//lineMessagingClient.pushMessage(new PushMessage(userId, new TextMessage(str)));
+				lineMessagingClient.pushMessage(new PushMessage(userId, new TextMessage(currentNo+".  " + q + "\n" + a + "\n")));
+			}*/
+		}
+		
+		/*
+		String result = null ; 
+		try {
+			result = this.databaseEngine.faq() ; 
+		} catch (Exception e) {
+			log.info("Exception occur in result = this.databaseEngine.faq() ") ; 	
 		}*/
 		
 		
@@ -305,14 +324,14 @@ public class KitchenSinkController {
                                         new URIAction("Go to line.me",
                                                       "https://line.me"),
                                         new PostbackAction("Say hello1",
-                                                           "hello 瓊嚙賤�����嚙蝓姻�嚙蝓￣�嚙蝓�")
+                                                           "hello ç“Šåš™è³¤ï¿½î°ˆï¿½ï¿½î«­ï¿½î°ˆï¿½åš™è�“å§»ï¿½åš™è�“ï¿£ï¿½åš™è�“ï¿½")
                                 )),
                                 new CarouselColumn(imageUrl, "hoge", "fuga", Arrays.asList(
-                                        new PostbackAction("癡穡� hello2",
-                                                           "hello 瓊嚙賤�����嚙蝓姻�嚙蝓￣�嚙蝓�",
-                                                           "hello 瓊嚙賤�����嚙蝓姻�嚙蝓￣�嚙蝓�"),
+                                        new PostbackAction("ç™¡ç©¡ï¿½î¾Ÿ hello2",
+                                                           "hello ç“Šåš™è³¤ï¿½î°ˆï¿½ï¿½î«­ï¿½î°ˆï¿½åš™è�“å§»ï¿½åš™è�“ï¿£ï¿½åš™è�“ï¿½",
+                                                           "hello ç“Šåš™è³¤ï¿½î°ˆï¿½ï¿½î«­ï¿½î°ˆï¿½åš™è�“å§»ï¿½åš™è�“ï¿£ï¿½åš™è�“ï¿½"),
                                         new MessageAction("Say message",
-                                                          "Rice=癟簣糧")
+                                                          "Rice=ç™Ÿç°£ç³§")
                                 ))
                         ));
                 TemplateMessage templateMessage = new TemplateMessage("Carousel alt text", carouselTemplate);
