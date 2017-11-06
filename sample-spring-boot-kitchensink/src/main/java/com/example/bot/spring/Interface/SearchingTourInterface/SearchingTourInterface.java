@@ -148,9 +148,9 @@ public class SearchingTourInterface extends UserInterface {
 	private ArrayList<Tour> srForTime = null;
 	private ArrayList<Tour> srForPlace = null;
 	private ArrayList<Tour> srForPrice = null;
+
 	private JDBCTourManager tourManager = null;
 	private Filter filter = null;
-
 	@Autowired
 
 	private LineMessagingClient lineMessagingClient;
@@ -163,6 +163,16 @@ public class SearchingTourInterface extends UserInterface {
 		messageBuilder.append("3.Search by price \n");
 
 		super.setMessage(messageBuilder.toString()) ; 
+		tourManager = new JDBCTourManager();
+		filter = new Filter();
+		/*filter.setPriceFilter("500");
+		filter.setRegionFilter(1);
+		filter.setTimeFilter("2017-11-15", "2017-12-03");
+		ArrayList<Tour> tours = tourManager.getToursByFilter(filter.getWhere());
+		for(int i = 0; i < tours.size(); ++i){
+			log.info(Double.toString(tours.get(i).getPrice()) + ", " + tours.get(i).getDepartureDate());
+		}*/
+		
 
 		tourManager = new JDBCTourManager();
 		filter = new Filter();
@@ -210,9 +220,8 @@ public class SearchingTourInterface extends UserInterface {
 			//lineMessagingClient.pushMessage(new PushMessage(userId, new TextMessage(super.getMessage())));
 			return ; 
 		}
-		
-		
-		if (  currentS == 1) {
+
+		if (currentS == 1) {
 			//not yet do checking for date-format
 			currentS = 11; //ask for end date
 			startD = userReply;
@@ -237,7 +246,6 @@ public class SearchingTourInterface extends UserInterface {
 				return;
 			}
 			currentS = 0;
-			searchByPlace(userReply);
 			placeF = true;
 			searchByPlace();
 			refreshPage("2");
@@ -557,22 +565,6 @@ class Filter{
 		keys.add(TIME_TAG);
 	}
 	
-	/**
-	 * @param placeName: tour country name
-     * @return country_id
-     */
-	
-	public int getCountryId(String placeName) {
-		String sqlStatement = " LOWER(" + COL_COUNTRY + ") = LOWER('" + placeName + "')";
-		//selection(sqlStatement);
-		return 1;
-	}
-	public int getRegionId(String placeName){
-		String sqlStatement = " LOWER(" + COL_REGION + ") = LOWER('" + placeName + "')";
-		return 1;
-	}
-	
-	
 	
 	/**
 	 * @param region_id: region id
@@ -601,11 +593,11 @@ class Filter{
 	public void setPlaceFilter(String placeName) {
 		if(hm.containsKey(PLACE_TAG))
 			removePlaceFilter();
-		int country_id = getCountryId(placeName);
+		int country_id = 1;
 		if(country_id != 0)
 			hm.put(PLACE_TAG, COL_COUNTRY_ID + " = " + Integer.toString(country_id));
 		else{
-			int region_id = getRegionId(placeName);
+			int region_id = 1;//getRegionId(placeName);
 			if(region_id != 0){
 				hm.put(PLACE_TAG, COL_REGION_ID + " = " + Integer.toString(region_id));
 			}else{
@@ -623,10 +615,19 @@ class Filter{
 	 * @param price: max price of the tour
      * @return 
      */
+	 
+	
 	public void setPriceFilter(String price) {
 		if(hm.containsKey(PRICE_TAG))
 			removePriceFilter();
 		hm.put(PRICE_TAG, COL_FEE + " < " + price);
+		keys.add(PRICE_TAG);
+	}
+	
+	public void setPriceRangeFilter(String min, String max){
+		if(hm.containsKey(PRICE_TAG))
+			removePriceFilter();
+		hm.put(PRICE_TAG, COL_FEE + " BETWEEN " + min + " AND " + max);
 		keys.add(PRICE_TAG);
 	}
 	

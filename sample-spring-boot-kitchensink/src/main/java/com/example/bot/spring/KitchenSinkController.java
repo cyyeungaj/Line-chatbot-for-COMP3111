@@ -270,7 +270,7 @@ public class KitchenSinkController {
 			//lineMessagingClient.pushMessage(new PushMessage(userId, new TextMessage(str)));
 				lineMessagingClient.pushMessage(new PushMessage(userId, new TextMessage(currentNo+".  " + q + "\n" + a + "\n")));
 			}*/
-		}
+		//}
 		
 		/*
 		String result = null ; 
