@@ -531,14 +531,24 @@ class Filter{
 	
 	private final String COL_COUNTRY_ID = "country_id";
 	private final String COL_COUNTRY = "country";
+	private final String COL_REGION_ID = "region_id";
+	private final String COL_REGION = "region";
+	
 	private final String COL_DEP_DATE = "departure_date";
 	private final String COL_FEE = "tour_fee";
+	
 	
 	private final String TIME_TAG = "time";
 	private final String PLACE_TAG = "place";
 	private final String PRICE_TAG = "price";
 	
 	private ArrayList<String> keys = new ArrayList<>();
+	
+	/**
+	 * @param startDate : start of tour date
+	 * @param endDate : end of tour date
+     * @return 
+     */
 	
 	public void setTimeFilter(String startDate, String endDate) {
 		if(hm.containsKey(TIME_TAG))
@@ -547,21 +557,72 @@ class Filter{
 		keys.add(TIME_TAG);
 	}
 	
+	/**
+	 * @param placeName: tour country name
+     * @return country_id
+     */
+	
 	public int getCountryId(String placeName) {
 		String sqlStatement = " LOWER(" + COL_COUNTRY + ") = LOWER('" + placeName + "')";
 		//selection(sqlStatement);
 		return 1;
 	}
+	public int getRegionId(String placeName){
+		String sqlStatement = " LOWER(" + COL_REGION + ") = LOWER('" + placeName + "')";
+		return 1;
+	}
 	
+	
+	
+	/**
+	 * @param region_id: region id
+     * @return 
+     */
+	public void setRegionFilter(int region_id){
+		if(hm.containsKey(PLACE_TAG))
+			removePlaceFilter();
+		hm.put(PLACE_TAG, COL_REGION_ID + " = " + Integer.toString(region_id));
+		keys.add(PLACE_TAG);
+	}
+	/**
+	 * @param country_id: country id
+     * @return 
+     */
+	public void setCountryFilter(int country_id){
+		if(hm.containsKey(PLACE_TAG))
+			removePlaceFilter();
+		hm.put(PLACE_TAG, COL_COUNTRY_ID + " = " + Integer.toString(country_id));
+		keys.add(PLACE_TAG);
+	}
+	/**
+	 * @param placeName: name of the country
+     * @return 
+     */
 	public void setPlaceFilter(String placeName) {
 		if(hm.containsKey(PLACE_TAG))
 			removePlaceFilter();
 		int country_id = getCountryId(placeName);
+		if(country_id != 0)
+			hm.put(PLACE_TAG, COL_COUNTRY_ID + " = " + Integer.toString(country_id));
+		else{
+			int region_id = getRegionId(placeName);
+			if(region_id != 0){
+				hm.put(PLACE_TAG, COL_REGION_ID + " = " + Integer.toString(region_id));
+			}else{
+				return; //no matching place name
+			}
+		}
+		
 //		hm.put(PLACE_TAG, " LOWER(" + COL_COUNTRY + ") = LOWER('" + placeName + "')");
-		hm.put(PLACE_TAG, COL_COUNTRY_ID + " = " + Integer.toString(country_id));
+		
 		keys.add(PLACE_TAG);
 	}
 	
+	
+	/**
+	 * @param price: max price of the tour
+     * @return 
+     */
 	public void setPriceFilter(String price) {
 		if(hm.containsKey(PRICE_TAG))
 			removePriceFilter();
