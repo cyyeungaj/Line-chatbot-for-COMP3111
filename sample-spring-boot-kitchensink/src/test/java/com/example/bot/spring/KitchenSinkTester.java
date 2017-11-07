@@ -123,6 +123,65 @@ public class KitchenSinkTester {
 		log.info("leave point of testforInterfaceProcess()") ; 
 	}
 	
+	@Test
+	public void testforSearchingInterfaceProcess () {
+		
+		log.info("Entry point of testforSearchingInterfaceProcess\n") ;
+		chatbotController controller = new chatbotController() ;
+		log.info(controller.getCurrentInterfaceMessage()) ;
+		log.info("User type 2\n") ;
+		controller.processInput("2" , null) ;
+		log.info(controller.getCurrentInterfaceMessage()) ;
+		
+		
+		log.info("User type 1\n") ;
+		controller.processInput("1" , null) ;
+		log.info("interfaceOutput:") ;
+		log.info(controller.getCurrentInterfaceMessage()) ;
+
+		//(YYYY-MM-DD)
+		log.info("user type 2017-11-15") ; 
+		controller.processInput("2017-11-15" , null) ;
+		log.info("interfaceOutput:") ;
+		log.info(controller.getCurrentInterfaceMessage()) ;
+
+		log.info("user type 2017-11-25") ; 
+		controller.processInput("2017-11-25" , null) ;
+		log.info("interfaceOutput:") ;
+		log.info(controller.getCurrentInterfaceMessage()) ;
+
+		log.info("user type yes") ; 
+		controller.processInput("yes" , null) ;
+		log.info("interfaceOutput:") ;
+		log.info(controller.getCurrentInterfaceMessage()) ;
+
+	}
+	
+	@Test
+	public void testTourManager () throws Exception {
+		//JDBCFaqManager manager = new JDBCFaqManager() ; 
+		//ArrayList<FAQ> results ;
+		//results = manager.getAllFAQ() ; 
+		//assertThat(results.get(0).getQuestionNum()).isEqualTo(1) ; 
+		//assertThat(results.get(0).getQuestion()).isEqualTo("How to apply?");
+		//assertThat(results.get(1))
+		JDBCTourManager manager = new JDBCTourManager();
+		int country_id = manager.getCountryId("china");
+		int region_id = manager.getRegionId("taipei");
+		//assertThat(country_id).isEqualTo(1);
+		//assertThat(region_id).isEqualTo(1);
+		
+		String where = " where departure_date between '2017-11-23' and '2017-12-02' and tour_fee < 500 and region_id = 1";
+		ArrayList<Tour> tours = manager.getToursByFilter(where);
+		for(int i = 0; i < tours.size(); ++i){
+			log.info(tours.get(i).getDepartureDate());
+			assertThat(tours.get(i).getCountryId()).isEqualTo(1);
+		}
+		SearchingTourInterface si = new SearchingTourInterface();
+		
+	}
+	
+	
 	
 	@Test
 	public void testForBookingInterface () {
@@ -169,7 +228,10 @@ public class KitchenSinkTester {
 		log.info(controller.getCurrentInterfaceMessage()) ;
 		
 		log.info("User type A111111\n") ;
+		/*
 		controller.processInput("A111111" , null) ;
+		*/
+		
 		log.info("interface Output:") ; 
 		log.info(controller.getCurrentInterfaceMessage()) ;
 		

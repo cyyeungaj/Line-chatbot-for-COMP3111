@@ -111,7 +111,7 @@ public class MenuInterface extends UserInterface {
 		try {
 			userInput= Integer.parseInt(userReply) ; 
 		}catch (NumberFormatException e) {
-			controller.setInterface(new ErrorInterface()) ; 
+			super.setMessage("Please type valid number") ; 
 		}
 		
 		
@@ -120,7 +120,7 @@ public class MenuInterface extends UserInterface {
 				controller.setInterface(new BookingInterface()) ; 
 				break ; 
 			case SELECT_QUERY_ACTION : 
-				controller.setInterface(new QueryInterface()) ; 
+				controller.setInterface(new SearchingTourInterface()) ; 
 				break ; 
 			case SELECT_FAQ_ACTION : 
 				controller.setInterface(new FAQInterface()) ; 
@@ -132,12 +132,9 @@ public class MenuInterface extends UserInterface {
 				controller.setInterface(new RecommandationInterface()) ; 
 				break ; 
 			default:
-				controller.setInterface(new ErrorInterface()) ; 
+				super.setMessage("Please type valid number") ; 
 				break ; 
 		}
-		
-	
-		
 	}
 
 	

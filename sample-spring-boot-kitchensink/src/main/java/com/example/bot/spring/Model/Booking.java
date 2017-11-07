@@ -17,7 +17,8 @@ public class Booking {
     private String specialRequest;
     private boolean confirm;
     private double serviceCharge;
-
+    private Tour tour ; 
+    
     public Booking(String date, String bookTableId, String clientId, String tourId,
                    int noOfAdults, int noOfChildrens, int noOfToodlers, double tourFee,
                    String specialRequest, double amountPaid, boolean confirm, double serviceCharge) {
@@ -39,6 +40,11 @@ public class Booking {
     
     public Booking () {
     	
+    }
+    
+    public void setTour ( Tour tour ) {
+    	this.tour = tour ; 
+    	this.tourID = tour.getTourId();
     }
 
     public String getDate() {
@@ -69,8 +75,8 @@ public class Booking {
         return tourID;
     }
     
-    public void setTourID( String tourID ) {
-    	this.tourID = tourID ; 
+    public void setTourID (String tourid ) {
+    	tourID = tourid ; 
     }
 
     public int getNoOfAdults() {
@@ -101,7 +107,7 @@ public class Booking {
         return tourFee;
     }
     
-    public void setTourFee ( Tour tour ) {
+    public void setTourFee () {
     	this.tourFee = noOfAdults* tour.getPrice() + noOfChildrens * ( tour.getPrice() * 0.8);
     }
 
@@ -133,8 +139,8 @@ public class Booking {
         return serviceCharge;
     }
     
-    public void SetServiceCharge( Tour tour ) {
-    	this.serviceCharge = (noOfAdults + noOfChildrens) * tour.getDuration() ; 
+    public void setServiceCharge() {
+    	this.serviceCharge = (noOfAdults + noOfChildrens) * tour.getDuration() * 60  ; 
     }
     
 }

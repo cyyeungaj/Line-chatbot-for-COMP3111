@@ -93,28 +93,10 @@ import lombok.extern.slf4j.Slf4j;
 import java.net.URI;
 @Slf4j
 public class BookingInterface extends UserInterface {
-	
-	private final static int INITIAL_STATE = 0 ; 
-	
-	private final static int ASK_FOR_TOUR_STATE = 1 ;
-	private final static int ASK_FOR_TOUR_CHOICE_STATE = 2 ; 
-	private final static int ASK_FOR_ADULTSNO_STATE = 3 ; 
-	private final static int ASK_FOR_TOODLERNO_STATE = 4 ; 
-	private final static int ASK_FOR_CHILDREN_STATE = 5 ; 
-	private final static int ASK_FOR_FEECONFIRM_STATE = 6 ; 
-	private final static int ASK_FOR_HKID_STATE = 7 ;
-	
+		
 	private String ASK_FOR_TOUR_MESSSAGE = "Welcome. Here is the choices of the tours for your to choose:\n" ;   
-	private String ASK_FOR_TOUR_CHOICE_MESSAGE = "" ;
-	private String ASK_FOR_ADULTSNO_STATE_MESSAGE = "How many adults?" ; 
-	private String ASK_FOR_TOODLERNO_STATE_MESSAGE = "How many children (Age 0 - 3) ?" ; 
-	private String ASK_FOR_CHILDREN_STATE_MESSAGE = "How many children (Age 4 to 11) ?" ;
-	private String ASK_FOR_FEECONFIRM_STATE_MESSAGE = "It will be $" ; 
-	private String SHOW_ASSEMBLY_POINT_MESSAGE = "" ; 
-	private String ASK_FOR_HKID_STATE_MESSAGE = "What is your HKID?" ; 
 	
 
-	private int currentState ;
 	private String currentMessage ; 
 	private ArrayList<Tour> tourList ; 
 	private Booking currentBooking ; 
@@ -141,93 +123,23 @@ public class BookingInterface extends UserInterface {
 			index ++ ; 
 		}
 		messageBuilder.append("\n") ; 
-		ASK_FOR_TOUR_MESSSAGE = messageBuilder.toString() ; 
-		setMessage(ASK_FOR_TOUR_MESSSAGE) ; 
-		currentState = ASK_FOR_TOUR_STATE ; 
+		setMessage(messageBuilder.toString()) ; 
 	}
 	
 	
 	public void processInput( chatbotController controller, String userReply , Event event) {
-		
+        
 		int userNoInput = 0 ; 
 		try {
 			userNoInput = Integer.parseInt(userReply) ; 
 		} catch ( Exception e ) {
 			log.info("NumberFormat Exception ") ; 
-		} finally {
-		
-        StringBuilder messageBuilder = new StringBuilder();
-		switch(currentState) {
-			case ASK_FOR_TOUR_STATE: 
-				selectedTour = tourList.get(userNoInput) ; 
-				tourList = new JDBCTourManager().getToursByName( selectedTour.getTourName()) ;
-				currentState ++ ; 
-				int index = 1 ; 
-				for( Tour currentTour : tourList ) {
-					messageBuilder.append(index + ". ") ; 
-					messageBuilder.append(currentTour.getTourName() + "\n") ;
-					messageBuilder.append(currentTour.gettourDescription() + "\n") ; 
-					messageBuilder.append(currentTour.getHotel() + "\n") ; 
-					messageBuilder.append(currentTour.getDepartureDate() + "\n") ; 
-					index ++ ; 
-				}
-				messageBuilder.append("\n") ; 
-				super.setMessage(messageBuilder.toString()) ; 
-				break ;
-			case ASK_FOR_TOUR_CHOICE_STATE:
-				selectedTour =  tourList.get(userNoInput);
-				currentBooking.setTourID(selectedTour.getTourId()); 
-				currentState ++ ;
-				super.setMessage(ASK_FOR_ADULTSNO_STATE_MESSAGE); 
-				break ;
-			case ASK_FOR_ADULTSNO_STATE:
-				currentBooking.setNoOfAdults(userNoInput) ; 
-				currentState ++ ; 
-				super.setMessage(ASK_FOR_TOODLERNO_STATE_MESSAGE) ; 
-				break ;
-			case ASK_FOR_TOODLERNO_STATE: 
-				currentBooking.setNoOfToodlers(userNoInput) ; 
-				currentState ++ ; 
-				super.setMessage(ASK_FOR_CHILDREN_STATE_MESSAGE) ; 
-				break ;
-			case ASK_FOR_CHILDREN_STATE: 
-				currentBooking.setNoOfChildrens(userNoInput) ; 
-				currentState ++ ; 
-				currentBooking.setTourFee(selectedTour) ;  
-				log.info("selectedtour fee:"+selectedTour.getPrice ());
-				log.info("getNoOfAdults()" +currentBooking.getNoOfAdults());
-				log.info("getNoOfChildrens" +currentBooking.getNoOfChildrens());
-
-				super.setMessage(ASK_FOR_FEECONFIRM_STATE_MESSAGE + currentBooking.getTourFee() + "\nAre you confirmed to book this tour?") ; 
-				break ;
-			case ASK_FOR_FEECONFIRM_STATE: 
-				if(userReply.compareTo("yes") == 0 ) {
-					currentState ++ ; 
-					String date = null ; 
-					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-					LocalDate localDate = LocalDate.now();
-					date = localDate.format(formatter) ; 
-					currentBooking.setDate(date);
-					currentBooking.setSpecialRequest("");
-					currentBooking.setAmountPaid(0.0) ; 
-					currentBooking.setConfirm(false);
-					currentBooking.SetServiceCharge(selectedTour); 
-					super.setMessage(ASK_FOR_HKID_STATE_MESSAGE) ; 
-				} else {
-					controller.setInterface(new BookingInterface()) ; 
-				}
-				break ;
-			case ASK_FOR_HKID_STATE: 
-				currentBooking.setCustomerID(userReply) ; 
-				new JDBCBookingManager().insertBooking(currentBooking) ; 
-				controller.setInterface(new MenuInterface()) ; 
-				break ;
-			}
 		}
+		
+		StringBuilder messageBuilder = new StringBuilder();
+		selectedTour = tourList.get(userNoInput) ; 
+		tourList = new JDBCTourManager().getToursByName( selectedTour.getTourName()) ;
+		controller.setInterface(new AskForTourChoiceState(tourList)) ; 
 
 	}
-	
-
-
-	
 }

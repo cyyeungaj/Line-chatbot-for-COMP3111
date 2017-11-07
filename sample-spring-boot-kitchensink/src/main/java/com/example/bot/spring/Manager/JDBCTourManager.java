@@ -13,6 +13,10 @@ import java.text.SimpleDateFormat;
 
 @Slf4j
 public class JDBCTourManager extends tourManager {
+	private final String COUNTRY_TABLE = "country";
+	private final String REGION_TABLE = "region";
+	private final String TOURLIST_TABLE = "tourlist";
+	
 	private final String TOUR_ID = "tour_id";
 	private final String TOUR_NAME = "tour_name";
 	private final String TOUR_DEC = "tour_shortdec";
@@ -21,14 +25,73 @@ public class JDBCTourManager extends tourManager {
 	private final String TG_NAME = "tour_guide";
 	private final String TG_LINE = "tour_guide_line_ac";
 	private final String COUNTRY_ID = "country_id";
+	private final String COUNTRY = "country";
 	
 	private final String REGION_ID = "region_id";
+	private final String REGION = "region";
 	private final String DUR = "duration";
 	private final String TOUR_CAP = "tour_cap";
 	private final String MIN_REQ_CAP = "min_req_cap";
 	private final String FEE = "tour_fee";
 	
 	
+	
+	/**
+	 * @param placeName: tour country name
+     * @return country_id
+     */
+	public int getCountryId(String placeName){
+		String sqlStatement = "SELECT " + COUNTRY_ID + " FROM " + COUNTRY_TABLE 
+		+ " WHERE LOWER(" + COUNTRY + ") = LOWER('" + placeName + "')";
+		int id = -1;
+		try{
+			ResultSet rs = SelectionQuery(sqlStatement);
+			if(rs.next())
+				id = rs.getInt(COUNTRY_ID);
+		}catch(Exception e){
+			log.info("country id get fail, " + sqlStatement);
+		}
+		return id;
+	}
+	/**
+	 * @param placeName: tour country name
+     * @return region_id
+     */
+	public int getRegionId(String placeName){
+		String sqlStatement = "SELECT " + REGION_ID + " FROM " + REGION_TABLE 
+		+ " WHERE LOWER(" + REGION + ") = LOWER('" + placeName + "')";
+		
+		int id = -1;
+		try{
+			ResultSet rs = SelectionQuery(sqlStatement);
+			if(rs.next())
+				id = rs.getInt(REGION_ID);
+		}catch(Exception e){
+			log.info("region id get fail, " + sqlStatement);
+		}
+		return id;
+	}
+	
+	public ArrayList<Tour> getToursByFilter(String where){
+		String base_sqlStatement = "SELECT * FROM " + TOURLIST_TABLE;
+		String sqlStatement = base_sqlStatement + " " + where;
+		log.info(sqlStatement);
+		ResultSet rs = null;
+		ArrayList<Tour> result = new ArrayList<>();
+		try{
+			rs = SelectionQuery(sqlStatement);
+			
+			while(rs.next()){
+				result.add(getRecord(rs));
+			}
+		}catch(Exception e){
+			log.info("Exception occur in statement rs=SelectQuery in getToursByFilter function") ; 
+			log.info(e.toString());
+			
+		}
+		
+		return result;
+	}
 	/**
 	 *
 	 * @param low : lower boundary of range
@@ -52,7 +115,7 @@ public class JDBCTourManager extends tourManager {
 			}
 
 		}catch (SQLException e){
-
+			
 		}
 		
 		
