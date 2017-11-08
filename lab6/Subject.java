@@ -24,6 +24,10 @@ public class Subject {
 
 	public void notifyObservers() {
 		// TODO: notify every observers
+		for(int i = 0; i < observers.size(); ++i){
+			observers.get(i).update();
+		}
+		changed = false;
 	}
 
 	public void setMessage(String msg) {
