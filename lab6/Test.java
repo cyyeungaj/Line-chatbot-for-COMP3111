@@ -1,4 +1,4 @@
-package skeleton;
+ package skeleton;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -46,13 +46,13 @@ public class Test {
 					}
 					break;
 				case "2":
-					System.out.println(MESSAGE_SELECT_TWO);
+					System.out.println(MESSAGE_SELECT_TWO); //which order is ready?
 					String order = br.readLine();
-					// TODO: act appropriately according to your design
+					// TODO: act appropriately according to your design					
 					starbucks.setMessage(order);
 					break;
 				case "3":
-					System.out.println(MESSAGE_SELECT_THREE);
+					System.out.println(MESSAGE_SELECT_THREE); //"The following ids are in the queue:"
 					// print all id in the queue
 					for( Observer obs : starbucks.getQueue() ) System.out.println(obs.getID()); 
 					break;

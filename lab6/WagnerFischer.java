@@ -35,11 +35,11 @@ public class WagnerFischer {
         return dp[s1.length][s2.length];
     }
 
-    public static void main(String[] args) {
-        WagnerFischer wf = new WagnerFischer("Caffe Mocha", "coffee moka");
-        System.out.println(wf.getDistance());
-        wf = new WagnerFischer("Frappuccino", "fappiccino");
-        System.out.println(wf.getDistance());
-    }
+//    public static void main(String[] args) {
+//        WagnerFischer wf = new WagnerFischer("Caffe Mocha", "coffee moka");
+//        System.out.println(wf.getDistance());
+//        wf = new WagnerFischer("Frappuccino", "fappiccino");
+//        System.out.println(wf.getDistance());
+//    }
 
 }

@@ -15,5 +15,18 @@ public class Adapter {
 	**/
 	public String getBeverage(String s){
 		// TODO: find the word with minimum edit distance
+		int min = 999;
+		int selected_index = -1;
+		for(int i = 0; i < BEVERAGES.length; ++i){
+			WagnerFischer wf = new WagnerFischer(BEVERAGES[i], s);
+			int distance = wf.getDistance();
+			if(distance <= 3 && distance < min){
+				min = distance;
+				selected_index = i;
+			}
+		}
+		if(selected_index == -1)
+			return null;
+		return BEVERAGES[selected_index];
 	}
 }
