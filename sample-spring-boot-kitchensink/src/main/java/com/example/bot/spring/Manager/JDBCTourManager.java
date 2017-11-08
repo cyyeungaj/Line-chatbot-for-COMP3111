@@ -98,9 +98,9 @@ public class JDBCTourManager extends tourManager {
 	 * @param high : upper boundary of proce
      * @return List of tours that price ranged (low,high) from the database
      */
-	public ArrayList<Tour> getToursByPriceRange( int low , int high) {
+	public ArrayList<Tour> getToursByPriceRange( double low , double high) {
 
-		String SQLstatement = "SELECT * FROM TOUR WHERE PRICE BETWEEN " + low + " AND " + high + " ;" ;
+		String SQLstatement = "SELECT * FROM tourlist WHERE tour_fee BETWEEN " + low + " AND " + high + " ;" ;
 		ResultSet rs = null ; 
 		try{
 			rs = SelectionQuery(SQLstatement);
@@ -113,9 +113,8 @@ public class JDBCTourManager extends tourManager {
 			while(rs.next()){
 				result.add(getRecord(rs));
 			}
-
-		}catch (SQLException e){
-			
+		}catch (SQLException e) {
+			log.info("SQLException occur in statement result.add(getRecord(rs)) on  getToursByPriceRange function") ; 
 		}
 		
 		
@@ -129,7 +128,7 @@ public class JDBCTourManager extends tourManager {
 	 * @param tours : List of selected tours
      * @return List of tours that price ranged (low,high) from the list tours
      */
-	public ArrayList<Tour> getToursByPriceRange( int low , int high , ArrayList<Tour> tours) {
+	public ArrayList<Tour> getToursByPriceRange( double low , double high , ArrayList<Tour> tours) {
 		ArrayList<Tour> result = new ArrayList<Tour>();
 		for(Tour tour: tours){
 			double price = tour.getPrice();
@@ -163,13 +162,13 @@ public class JDBCTourManager extends tourManager {
 		}catch(SQLException e){
 			log.info("SQLException while connecting to sql server: {}", e.toString());
 		}
-		if(countryCode == -1) {
-			String SQLstatement = "SELECT * FROM TOURLIST WHERE COUNTRY_ID = " + countryCode + ";";
+		if(countryCode != -1) {
+			String SQLstatement = "SELECT * FROM TOURLIST WHERE country_id = " + countryCode + ";";
 			
 			try {
 				rs = SelectionQuery(SQLstatement);
 			} catch ( Exception e) {
-				log.info("Exceptino occur in getTourByPlace function") ; 
+				log.info("Exception occur in getTourByPlace function") ; 
 			}
 			try {
 				while (rs.next()) {
@@ -181,19 +180,19 @@ public class JDBCTourManager extends tourManager {
 			}
        
         
-		if(result != null)
+		if(result.size() != 0)
 			return result;
 		}else // Case that place is a region
 		{
 			int regionCode = -1;
-			String searchRegion = "SELECT * FROM COUNTRY WHERE COUNTRY_NAME = " + place + ";";
+			String searchRegion = "SELECT * FROM region WHERE region = " + place + ";";
 			try{
 				rs = SelectionQuery(searchRegion);
 			} catch ( Exception e ) {
 				
 			}
 			try{
-				regionCode = rs.getInt("COUNTRY_ID");
+				regionCode = rs.getInt("region_id");
 			}catch(SQLException e){
 				log.info("SQLException while connecting to sql server: {}", e.toString());
 			}
@@ -214,7 +213,7 @@ public class JDBCTourManager extends tourManager {
 			}
          
          
-			if(result != null)
+			if(result.size() != 0 )
 				return result;
 		}
 		return null ;

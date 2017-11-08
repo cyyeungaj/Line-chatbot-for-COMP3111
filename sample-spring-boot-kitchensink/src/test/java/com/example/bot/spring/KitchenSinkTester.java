@@ -123,12 +123,13 @@ public class KitchenSinkTester {
 		log.info("leave point of testforInterfaceProcess()") ; 
 	}
 	
+	
 	@Test
-	public void testforSearchingInterfaceProcess () {
-		
+	public void testforSearchingInterfaceProcessInSearchingTime () {
 		log.info("Entry point of testforSearchingInterfaceProcess\n") ;
 		chatbotController controller = new chatbotController() ;
 		log.info(controller.getCurrentInterfaceMessage()) ;
+		//assertThat(controller.getCurrentInterfaceMessage()).isEqualTo(new MenuInterface().)
 		log.info("User type 2\n") ;
 		controller.processInput("2" , null) ;
 		log.info(controller.getCurrentInterfaceMessage()) ;
@@ -156,6 +157,115 @@ public class KitchenSinkTester {
 		log.info(controller.getCurrentInterfaceMessage()) ;
 
 	}
+	
+	
+	@Test
+	public void testforSearchingInterfaceProcessInSearchingPlace () {
+		
+		log.info("Entry point of testforSearchingInterfaceProcessInSearchingPlace\n") ;
+		chatbotController controller = new chatbotController() ;
+		log.info(controller.getCurrentInterfaceMessage()) ;
+		//assertThat(controller.getCurrentInterfaceMessage()).isEqualTo(new MenuInterface().)
+		log.info("User type 2\n") ;
+		controller.processInput("2" , null) ;
+		log.info(controller.getCurrentInterfaceMessage()) ;
+		
+		
+		log.info("User type 2\n") ;
+		controller.processInput("2" , null) ;
+		log.info("interfaceOutput:") ;
+		log.info(controller.getCurrentInterfaceMessage()) ;
+
+		//(YYYY-MM-DD)
+		log.info("user type China") ; 
+		controller.processInput("China" , null) ;
+		log.info("interfaceOutput:") ;
+		log.info(controller.getCurrentInterfaceMessage()) ;
+
+		log.info("user type 1") ; 
+		controller.processInput("1" , null) ; 
+		
+		log.info("user type 2017-11-15") ; 
+		controller.processInput("2017-11-15" , null) ;
+		log.info("interfaceOutput:") ;
+		log.info(controller.getCurrentInterfaceMessage()) ;
+
+		log.info("user type 2017-11-25") ; 
+		controller.processInput("2017-11-25" , null) ;
+		log.info("interfaceOutput:") ;
+		log.info(controller.getCurrentInterfaceMessage()) ;
+
+		log.info("user type 3") ; 
+		controller.processInput("3" , null) ; 
+		log.info("interfaceOutput:") ;
+		log.info(controller.getCurrentInterfaceMessage()) ;
+		
+		log.info("user type 250") ; 
+		controller.processInput("250" , null) ; 
+		log.info("interfaceOutput:") ;
+		log.info(controller.getCurrentInterfaceMessage()) ;
+
+		log.info("user type 600") ; 
+		controller.processInput("600" , null) ; 
+		log.info("interfaceOutput:") ;
+		log.info(controller.getCurrentInterfaceMessage()) ;
+
+		log.info("user type 6") ; 
+		controller.processInput("6" , null) ; 
+		log.info("interfaceOutput:") ;
+		log.info(controller.getCurrentInterfaceMessage()) ;
+
+		log.info("user type 5") ; 
+		controller.processInput("5" , null) ; 
+		log.info("interfaceOutput:") ;
+		log.info(controller.getCurrentInterfaceMessage()) ;
+
+		log.info("user type 4") ; 
+		controller.processInput("4" , null) ; 
+		log.info("interfaceOutput:") ;
+		log.info(controller.getCurrentInterfaceMessage()) ;
+
+		
+		
+		log.info("Leave point of testforSearchingInterfaceProcessInSearchingPlace\n") ;
+	}
+	
+	/*
+	@Test
+	public void testforSearchingInterfaceProcessInSearchingTime () {
+		log.info("Entry point of testforSearchingInterfaceProcess\n") ;
+		chatbotController controller = new chatbotController() ;
+		log.info(controller.getCurrentInterfaceMessage()) ;
+		//assertThat(controller.getCurrentInterfaceMessage()).isEqualTo(new MenuInterface().)
+		log.info("User type 2\n") ;
+		controller.processInput("2" , null) ;
+		log.info(controller.getCurrentInterfaceMessage()) ;
+		
+		
+		log.info("User type 2\n") ;
+		controller.processInput("2" , null) ;
+		log.info("interfaceOutput:") ;
+		log.info(controller.getCurrentInterfaceMessage()) ;
+
+		log.info("user type 2017-11-15") ; 
+		controller.processInput("2017-11-15" , null) ;
+		log.info("interfaceOutput:") ;
+		log.info(controller.getCurrentInterfaceMessage()) ;
+
+		log.info("user type 2017-11-25") ; 
+		controller.processInput("2017-11-25" , null) ;
+		log.info("interfaceOutput:") ;
+		log.info(controller.getCurrentInterfaceMessage()) ;
+
+		log.info("user type yes") ; 
+		controller.processInput("yes" , null) ;
+		log.info("interfaceOutput:") ;
+		log.info(controller.getCurrentInterfaceMessage()) ;
+
+	}*/
+
+	
+	
 	
 	@Test
 	public void testTourManager () throws Exception {
@@ -230,10 +340,9 @@ public class KitchenSinkTester {
 		log.info("User type A111111\n") ;
 		/*
 		controller.processInput("A111111" , null) ;
-		*/
-		
 		log.info("interface Output:") ; 
 		log.info(controller.getCurrentInterfaceMessage()) ;
+		*/
 		
 	}
 	
