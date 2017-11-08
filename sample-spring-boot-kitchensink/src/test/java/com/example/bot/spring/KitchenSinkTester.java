@@ -379,58 +379,6 @@ public class KitchenSinkTester {
 		
 	
 	}
-	
-	
-		@Test
-	public void testTourManager () throws Exception {
-		//JDBCFaqManager manager = new JDBCFaqManager() ; 
-		//ArrayList<FAQ> results ;
-		//results = manager.getAllFAQ() ; 
-		//assertThat(results.get(0).getQuestionNum()).isEqualTo(1) ; 
-		//assertThat(results.get(0).getQuestion()).isEqualTo("How to apply?");
-		//assertThat(results.get(1))
-		JDBCTourManager manager = new JDBCTourManager();
-		int country_id = manager.getCountryId("china");
-		int region_id = manager.getRegionId("taipei");
-		//assertThat(country_id).isEqualTo(1);
-		//assertThat(region_id).isEqualTo(1);
-		
-		String where = " where departure_date between '2017-11-23' and '2017-12-02' and tour_fee < 500 and region_id = 1";
-		ArrayList<Tour> tours = manager.getToursByFilter(where);
-		for(int i = 0; i < tours.size(); ++i){
-			log.info(tours.get(i).getDepartureDate());
-			assertThat(tours.get(i).getCountryId()).isEqualTo(1);
-		}
-		SearchingTourInterface si = new SearchingTourInterface();
-	}
-	
-	@Test
-	public void testOpenNlp () throws Exception {
-		String paragraph = "Hi. How are you? This is Mike.";
- 
-		// always start with a model, a model is learned from training data
-		InputStream is = new FileInputStream("en-sent.bin");
-		SentenceModel model = new SentenceModel(is);
-		SentenceDetectorME sdetector = new SentenceDetectorME(model);
-	 
-		String sentences[] = sdetector.sentDetect(paragraph);
-	 
-		System.out.println(sentences[0]);
-		System.out.println(sentences[1]);
-		is.close();
 
-        // print the sentences detected, to console
-        for(int i=0;i<sentences.length;i++){
-            log.info(sentences[i]);
-        }
-        
-		assertThat("test nlp").isEqualTo("");
-	}
-	
-		
-		
-	
-	
-	
 	
 }
