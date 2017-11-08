@@ -34,12 +34,12 @@ public class Manager {
 		Connection connection;
 		URI dbUri = new URI(System.getenv("DATABASE_URL"));
 
-		//String username = dbUri.getUserInfo().split(":")[0];
-		String username = "zifqroemwxifsc";
-		//String password = dbUri.getUserInfo().split(":")[1];
-		String password = "ca4388ee9d116c4c5b4343e9f9934237c231fd02faa62fedb3ad375adf8aa376";
-		//String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath() +  "?ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory";
-		String dbUrl = "jdbc:postgresql://ec2-54-227-252-202.compute-1.amazonaws.com:5432/d1jr6upsvah14o?ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory";
+		String username = dbUri.getUserInfo().split(":")[0];
+	
+		String password = dbUri.getUserInfo().split(":")[1];
+	
+		String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath() +  "?ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory";
+	
 		log.info("Username: {} Password: {}", username, password);
 		log.info ("dbUrl: {}", dbUrl);
 		
