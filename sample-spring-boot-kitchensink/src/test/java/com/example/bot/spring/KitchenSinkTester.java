@@ -65,6 +65,17 @@ import java.io.IOException;
 import java.net.URI;
 
 
+import java.io.FileInputStream;
+import java.io.IOException;
+//import java.io.InputStream;
+import java.io.ByteArrayInputStream;
+import com.fasterxml.jackson.databind.exc.InvalidFormatException;
+ import java.nio.charset.StandardCharsets;
+import opennlp.tools.sentdetect.SentenceDetectorME;
+import opennlp.tools.sentdetect.SentenceModel;
+
+
+
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = { KitchenSinkTester.class, SQLDatabaseEngine.class , JDBCFaqManager.class})
 @Slf4j
@@ -393,6 +404,29 @@ public class KitchenSinkTester {
 		}
 		SearchingTourInterface si = new SearchingTourInterface();
 		
+	}
+	
+	@Test
+	public void testOpenNlp () throws Exception {
+		String paragraph = "Hi. How are you? This is Mike.";
+ 
+		// always start with a model, a model is learned from training data
+		InputStream is = new FileInputStream("en-sent.bin");
+		SentenceModel model = new SentenceModel(is);
+		SentenceDetectorME sdetector = new SentenceDetectorME(model);
+	 
+		String sentences[] = sdetector.sentDetect(paragraph);
+	 
+		System.out.println(sentences[0]);
+		System.out.println(sentences[1]);
+		is.close();
+
+        // print the sentences detected, to console
+        for(int i=0;i<sentences.length;i++){
+            log.info(sentences[i]);
+        }
+        
+		assertThat("test nlp").isEqualTo("");
 	}
 	
 		
