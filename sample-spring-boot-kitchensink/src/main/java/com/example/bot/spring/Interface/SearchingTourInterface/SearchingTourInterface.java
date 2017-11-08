@@ -142,7 +142,7 @@ public class SearchingTourInterface extends UserInterface {
 	private Event event = null;
 
 	private String startD, endD, place;
-	private int minPrice = -1, maxPrice = -1;
+	private double minPrice = -1, maxPrice = -1;
 	private int currentS = 0;
 	private ArrayList<Tour> searchingResult = null;
 	private ArrayList<Tour> srForTime = null;
@@ -182,19 +182,6 @@ public class SearchingTourInterface extends UserInterface {
 		//this.event  = event;
 		StringBuilder messageBuilder = new StringBuilder();
 		super.setManager(null);
-		/*
-		if(event != null) {
-			Source src = event.getSource(); 
-			String userId = src.getUserId();
-		}*/
-		
-		/*
-		int userNoInput = 0 ; 
-		try {
-			userNoInput = Integer.parseInt(userReply) ; 
-		} catch ( Exception e ) {
-			log.info("NumberFormat Exception ") ; 
-		}*/
 		
 		if( (timeF || placeF || priceF) && userReply.compareTo("yes") == 0 ){
 			controller.setInterface(new AskForTourChoiceState(searchingResult)) ; 
@@ -211,7 +198,6 @@ public class SearchingTourInterface extends UserInterface {
 			currentS = 2;
 			messageBuilder.append("Please enter Place: ");
 			super.setMessage(messageBuilder.toString());
-			//lineMessagingClient.pushMessage(new PushMessage(userId, new TextMessage(super.getMessage())));
 			return ; 
 
 		}
@@ -237,7 +223,6 @@ public class SearchingTourInterface extends UserInterface {
 
 		if (currentS == 2) {
 			place = userReply;
-			//searchByPlace(userReply);
 			
 			int region_id = tourManager.getRegionId(place);
 			int country_id = tourManager.getCountryId(place);
@@ -252,13 +237,14 @@ public class SearchingTourInterface extends UserInterface {
 			}
 			currentS = 0;
 			placeF = true;
+			searchByPlace();
 			refreshPage("2");
 			return ; 
 		}
 
 		if (currentS == 3) {
 			currentS = 13; // ask for max price
-			minPrice = Integer.parseInt(userReply);
+			minPrice = Double.parseDouble(userReply);
 			messageBuilder.append("Please enter maximum Price: ");
 			super.setMessage(messageBuilder.toString());
 			//lineMessagingClient.pushMessage(new PushMessage(userId, new TextMessage(super.getMessage())));
@@ -269,8 +255,8 @@ public class SearchingTourInterface extends UserInterface {
 		if (currentS == 11) {
 			currentS = 0;
 			endD = userReply;
-			searchByTime();
 			filter.setTimeFilter(startD, endD);
+			searchByTime();
 			timeF = true;
 			refreshPage("1");
 			return ; 
@@ -280,8 +266,9 @@ public class SearchingTourInterface extends UserInterface {
 
 		if (currentS == 13) {
 			currentS = 0;
-			maxPrice = Integer.parseInt(userReply);
-			filter.setPriceRangeFilter(Integer.toString(minPrice), Integer.toString(maxPrice));
+			maxPrice = Double.parseDouble(userReply);
+			filter.setPriceRangeFilter(Double.toString(minPrice), Double.toString(maxPrice));
+			searchByPrice() ; 
 			priceF = true;
 			refreshPage("3");
 			return ; 
@@ -292,6 +279,8 @@ public class SearchingTourInterface extends UserInterface {
 			timeF = false;
 			startD = null;
 			endD = null;
+			searchByTime() ; 
+			refreshPage("4");
 			return ; 
 		}
 		// turn off place filter
@@ -299,6 +288,8 @@ public class SearchingTourInterface extends UserInterface {
 			filter.removePlaceFilter();
 			placeF = false;
 			place = null;
+			searchByPlace() ; 
+			refreshPage("5");
 			return ; 
 
 		}
@@ -308,6 +299,8 @@ public class SearchingTourInterface extends UserInterface {
 			priceF = false;
 			minPrice = -1;
 			maxPrice = -1;
+			searchByPrice() ; 
+			refreshPage("6");
 			return ; 
 
 		}
@@ -317,32 +310,29 @@ public class SearchingTourInterface extends UserInterface {
 			
 	private void searchByTime() {
 		// if startD and endD = null, then search all date
-		this.searchingResult = new JDBCTourManager().getToursByTime(startD, endD);
-		this.srForTime = searchingResult ; 
-	}
-	private void searchByPlace(String p) {
-		// if minPrice and place = null, then search all place
 		
+		
+		this.searchingResult = new JDBCTourManager().getToursByFilter(filter.getWhere()) ; 
+		this.srForTime = new ArrayList<Tour> (); 
+		for( Tour tour : searchingResult ) 
+			srForTime.add(tour) ; 
+	}
+	private void searchByPlace() {
+		// if minPrice and place = null, then search all place
+		this.searchingResult = new JDBCTourManager().getToursByFilter(filter.getWhere()) ; 
+		srForPlace = new ArrayList<Tour>() ; 
+		for( Tour tour : searchingResult ) 
+			srForPlace.add(tour) ; 
 	}
 
 	private void searchByPrice() {
 		// if minPrice and maxPrice = -1, then search all price
-		String SQLStatement = "SELECT * from tourlist WHERE tour_fee BETWEEN " + minPrice + " AND " + maxPrice + ";";
-		ResultSet rs = null;
-		try {
-			Manager manager = new Manager();
-			rs = manager.SelectionQuery(SQLStatement);
-		} catch(Exception e) {
-
-		}
-		srForPrice = new ArrayList<Tour>();
-		try {
-			while (rs.next()) {
-				Tour tour = new Tour(rs.getString("tour_id"), rs.getInt("country_id"), rs.getInt("region_id"), rs.getString("tour_name"), rs.getString("tour_shortdec"), rs.getString("hotel"), rs.getInt("duration"), rs.getDate("departure_date").toString(), rs.getInt("tour_cap"), rs.getInt("min_req_cap"), rs.getDouble("tour_fee"), rs.getString("tour_guide"), rs.getString("tour_guide_line_ac"));
-				srForPrice.add(tour);
-			}
-		} catch (SQLException e) {	
-		}
+		this.searchingResult = new JDBCTourManager().getToursByFilter(filter.getWhere()) ; 
+		srForPrice = new ArrayList<Tour>() ; 
+		for( Tour tour : searchingResult ) 
+			srForPrice.add(tour) ; 
+		
+		
 	}
 
 	
@@ -362,13 +352,16 @@ public class SearchingTourInterface extends UserInterface {
 		// Refresh the page if user select to search not enter to see description of tour (if (-1))
 		if (option.indexOf("T") == -1) {
 			String timeFChecker = "Off", placeFChecker = "Off", priceFChecker = "Off";
-			if (option.compareTo("1") == 0 )
+			if (timeF == true)
 				timeFChecker = "On";
-			if (option.compareTo("2") == 0 )
-				timeFChecker = "On";
-			if (option.compareTo("3") == 0 )
-				timeFChecker = "On";
-
+			if (placeF == true )
+				placeFChecker = "On";
+			if (priceF == true )
+				priceFChecker = "On";
+			
+			
+			
+			
 			messageBuilder.append("Time filter is now turn" + timeFChecker + " \n");
 			messageBuilder.append("Place filter is now turn" + placeFChecker + " \n");
 			messageBuilder.append("Price filter is now turn" + priceFChecker + " \n");	
@@ -392,7 +385,7 @@ public class SearchingTourInterface extends UserInterface {
 			}			
 			
 			if(timeF || placeF || priceF)
-				messageBuilder.append("Do you want to book one of the tour?\n") ; 
+				messageBuilder.append("Do you want to book one of the tour?\nType yes to enter into booking procedure ") ; 
 			
 		}
 		else if (option.indexOf("T") == 0) {
@@ -541,6 +534,7 @@ class Filter{
 				result += " AND " + hm.get(keys.get(i));
 			}
 		}
+		result += ";" ; 
 		return result;
 	}
 }

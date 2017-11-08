@@ -11,8 +11,8 @@ import java.util.*;
 
 
 public abstract class tourManager extends Manager {
-	public abstract ArrayList<Tour> getToursByPriceRange( int low , int high);
-	public abstract ArrayList<Tour> getToursByPriceRange( int low , int high , ArrayList<Tour> tours) ;
+	public abstract ArrayList<Tour> getToursByPriceRange( double low , double high);
+	public abstract ArrayList<Tour> getToursByPriceRange( double low , double high , ArrayList<Tour> tours) ;
 	public abstract ArrayList<Tour> getTourByPlace( String place) ;
 	public abstract ArrayList<Tour> getTourByPlace( String place , ArrayList<Tour> tours) ;
 	public abstract ArrayList<Tour> getToursByTime( String startTime , String endTime ) ;
