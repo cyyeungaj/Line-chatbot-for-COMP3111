@@ -1,3 +1,7 @@
 #org.springsource.ide.eclipse.gradle.core.preferences.GradleProjectPreferences
+<<<<<<< HEAD
 #Thu Sep 14 22:07:34 CST 2017
+=======
+#Fri Sep 22 11:29:47 CST 2017
+>>>>>>> commit before rebase 1
 org.springsource.ide.eclipse.gradle.rootprojectloc=..
